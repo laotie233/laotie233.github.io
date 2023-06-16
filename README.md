@@ -1,2 +1,2 @@
 # laotie233.github.io
-myblog
+myblog for github
