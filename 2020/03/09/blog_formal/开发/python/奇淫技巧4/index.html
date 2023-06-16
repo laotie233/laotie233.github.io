@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//fastly.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"192.168.6.128","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="python 奇淫4简介这个系列主要收录python的一些不常用知识点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python自我补充4">
+<meta property="og:url" content="http://192.168.6.128/2020/03/09/blog_formal/%E5%BC%80%E5%8F%91/python/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A74/index.html">
+<meta property="og:site_name" content="菜心">
+<meta property="og:description" content="python 奇淫4简介这个系列主要收录python的一些不常用知识点">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-09T04:34:14.000Z">
+<meta property="article:modified_time" content="2023-06-15T16:27:28.881Z">
+<meta property="article:author" content="菜心">
+<meta property="article:tag" content="奇淫">
+<meta property="article:tag" content="python函数">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://192.168.6.128/2020/03/09/blog_formal/%E5%BC%80%E5%8F%91/python/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A74/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>python自我补充4 | 菜心</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">菜心</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://192.168.6.128/2020/03/09/blog_formal/%E5%BC%80%E5%8F%91/python/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A74/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar1.gif">
+      <meta itemprop="name" content="菜心">
+      <meta itemprop="description" content="目标&&付出">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜心">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python自我补充4
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-09 12:34:14" itemprop="dateCreated datePublished" datetime="2020-03-09T12:34:14+08:00">2020-03-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-06-16 00:27:28" itemprop="dateModified" datetime="2023-06-16T00:27:28+08:00">2023-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="python-奇淫4"><a href="#python-奇淫4" class="headerlink" title="python 奇淫4"></a>python 奇淫4</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>这个系列主要收录python的一些不常用知识点</p>
+<a id="more"></a>
+
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><h3 id="1、为函数提供文档"><a href="#1、为函数提供文档" class="headerlink" title="1、为函数提供文档"></a>1、为函数提供文档</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fuc_test</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    xxxxxxxx</span></span><br><span class="line"><span class="string">    文档是 xxxxx</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">help(fuc_test)</span><br><span class="line">print(<span class="string">"----------------------"</span>)</span><br><span class="line">print(fuc_test.__doc__)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">Help on function fuc_test <span class="keyword">in</span> module __main__:                                                                                                                                                                                                                         </span><br><span class="line"></span><br><span class="line">fuc_test()</span><br><span class="line">    xxxxxxxx</span><br><span class="line">    文档是 xxxxx</span><br><span class="line"></span><br><span class="line">----------------------</span><br><span class="line"></span><br><span class="line">    xxxxxxxx</span><br><span class="line">    文档是 xxxxx</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、函数参数"><a href="#2、函数参数" class="headerlink" title="2、函数参数"></a>2、函数参数</h3><ul>
+<li>python中，根据实际参数类型的不同，函数参数传递分为两种<ul>
+<li>值传递: 实参类型为不可变类型（字符串、数字、元组）–形参发生变化，不影响实参的值</li>
+<li>引用(地址)传递: 实参类型为可变类型（列表，字典）–形参发生变化，影响实参的值</li>
+<li>所以，想要在函数中修改某些数据，可以通过这个数据包装成列表，字典等可变对象传入函数修改</li>
+</ul>
+</li>
+<li>位置参数，就是最简单的参数</li>
+<li>关键字参数，是指使用形式参数的名字来确定输入的参数值。通过此方式指定函数实参时，不再需要与形参的位置完全一致，只要将参数名写正确即可，规定必须放在位置参数之后</li>
+<li>默认参数，当定义一个有默认值参数的函数时，有默认值的参数必须位于所有没默认值参数的后面。 <code>函数名.__defaults__</code>获取函数默认参数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_default</span><span class="params">(a = <span class="number">1</span>)</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">print(test_default.__defaults__)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">(<span class="number">1</span>,)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>传递多个参数<ul>
+<li><code>*args</code> 表示创建一个名为 args 的空元组，该元组可接受任意多个外界传入的非关键字实参</li>
+<li><code>**kwargs</code>表示创建一个名为 kwargs 的空字典，该字典可以接收任意多个以关键字参数赋值的实际参数</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_func</span><span class="params">(a, *args, **kwargs)</span>:</span></span><br><span class="line">    print(a)</span><br><span class="line">    print(args)</span><br><span class="line">    print(kwargs)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">test_func(<span class="string">"aaa"</span>, <span class="string">"bbb"</span>, <span class="string">"ccc"</span>, ddd = <span class="string">"ddd"</span>, eee = <span class="string">"eee"</span>)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">aaa</span><br><span class="line">(<span class="string">'bbb'</span>, <span class="string">'ccc'</span>)</span><br><span class="line">&#123;<span class="string">'ddd'</span>: <span class="string">'ddd'</span>, <span class="string">'eee'</span>: <span class="string">'eee'</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>逆向参数收集，直接将列表、元组、字典作为函数参数，Python 会将其进行拆分，把其中存储的元素按照次序分给函数中的各个形参。在以逆向参数收集的方式向函数参数传值时，Pyhon 语法规定，当传入列表或元组时，其名称前要带一个 * 号，当传入字典时，其名称前要带有 2 个 * 号</li>
+</ul>
+<h3 id="3、函数返回值-多个"><a href="#3、函数返回值-多个" class="headerlink" title="3、函数返回值(多个)"></a>3、函数返回值(多个)</h3><ul>
+<li>在函数中，提前将要返回的多个值存储到一个列表或元组中，然后函数返回该列表或元组</li>
+<li>函数直接返回多个值，之间用逗号（ , ）分隔，Python 会自动将多个值封装到一个元组中，其返回值仍是一个元组</li>
+</ul>
+<h3 id="4、偏函数"><a href="#4、偏函数" class="headerlink" title="4、偏函数"></a>4、偏函数</h3><ul>
+<li><code>偏函数名 = partial(func, *args, **kwargs)</code>  –func 指的是要封装的原函数，<em>args 和 *</em>kwargs 分别用于接收无关键字实参和关键字实参</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> partial</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">display_person</span><span class="params">(name, age)</span>:</span></span><br><span class="line">    print(<span class="string">"name = &#123;0&#125; age = &#123;1&#125;"</span>.format(name, age))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">display_bob = partial(display_person, name = <span class="string">"bob"</span>)</span><br><span class="line">display_person(name = <span class="string">"Bob"</span>, age = <span class="number">15</span>)</span><br><span class="line">display_bob(age = <span class="number">15</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_mod</span><span class="params">(m , n)</span>:</span></span><br><span class="line">    print(m % n)</span><br><span class="line"></span><br><span class="line">my_mod_by_1000 = partial(my_mod, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line">my_mod(<span class="number">1000</span>, <span class="number">99</span>)</span><br><span class="line">my_mod_by_1000(<span class="number">99</span>)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">name = Bob age = <span class="number">15</span></span><br><span class="line">name = bob age = <span class="number">15</span></span><br><span class="line"><span class="number">10</span></span><br><span class="line"><span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>偏函数的本质是将函数式编程、默认参数和冗余参数结合在一起，通过偏函数传入的参数调用关系，与正常函数的参数调用关系是一致的</li>
+<li>偏函数通过将任意数量（顺序）的参数，转化为另一个带有剩余参数的函数对象，从而实现了截取函数功能（偏向）的效果</li>
+<li>可以使用一个原函数，然后将其封装多个偏函数，在调用函数时全部调用偏函数，一定程序上可以提高程序的可读性（并不这么认为）</li>
+</ul>
+<h3 id="5、变量作用域"><a href="#5、变量作用域" class="headerlink" title="5、变量作用域"></a>5、变量作用域</h3><ul>
+<li>获取指定作用域范围中的变量<ul>
+<li><code>globals() 函数</code>为 Python 的内置函数，它可以返回一个包含全局范围内所有变量的字典，该字典中的每个键值对，键为变量名，值为该变量的值</li>
+<li><code>locals() 函数</code>也是 Python 内置函数之一，通过调用该函数，我们可以得到一个包含当前作用域内所有变量的字典。所谓的“当前作用域”指的是，在函数内部调用 locals() 函数，会获得包含所有局部变量的字典；而在全局范文内调用 locals() 函数，其功能和 globals() 函数相同</li>
+<li><code>vars() vars(object)函数</code>是 Python 内置函数，其功能是返回一个指定 object 对象范围内所有变量组成的字典。如果不传入object 参数，vars() 和 locals() 的作用完全相同</li>
+</ul>
+</li>
+<li>局部函数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 全局函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outdef</span> <span class="params">()</span>:</span></span><br><span class="line">    name = <span class="string">"所在函数中定义的 name 变量"</span></span><br><span class="line">    <span class="comment"># 局部函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">indef</span><span class="params">()</span>:</span></span><br><span class="line">        print(name)</span><br><span class="line">        name = <span class="string">"局部函数中定义的 name 变量"</span></span><br><span class="line">    indef()</span><br><span class="line"><span class="comment"># 调用全局函数</span></span><br><span class="line">outdef()</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">......</span><br><span class="line">    print(name)</span><br><span class="line">UnboundLocalError: local variable <span class="string">'name'</span> referenced before assignment</span><br><span class="line"></span><br><span class="line"><span class="comment"># 之前 globals 的方法在这里是不适用的 修改如下</span></span><br><span class="line"><span class="comment"># 全局函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outdef</span> <span class="params">()</span>:</span></span><br><span class="line">    name = <span class="string">"所在函数中定义的 name 变量"</span></span><br><span class="line">    <span class="comment"># 局部函数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">indef</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">nonlocal</span> name</span><br><span class="line">        print(name)</span><br><span class="line">        name = <span class="string">"局部函数中定义的 name 变量"</span></span><br><span class="line">    indef()</span><br><span class="line"><span class="comment"># 调用全局函数</span></span><br><span class="line">outdef()</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">所在函数中定义的 name 变量</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、闭包函数"><a href="#6、闭包函数" class="headerlink" title="6、闭包函数"></a>6、闭包函数</h3><ul>
+<li>闭包，又称闭包函数或者闭合函数，和嵌套函数类似，不同之处在于，闭包中外部函数返回的不是一个具体的值，而是一个函数。（一般情况下，返回的函数会赋值给一个变量，这个变量可以在后面被继续执行调用）</li>
+<li>相对于普通函数，闭包函数多了一个<code>__closuer__</code>属性，该属性记录着自由变量的地址。当闭包被调用时，系统就会根据该地址找到对应的自由变量，完成整体的函数调用，<code>__closuer__</code> 属性的类型是一个元组，这表明闭包可以支持多个自由变量的形式</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 闭包函数，其中 exponent 称为自由变量</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nth_power</span><span class="params">(exponent)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">exponent_of</span><span class="params">(base)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> base ** exponent</span><br><span class="line">    <span class="keyword">return</span> exponent_of  <span class="comment"># 返回值是 exponent_of 函数</span></span><br><span class="line">square = nth_power(<span class="number">2</span>)  <span class="comment"># 计算一个数的平方</span></span><br><span class="line">cube = nth_power(<span class="number">3</span>)  <span class="comment"># 计算一个数的立方</span></span><br><span class="line">print(square(<span class="number">2</span>))   <span class="comment"># 计算 2 的平方</span></span><br><span class="line">print(cube(<span class="number">2</span>))  <span class="comment"># 计算 2 的立方</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nth_power_rewrite</span><span class="params">(base, exponent)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> base ** exponent</span><br><span class="line"></span><br><span class="line">base1 = base2 = base3 = <span class="number">3</span></span><br><span class="line"><span class="comment"># 不使用闭包</span></span><br><span class="line">res1 = nth_power_rewrite(base1, <span class="number">2</span>)</span><br><span class="line">res2 = nth_power_rewrite(base2, <span class="number">2</span>)</span><br><span class="line">res3 = nth_power_rewrite(base3, <span class="number">2</span>)</span><br><span class="line"><span class="comment"># 使用闭包</span></span><br><span class="line">square = nth_power(<span class="number">2</span>)</span><br><span class="line">res1 = square(base1)</span><br><span class="line">res2 = square(base2)</span><br><span class="line">res3 = square(base3)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 __closure__ 的值</span></span><br><span class="line"><span class="comment"># 是一个元组 就是 exponent 参数</span></span><br><span class="line">print(square.__closure__)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">8</span></span><br><span class="line">(&lt;cell at <span class="number">0x000001FF5B9E6B80</span>: int object at <span class="number">0x00007FFF86C416C0</span>&gt;,)</span><br></pre></td></tr></table></figure>
+
+<h3 id="7、lambda"><a href="#7、lambda" class="headerlink" title="7、lambda"></a>7、lambda</h3><ul>
+<li><p>二者不同之处在于，eval() 执行完要返回结果，而 exec() 执行完不返回结果</p>
+</li>
+<li><p>表达式格式如下: <code>name = lambda [list] : 表达式</code></p>
+</li>
+<li><p>优点</p>
+<ul>
+<li>对于单行函数，使用 lambda 表达式可以省去定义函数的过程，让代码更加简洁</li>
+<li>对于不需要多次复用的函数，使用 lambda 表达式可以在用完之后立即释放，提高程序执行的性能</li>
+</ul>
+</li>
+</ul>
+<h3 id="8、eval-和exec"><a href="#8、eval-和exec" class="headerlink" title="8、eval()和exec()"></a>8、eval()和exec()</h3><ul>
+<li>二者不同之处在于，eval() 执行完要返回结果，而 exec() 执行完不返回结果</li>
+<li><code>list = sorted(iterable, key=None, reverse=False)</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">eval(source, globals=<span class="literal">None</span>, locals=<span class="literal">None</span>, /)</span><br><span class="line">exec(source, globals=<span class="literal">None</span>, locals=<span class="literal">None</span>, /)</span><br><span class="line"></span><br><span class="line"><span class="comment"># expression：这个参数是一个字符串，代表要执行的语句 。该语句受后面两个字典类型参数 globals 和 locals 的限制，只有在 globals 字典和 locals 字典作用域内的函数和变量才能被执行</span></span><br><span class="line"><span class="comment"># globals：这个参数管控的是一个全局的命名空间，即 expression 可以使用全局命名空间中的函数。如果只是提供了 globals 参数，而没有提供自定义的 __builtins__，</span></span><br><span class="line"><span class="comment"># 则系统会将当前环境中的 __builtins__ 复制到自己提供的 globals 中，然后才会进行计算；如果连 globals 这个参数都没有被提供，则使用 Python 的全局命名空间</span></span><br><span class="line"><span class="comment"># locals：这个参数管控的是一个局部的命名空间，和 globals 类似，当它和 globals 中有重复或冲突时，以 locals 的为准。如果 locals 没有被提供，则默认为 globals</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意，__builtins__ 是 Python 的内建模块，平时使用的 int、str、abs 都在这个模块中。通过 print(dic["__builtins__"]) 语句可以查看 __builtins__ 所对应的 value</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 函数 eval() 和 exec() 常常会被黑客利用，成为可以执行系统级命令的入口点，进而来攻击网站。解决方法是：通过设置其命名空间里的可执行函数，来限制 eval() 和 exec() 的执行范围</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="9、python函数式编程"><a href="#9、python函数式编程" class="headerlink" title="9、python函数式编程"></a>9、python函数式编程</h3><ul>
+<li>介绍：<ul>
+<li>函数式编程，是指代码中每一块都是不可变的，都由纯函数的形式组成。这里的纯函数，是指函数本身相互独立、互不影响，对于相同的输入，总会有相同的输出</li>
+<li>函数式编程的优点，主要在于其纯函数和不可变的特性使程序更加健壮，易于调试和测试；缺点主要在于限制多，难写</li>
+<li>纯粹的函数式编程语言（比如 Scala），其编写的函数中是没有变量的，因此可以保证，只要输入是确定的，输出就是确定的；而允许使用变量的程序设计语言，由于函数内部的变量状态不确定，同样的输入，可能得到不同的输出</li>
+<li>Python 允许使用变量，所以它并不是一门纯函数式编程语言。Python 仅对函数式编程提供了部分支持，通常与lambda 匿名函数一同使用</li>
+<li>函数式编程个人认为并不是很友好的，降低代码可读性</li>
+</ul>
+</li>
+<li>Demo(map、filter、reduce)</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># map(function, iterable)</span></span><br><span class="line"><span class="comment"># function 参数表示要传入一个函数，其可以是内置函数、自定义函数或者 lambda 匿名函数 iterable 表示一个或多个可迭代对象，可以是列表、字符串等</span></span><br><span class="line"><span class="comment"># map() 函数的功能是对可迭代对象中的每个元素，都调用指定的函数，并返回一个 map 对象</span></span><br><span class="line"><span class="comment"># 函数返回的是一个 map 对象，不能直接输出，需要通过 for 循环或者 list() 函数来显示</span></span><br><span class="line">test_list = map(<span class="keyword">lambda</span> x: x**<span class="number">2</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">print(test_list)</span><br><span class="line">print(list(test_list))</span><br><span class="line"></span><br><span class="line">test_list = map(<span class="keyword">lambda</span> x, y: x + y, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>], [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">print(test_list)</span><br><span class="line">print(list(test_list))</span><br><span class="line"></span><br><span class="line">test_list = map(<span class="keyword">lambda</span> x,y: x-y &gt; <span class="number">0</span>,[<span class="number">3</span>,<span class="number">5</span>,<span class="number">6</span>],[<span class="number">1</span>,<span class="number">5</span>,<span class="number">8</span>] )</span><br><span class="line">print(list(test_list))</span><br><span class="line"></span><br><span class="line"><span class="comment"># filter(function, iterable)</span></span><br><span class="line"><span class="comment"># funcition 参数表示要传入一个函数，iterable 表示一个可迭代对象</span></span><br><span class="line"><span class="comment"># filter() 函数的功能是对 iterable 中的每个元素，都使用 function 函数判断，并返回 True 或者 False，最后将返回 True 的元素组成一个新的可遍历的集合</span></span><br><span class="line">test_list = filter(<span class="keyword">lambda</span> x: x % <span class="number">2</span> == <span class="number">0</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">print(test_list)</span><br><span class="line">print(list(test_list))</span><br><span class="line"></span><br><span class="line"><span class="comment"># reduce(function, iterable)</span></span><br><span class="line"><span class="comment"># function 规定必须是一个包含 2 个参数的函数；iterable 表示可迭代对象</span></span><br><span class="line"><span class="comment"># 由于 reduce() 函数在 Python 3.x 中已经被移除，放入了 functools 模块，因此在使用该函数之前，需先导入 functools 模块</span></span><br><span class="line"><span class="keyword">import</span> functools</span><br><span class="line">test_res = functools.reduce(<span class="keyword">lambda</span> x, y: x+y, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">print(test_res)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">&lt;map object at <span class="number">0x0000025143E81160</span>&gt;</span><br><span class="line">[<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>]</span><br><span class="line">&lt;map object at <span class="number">0x0000025143E81430</span>&gt;</span><br><span class="line">[<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>]</span><br><span class="line">[<span class="literal">True</span>, <span class="literal">False</span>, <span class="literal">False</span>]</span><br><span class="line">&lt;filter object at <span class="number">0x0000025143E81400</span>&gt;</span><br><span class="line">[<span class="number">2</span>, <span class="number">4</span>]</span><br><span class="line"><span class="number">15</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="10、python3函数注释-玩耍的功能"><a href="#10、python3函数注释-玩耍的功能" class="headerlink" title="10、python3函数注释(玩耍的功能)"></a>10、python3函数注释(玩耍的功能)</h3><ul>
+<li>定义：函数注解是关于用户自定义函数使用类型的完全可选的元信息，也就是说: 为函数中的形参和返回值提供类型提示信息</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(ham:str,egg:str=<span class="string">'eggs'</span>)</span>-&gt;str:</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line">print(f.__annotations__)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">(ham:str,egg:str=<span class="string">'eggs'</span>)</span>-&gt;"test":</span></span><br><span class="line">  <span class="keyword">pass</span></span><br><span class="line">print(f1.__annotations__)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可能会有的作用</span></span><br><span class="line"><span class="comment"># 提供类型信息：包括类型检查、让 IDE 显示函数接受和返回的类型、适配、与其他语言的桥梁、数据库查询映射、RPC参数编组等</span></span><br><span class="line"><span class="comment"># 其他信息：函数参数和返回值的文档</span></span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">&#123;'ham': &lt;class 'str'&gt;, 'egg': &lt;class 'str'&gt;, 'return': &lt;class 'str'&gt;&#125;</span><br><span class="line">&#123;'ham': &lt;class 'str'&gt;, 'egg': &lt;class 'str'&gt;, 'return': 'test'&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="11、浅谈代码可读性"><a href="#11、浅谈代码可读性" class="headerlink" title="11、浅谈代码可读性"></a>11、浅谈代码可读性</h3><ul>
+<li>不写重复性的代码</li>
+<li>学会刻意地减少代码的迭代层数，尽可能让 Python 代码扁平化</li>
+<li>类不要继承太深了，超过三层建议用组合的方式</li>
+<li>在使用函数时，函数的粒度应该尽可能细，不要让一个函数做太多的事情</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%A5%87%E6%B7%AB/" rel="tag"># 奇淫</a>
+              <a href="/tags/python%E5%87%BD%E6%95%B0/" rel="tag"># python函数</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/06/blog_formal/%E5%BC%80%E5%8F%91/python/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A73/" rel="prev" title="python自我补充3">
+      <i class="fa fa-chevron-left"></i> python自我补充3
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/10/blog_formal/%E5%BC%80%E5%8F%91/python/%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A75/" rel="next" title="python自我补充5">
+      python自我补充5 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#python-奇淫4"><span class="nav-number">1.</span> <span class="nav-text">python 奇淫4</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正文"><span class="nav-number">1.2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、为函数提供文档"><span class="nav-number">1.2.1.</span> <span class="nav-text">1、为函数提供文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、函数参数"><span class="nav-number">1.2.2.</span> <span class="nav-text">2、函数参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、函数返回值-多个"><span class="nav-number">1.2.3.</span> <span class="nav-text">3、函数返回值(多个)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、偏函数"><span class="nav-number">1.2.4.</span> <span class="nav-text">4、偏函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、变量作用域"><span class="nav-number">1.2.5.</span> <span class="nav-text">5、变量作用域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6、闭包函数"><span class="nav-number">1.2.6.</span> <span class="nav-text">6、闭包函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7、lambda"><span class="nav-number">1.2.7.</span> <span class="nav-text">7、lambda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8、eval-和exec"><span class="nav-number">1.2.8.</span> <span class="nav-text">8、eval()和exec()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9、python函数式编程"><span class="nav-number">1.2.9.</span> <span class="nav-text">9、python函数式编程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10、python3函数注释-玩耍的功能"><span class="nav-number">1.2.10.</span> <span class="nav-text">10、python3函数注释(玩耍的功能)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11、浅谈代码可读性"><span class="nav-number">1.2.11.</span> <span class="nav-text">11、浅谈代码可读性</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜心"
+      src="/images/avatar1.gif">
+  <p class="site-author-name" itemprop="name">菜心</p>
+  <div class="site-description" itemprop="description">目标&&付出</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">195</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">124</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+      
+        <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+        <div class="widget-wrap">
+            <h3 class="widget-title">Tag Cloud</h3>
+            <div id="myCanvasContainer" class="widget tagcloud">
+                <canvas width="250" height="250" id="resCanvas" style="width=100%">
+                    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git%E6%B3%84%E9%9C%B2/" rel="tag">.git泄露</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/user-ini%E6%96%87%E4%BB%B6/" rel="tag">.user.ini文件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%95%E8%BF%87/" rel="tag">==绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Beelzebub/" rel="tag">Beelzebub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bluesmoke/" rel="tag">Bluesmoke</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Book-shelf/" rel="tag">Book-shelf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BoredHackerBlog/" rel="tag">BoredHackerBlog</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE/" rel="tag">CVE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Corrosion/" rel="tag">Corrosion</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DC/" rel="tag">DC</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDE/" rel="tag">DDE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DVWA/" rel="tag">DVWA</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DarkHole/" rel="tag">DarkHole</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deathnote/" rel="tag">Deathnote</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dos%E6%94%BB%E5%87%BB/" rel="tag">Dos攻击</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Empire/" rel="tag">Empire</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Excel/" rel="tag">Excel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HarryPotter/" rel="tag">HarryPotter</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heist/" rel="tag">Heist</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ICA/" rel="tag">ICA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jangow/" rel="tag">Jangow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KB-VULN/" rel="tag">KB-VULN</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MD5%E7%BB%95%E8%BF%87/" rel="tag">MD5绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix-Breakout-2-Morpheus/" rel="tag">Matrix-Breakout 2_Morpheus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Napping/" rel="tag">Napping</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL%E6%B3%A8%E5%85%A5/" rel="tag">NoSQL注入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCE/" rel="tag">RCE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Red/" rel="tag">Red</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSTI/" rel="tag">SSTI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thales/" rel="tag">Thales</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Planets/" rel="tag">The Planets</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URL%E9%87%8D%E5%AE%9A%E5%90%91/" rel="tag">URL重定向</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Machine/" rel="tag">Web Machine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XFF/" rel="tag">XFF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XFF%E7%BB%95%E8%BF%87/" rel="tag">XFF绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XXE/" rel="tag">XXE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/binwalk/" rel="tag">binwalk</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cookie%E7%99%BB%E5%BD%95/" rel="tag">cookie登录</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doubletrouble/" rel="tag">doubletrouble</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flask-ssti/" rel="tag">flask ssti</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flask-session%E7%A0%B4%E8%A7%A3/" rel="tag">flask_session破解</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fuzz%E6%B5%8B%E8%AF%95/" rel="tag">fuzz测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hackme/" rel="tag">hackme</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hackme2/" rel="tag">hackme2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hacksudo/" rel="tag">hacksudo</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hash-hmac-sha256%E7%BB%95%E8%BF%87/" rel="tag">hash_hmac_sha256绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/home/" rel="tag">home</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http%E5%8D%8F%E8%AE%AE/" rel="tag">http协议</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/" rel="tag">others</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E4%BC%AA%E5%8D%8F%E8%AE%AE/" rel="tag">php伪协议</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">php反序列化</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96/" rel="tag">php变量覆盖</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83/" rel="tag">php弱类型比较</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" rel="tag">php文件包含</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E6%97%A0%E5%8F%82%E6%95%B0RCE/" rel="tag">php无参数RCE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%87%BD%E6%95%B0/" rel="tag">python函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%BB%84%E3%80%81%E5%AD%97%E5%85%B8%E5%92%8C%E9%9B%86%E5%90%88/" rel="tag">python列表、元组、字典和集合</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/" rel="tag">python变量类型和运算符</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%AD%97%E7%AC%A6%E4%B8%B2-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" rel="tag">python字符串&&流程控制</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%B9%B6%E5%8F%91/" rel="tag">python并发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/" rel="tag">python类和对象</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E7%B1%BB%E7%9A%84%E7%89%B9%E6%AE%8A%E6%88%90%E5%91%98-%E5%B1%9E%E6%80%A7-%E6%96%B9%E6%B3%95/" rel="tag">python类的特殊成员(属性&方法)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E8%AF%AD%E6%84%9F/" rel="tag">python语感</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/" rel="tag">regex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/robots-txt/" rel="tag">robots.txt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby-web-%E6%B3%A8%E5%85%A5/" rel="tag">ruby web 注入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sha%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83%E7%BB%95%E8%BF%87/" rel="tag">sha弱类型比较绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shenron/" rel="tag">shenron</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shopxocms/" rel="tag">shopxocms</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql%E6%B3%A8%E5%85%A5/" rel="tag">sql注入</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssti/" rel="tag">ssti</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/strcmp%E7%BB%95%E8%BF%87/" rel="tag">strcmp绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/supervisor/" rel="tag">supervisor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/symfonos/" rel="tag">symfonos</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tornado/" rel="tag">tornado</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unicode/" rel="tag">unicode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/y0usef/" rel="tag">y0usef</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/" rel="tag">一句话木马</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%BB%E6%84%8F%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" rel="tag">任意命令执行</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%A5%E9%97%A8/" rel="tag">入门</a><span class="tag-list-count">91</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag">内网渗透测试</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/" rel="tag">前端信息泄露</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E5%85%B5%E8%83%BD%E5%8A%9B/" rel="tag">单兵能力</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%8B%E7%BC%A9%E5%8C%85%E5%AE%89%E5%85%A8/" rel="tag">压缩包安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%82%E6%95%B0%E9%80%83%E9%80%B8/" rel="tag">参数逃逸</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">反序列化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/" rel="tag">命令注入</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87/" rel="tag">命令注入绕过</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E6%89%A9%E5%B1%95%E6%94%BB%E5%87%BB/" rel="tag">哈希扩展攻击</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag">基础知识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A5%87%E6%B7%AB/" rel="tag">奇淫</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A5%97%E5%A8%83/" rel="tag">套娃</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B8%83%E5%B0%94%E6%B3%A8%E5%85%A5/" rel="tag">布尔注入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E6%BA%90CMS/" rel="tag">开源CMS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%B1%E7%B1%BB%E5%9E%8B/" rel="tag">弱类型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5/" rel="tag">报错注入</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%94%AF%E4%BB%98%E6%BC%8F%E6%B4%9E/" rel="tag">支付漏洞</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" rel="tag">文件上传</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" rel="tag">文件包含</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/" rel="tag">暴力破解</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%88%99/" rel="tag">正则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%88%99%E7%BB%95%E8%BF%87/" rel="tag">正则绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2/" rel="tag">源码泄露</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%82%B8%E5%BC%B9/" rel="tag">炸弹</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">环境搭建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%A6%E6%9D%9F%E7%9A%84SQL%E6%94%BB%E5%87%BB/" rel="tag">约束的SQL攻击</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E4%BB%B6/" rel="tag">组件</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%BC%E5%90%88%E9%9D%B6%E5%9C%BA%E6%B5%8B%E8%AF%95/" rel="tag">综合靶场测试</a><span class="tag-list-count">90</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5%E6%BA%90%E4%BB%A3%E7%A0%81/" rel="tag">网页源代码</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A6%86%E7%9B%96/" rel="tag">覆盖</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B6%8A%E6%9D%83/" rel="tag">越权</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" rel="tag">逻辑漏洞</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%8D%E6%94%BE/" rel="tag">重放</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E6%9C%BA%E6%95%B0/" rel="tag">随机数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a><span class="tag-list-count">1</span></li></ul>
+                </canvas>
+            </div>
+        </div>
+      
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">菜心</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">16:29</span>
+</div>
+
+<img src="https://static.dy208.cn/o_1dfilp8ruo521thr1hvf18ji17soa.png">
+<a href="https://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">粤ICP备2020128930号</a>
+
+<!-- 网站运行时间的设置 begin-->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>  workhard!
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("01/05/2020 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);
+</script>
+<!-- 网站运行时间的设置 end-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//fastly.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//fastly.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//fastly.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

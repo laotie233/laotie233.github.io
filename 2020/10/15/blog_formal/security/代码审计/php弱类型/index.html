@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//fastly.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"192.168.6.128","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="PHP弱类型​    本文主要概述php弱类型&amp;&amp;php弱类型产生的漏洞 弱类型概述​    PHP是弱类型语言，不需要明确的定义变量类型  变量的类型根据使用时的上下文决定 变量会根据不同表达式所需要的类型自动转换 类型转换有固定的规则，当某个操作发现类型不符的时就会按照这些固定规则进行转换">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP弱类型">
+<meta property="og:url" content="http://192.168.6.128/2020/10/15/blog_formal/security/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="菜心">
+<meta property="og:description" content="PHP弱类型​    本文主要概述php弱类型&amp;&amp;php弱类型产生的漏洞 弱类型概述​    PHP是弱类型语言，不需要明确的定义变量类型  变量的类型根据使用时的上下文决定 变量会根据不同表达式所需要的类型自动转换 类型转换有固定的规则，当某个操作发现类型不符的时就会按照这些固定规则进行转换">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://192.168.6.128/2020/10/15/blog_formal/security/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/1.png">
+<meta property="og:image" content="http://192.168.6.128/2020/10/15/blog_formal/security/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/2.png">
+<meta property="og:image" content="http://192.168.6.128/2020/10/15/blog_formal/security/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/3.png">
+<meta property="og:image" content="http://192.168.6.128/2020/10/15/blog_formal/security/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/4.png">
+<meta property="og:image" content="http://192.168.6.128/2020/10/15/blog_formal/security/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/5.png">
+<meta property="og:image" content="http://192.168.6.128/2020/10/15/blog_formal/security/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/6.png">
+<meta property="og:image" content="http://192.168.6.128/2020/10/15/blog_formal/security/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/7.png">
+<meta property="article:published_time" content="2020-10-15T04:34:14.000Z">
+<meta property="article:modified_time" content="2023-06-15T16:11:05.639Z">
+<meta property="article:author" content="菜心">
+<meta property="article:tag" content="php">
+<meta property="article:tag" content="弱类型">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://192.168.6.128/2020/10/15/blog_formal/security/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/1.png">
+
+<link rel="canonical" href="http://192.168.6.128/2020/10/15/blog_formal/security/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>PHP弱类型 | 菜心</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">菜心</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://192.168.6.128/2020/10/15/blog_formal/security/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/php%E5%BC%B1%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar1.gif">
+      <meta itemprop="name" content="菜心">
+      <meta itemprop="description" content="目标&&付出">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜心">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PHP弱类型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-15 12:34:14" itemprop="dateCreated datePublished" datetime="2020-10-15T12:34:14+08:00">2020-10-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-06-16 00:11:05" itemprop="dateModified" datetime="2023-06-16T00:11:05+08:00">2023-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">代码审计</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>10k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="PHP弱类型"><a href="#PHP弱类型" class="headerlink" title="PHP弱类型"></a>PHP弱类型</h1><p>​    本文主要概述php弱类型&amp;&amp;php弱类型产生的漏洞</p>
+<h2 id="弱类型概述"><a href="#弱类型概述" class="headerlink" title="弱类型概述"></a>弱类型概述</h2><p>​    PHP是弱类型语言，不需要明确的定义变量类型</p>
+<ul>
+<li>变量的类型根据使用时的上下文决定</li>
+<li>变量会根据不同表达式所需要的类型自动转换</li>
+<li>类型转换有固定的规则，当某个操作发现类型不符的时就会按照这些固定规则进行转换</li>
+</ul>
+<a id="more"></a>
+
+<h3 id="PHP类型"><a href="#PHP类型" class="headerlink" title="PHP类型"></a>PHP类型</h3><ul>
+<li>标准类型: 布尔 boolen，整型 integer，浮点 float，字符 string</li>
+<li>复杂类型: 数组 array，对象 object</li>
+<li>特殊类型: 资源 resource</li>
+</ul>
+<h3 id="强类型-amp-amp-弱类型"><a href="#强类型-amp-amp-弱类型" class="headerlink" title="强类型&amp;&amp;弱类型"></a>强类型&amp;&amp;弱类型</h3><ul>
+<li>强类型指的是每个变量和对象必须显示声明类型(<code>int a = 0;</code>)，在编译的时候已经确定，执行时不能更改，代表语言java，C，Go等</li>
+<li>弱类型在执行的时候才确定类型，代码语言PHP，python等</li>
+<li>强类型安全并且效率高，弱类型相对不安全</li>
+</ul>
+<h3 id="和"><a href="#和" class="headerlink" title="== 和 ==="></a>== 和 ===</h3><p>php语言中</p>
+<ul>
+<li>== 只判断数值是否相等，类型会在判断时，自动转化(先把两个变量的类型变成相同后再比较)</li>
+<li>=== 属于强等于，类型and数值都需要相等(先判断两个变量的类型是否相同，再去比较)</li>
+<li><strong>gettype()</strong> 函数用于获取变量的类型 &amp;&amp; <strong>settype()</strong> 函数用于设置变量的类型</li>
+</ul>
+<p>可能出现漏洞问题</p>
+<ul>
+<li>如果比较一个 int 型（数字）$a 和一个字符串 $b，如果 $b 是以数字开头，如: $a = “1”, $b = “1admin”  ，那么判断时就会把 $b 当做 1 去和 $a 比较</li>
+<li>当一个字符串被当作一个数值来取值，其结果和类型如下:如果该字符串没有包含’.’,’e’,’E’并且其数值值在整形的范围之内，该字符串被当作int来取值。其他所有情况下都被作为float来取值，该字符串的开始部分决定了它的值，如果该字符串以合法的数值开始，则使用该数值，否则其值为0，如 $a = “1”, $b = “admin1”  ，那么就会把 $b 当做 0 去和 $a 比较</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">var_dump(&quot;admin&quot; &#x3D;&#x3D; 0); &#x2F;&#x2F; true</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">var_dump(&quot;1admin&quot; &#x3D;&#x3D; 1); &#x2F;&#x2F; true</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">var_dump(&quot;admin1&quot; &#x3D;&#x3D; 1); &#x2F;&#x2F; false</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">var_dump(&quot;admin1&quot; &#x3D;&#x3D; 0); &#x2F;&#x2F; true</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">bool(true)</span><br><span class="line">bool(true)</span><br><span class="line">bool(false)</span><br><span class="line">bool(true)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在进行比较运算时，如果遇到了0e这类字符串，PHP会将它解析为科学计数法, “0e123456”==”0e456789XXXX”比较的时候，会将0e这类字符串识别为科学计数法的数字，0的无论多少次方都是零，所以相等</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">&#x2F;&#x2F; &quot;0e123456&quot;&#x3D;&#x3D;&quot;0e456789XXXX&quot;</span><br><span class="line">var_dump(&quot;0e123456&quot; &#x3D;&#x3D; &quot;0e4567894332&quot;); &#x2F;&#x2F; true</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">var_dump(&quot;0e1233424&quot; &#x3D;&#x3D; &quot;0e456789123&quot;); &#x2F;&#x2F; true</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">var_dump(&quot;0e123&quot; &#x3D;&#x3D; &quot;0e456789XXXX&quot;); &#x2F;&#x2F; false string !&#x3D; string</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">var_dump(&quot;0e123XXX&quot; &#x3D;&#x3D; 0); &#x2F;&#x2F; true</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">var_dump(&quot;0e123&quot; &#x3D;&#x3D; 0); &#x2F;&#x2F; true</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">var_dump(&quot;0&quot; &#x3D;&#x3D; 0); &#x2F;&#x2F; true</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">bool(true)</span><br><span class="line">bool(true)</span><br><span class="line">bool(false)</span><br><span class="line">bool(true)</span><br><span class="line">bool(true)</span><br><span class="line">bool(true)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在进行比较运算时，如果遇到了0x这类字符串，PHP会将它解析为十六进制，当其中的一个字符串是0x开头的时候，PHP会将此字符串解析成为十进制然后再进行比较，0x1e240解析成为十进制就是123456，所以与int类型和string类型的123456比较都是相等(仅限于php版本&lt;7.0)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">var_dump(0x1e240 &#x3D;&#x3D; 123456); &#x2F;&#x2F; true</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">var_dump(&quot;0x1e240&quot; &#x3D;&#x3D; 123456); &#x2F;&#x2F; true</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">var_dump(&quot;0x1e240&quot; &#x3D;&#x3D; &quot;123456&quot;); &#x2F;&#x2F; true</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">bool(true)</span><br><span class="line">bool(true)</span><br><span class="line">bool(true)</span><br><span class="line"></span><br><span class="line">php7+</span><br><span class="line">bool(true)</span><br><span class="line">bool(false)</span><br><span class="line">bool(false)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>一些空的比较</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">var_dump(0 &#x3D;&#x3D; null); &#x2F;&#x2F; true</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">var_dump(0 &#x3D;&#x3D; &#39;&#39; &amp;&amp; 0 &#x3D;&#x3D; &#39; &#39;); &#x2F;&#x2F; true</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">var_dump(0. &#x3D;&#x3D; &#39;&#39; &amp;&amp; 0. &#x3D;&#x3D; &#39; &#39;); &#x2F;&#x2F; true</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">var_dump(0e1231312 &#x3D;&#x3D; &#39;&#39;); &#x2F;&#x2F; true</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">bool(true)</span><br><span class="line">bool(true)</span><br><span class="line">bool(true)</span><br><span class="line">bool(true)</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line">var_dump(0 &#x3D;&#x3D;&#x3D; null); &#x2F;&#x2F; false</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">var_dump(0 &#x3D;&#x3D;&#x3D; &#39;&#39; &amp;&amp; 0 &#x3D;&#x3D;&#x3D; &#39; &#39;); &#x2F;&#x2F; false</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">var_dump(0. &#x3D;&#x3D;&#x3D; &#39;&#39; &amp;&amp; 0. &#x3D;&#x3D;&#x3D; &#39; &#39;); &#x2F;&#x2F; false</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">var_dump(0e1231312 &#x3D;&#x3D;&#x3D; &#39;&#39;); &#x2F;&#x2F; false</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">bool(false)</span><br><span class="line">bool(false)</span><br><span class="line">bool(false)</span><br><span class="line">bool(false)</span><br></pre></td></tr></table></figure>
+
+<h3 id="switch"><a href="#switch" class="headerlink" title="switch"></a>switch</h3><ul>
+<li>switch是数字类型的case的判断时，switch会将其中的参数转换为int类型</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $i &#x3D; &quot;abc&quot;;</span><br><span class="line">    switch($i)</span><br><span class="line">    &#123;</span><br><span class="line">        case 0: echo &quot;0&quot;; break;</span><br><span class="line">        case 1: echo &quot;1&quot;; break;</span><br><span class="line">        case 2: echo &quot;2&quot;; break;</span><br><span class="line">        case 3: echo &quot;3&quot;; break;</span><br><span class="line">    &#125;</span><br><span class="line">    echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">    $i &#x3D; &quot;2abc&quot;;</span><br><span class="line">    switch($i)</span><br><span class="line">    &#123;</span><br><span class="line">        case 0: echo &quot;0&quot;; break;</span><br><span class="line">        case 1: echo &quot;1&quot;; break;</span><br><span class="line">        case 2: echo &quot;2&quot;; break;</span><br><span class="line">        case 3: echo &quot;3&quot;; break;</span><br><span class="line">    &#125;</span><br><span class="line">    echo &#39;&lt;br&gt;&#39;;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">0</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $i &#x3D; 0;</span><br><span class="line">    switch($i)</span><br><span class="line">    &#123;</span><br><span class="line">        case &quot;CCC&quot;: echo &quot;CCC&quot;; break;</span><br><span class="line">        case 1: echo &quot;1&quot;; break;</span><br><span class="line">        case 2: echo &quot;2&quot;; break;</span><br><span class="line">        case 3: echo &quot;3&quot;; break;</span><br><span class="line">    &#125;</span><br><span class="line">    echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">CCC</span><br></pre></td></tr></table></figure>
+
+<h3 id="in-array"><a href="#in-array" class="headerlink" title="in_array()"></a>in_array()</h3><p>​    函数语法：</p>
+<p>​        in_array(search,array,type): 如果给定的值 search 存在于数组 array 中则返回 true（类似于==）。如果第三个参数设置为 true，函数只有在元素存在于数组中且数据类型与给定值相同时才返回 true（类似于===）。如果没有在数组中找到参数，函数返回 false</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $i &#x3D; &quot;1 or 1 &#x3D; 1&quot;;</span><br><span class="line">    var_dump(in_array($i, array(1,2,3,4,5)));</span><br><span class="line">    echo &#39;&lt;br&gt;&#39;;</span><br><span class="line">    var_dump(in_array($i, array(1,2,3,4,5), true));</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">bool(true)</span><br><span class="line">bool(false)</span><br></pre></td></tr></table></figure>
+
+<h3 id="array-search"><a href="#array-search" class="headerlink" title="array_search()"></a>array_search()</h3><p>​    函数语法：</p>
+<p>​        mixed array_search ( mixed $needle , array $haystack [, bool $strict = false ] )：$needle，$haystack必需，$strict可选。函数判断$haystack中的值是存在$needle，存在则返回该值的键值。第三个参数默认为false，如果设置为true则会进行严格过滤</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">var_dump(array_search(&quot;1admin&quot;, array(1,2))); &#x2F;&#x2F; true int(0)</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">var_dump(array_search(&quot;1admin&quot;, array(1,2), true)); &#x2F;&#x2F; false</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">int(0)</span><br><span class="line">bool(false)</span><br></pre></td></tr></table></figure>
+
+<h3 id="is-numeric"><a href="#is-numeric" class="headerlink" title="is_numeric()"></a>is_numeric()</h3><p>​    函数语法：</p>
+<p>​        (PHP 4, PHP 5, PHP 7)is_numeric ( mixed $var ) : bool，is_numeric – 检测变量是否为数字或数字字符串，如果 var 是数字和数字字符串则返回 TRUE，否则返回 FALSE</p>
+<ul>
+<li>is_numeric()函数是判断变量是否是数字或者数字字符串，不仅检查10进制，16进制也可以</li>
+<li>is_numeric()对于空字符%00,不论%00放在数字前后，都会返回false,对于%20,只有放在数字后才会返回false</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">var_dump(is_numeric(123445)); &#x2F;&#x2F; true</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">var_dump(is_numeric(&quot;123445&quot;)); &#x2F;&#x2F; true</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">var_dump(is_numeric(0x123445)); &#x2F;&#x2F; true</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">var_dump(is_numeric(&quot;0x123445&quot;)); &#x2F;&#x2F; true</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">var_dump(is_numeric(&quot;123ad&quot;)); &#x2F;&#x2F; false</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">var_dump(is_numeric(&quot;asd123&quot;)); &#x2F;&#x2F; false</span><br><span class="line">echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">bool(true)</span><br><span class="line">bool(true)</span><br><span class="line">bool(true)</span><br><span class="line">bool(true)</span><br><span class="line">bool(false)</span><br><span class="line">bool(false)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $name &#x3D; $_GET[&#39;name&#39;];</span><br><span class="line">    &#x2F;&#x2F; $con &#x3D; mysql_connect(&quot;localhost&quot;,&quot;root&quot;,&quot;root&quot;);</span><br><span class="line">    &#x2F;&#x2F; if (!$con)</span><br><span class="line">    &#x2F;&#x2F; &#123;die(&#39;Could not connect: &#39; . mysql_error());&#125;</span><br><span class="line">    &#x2F;&#x2F; mysql_select_db(&quot;tests&quot;, $con);</span><br><span class="line">    $name &#x3D; 0x312720756e696f6e2073656c65637420312c322c33; &#x2F;&#x2F; 1&#39; union select 1,2,3</span><br><span class="line">    echo &#39;&lt;br&gt;&#39;;</span><br><span class="line">    print($sql);</span><br><span class="line">    echo &#39;&lt;br&gt;&#39;;</span><br><span class="line">    if (is_numeric($name)) &#123;</span><br><span class="line">        $sql&#x3D;&quot;insert into users values (3,&quot; . $name . &quot;,&#39;test&#39;)&quot;;</span><br><span class="line">        &#x2F;&#x2F;mysql_query(&quot;insert into users values (3,&quot; . $name . &quot;,&#39;test&#39;)&quot;);</span><br><span class="line">        echo &#39;&lt;br&gt;&#39;;</span><br><span class="line">        print($sql);</span><br><span class="line">        &#x2F;&#x2F; $sql&#x3D;&quot;insert into users values (3,&quot; . 0x312720756e696f6e2073656c65637420312c322c33 . &quot;,&#39;test&#39;)&quot;;</span><br><span class="line">        # var_dump($sql);</span><br><span class="line">        echo &#39;&lt;br&gt;&#39;;</span><br><span class="line">        &#x2F;&#x2F;var_dump(mysql_query(&quot;insert into users values (3,&quot; . $name . &quot;,&#39;test&#39;)&quot;));</span><br><span class="line">        &#x2F;&#x2F; 数据库可以 16进制传入</span><br><span class="line">    &#125;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">Notice: Undefined index: name in C:\phpStudy\WWW\test\11.php on line 2</span><br><span class="line"></span><br><span class="line">Notice: Undefined variable: sql in C:\phpStudy\WWW\test\11.php on line 9</span><br><span class="line"></span><br><span class="line">insert into users values (3,7.1836954722831E+49,&#39;test&#39;)</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./php%E5%BC%B1%E7%B1%BB%E5%9E%8B/1.png" alt></p>
+<p>绕过is_numeric检查</p>
+<h3 id="strcmp"><a href="#strcmp" class="headerlink" title="strcmp()"></a>strcmp()</h3><p>​    函数语法：strcmp(string1，string2):比较括号内的两个字符串string1和string2</p>
+<ul>
+<li>当他们两个相等时，返回0；</li>
+<li>string1的大于string2时，返回&gt;0;</li>
+<li>string1的小于string2时，返回&lt;0</li>
+<li>在PHP版本为5.3.3至5.5中（不包含5.5），当strcmp()括号内是一个数组与字符串比较时，也会返回0</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $flag &#x3D; &quot;flag&quot;;</span><br><span class="line">    if (isset($_GET[&#39;a&#39;])) &#123;  </span><br><span class="line">        var_dump(strcmp($_GET[&#39;a&#39;], $flag) &#x3D;&#x3D; 0);</span><br><span class="line">        if (strcmp($_GET[&#39;a&#39;], $flag) &#x3D;&#x3D; 0) &#x2F;&#x2F;如果 str1 小于 str2 返回 &lt; 0； 如果 str1大于 str2返回 &gt; 0；如果两者相等，返回 0。 </span><br><span class="line">        &#x2F;&#x2F;比较两个字符串（区分大小写） </span><br><span class="line">            die(&#39;Flag: &#39;.$flag);  </span><br><span class="line">        else  </span><br><span class="line">            print &#39;No&#39;;  </span><br><span class="line">    &#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./php%E5%BC%B1%E7%B1%BB%E5%9E%8B/2.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $a &#x3D; &quot;2398ruuu31fj81k2rio8hg9302i9e1i2098t95yh&quot;;</span><br><span class="line">    $b &#x3D; $_GET[&#39;b&#39;];</span><br><span class="line">    if (!strcmp($a, $b)) &#123;</span><br><span class="line">        echo &quot;Bypass by strcmp()!&quot;;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        echo &quot;No...&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./php%E5%BC%B1%E7%B1%BB%E5%9E%8B/3.png" alt></p>
+<h3 id="intval"><a href="#intval" class="headerlink" title="intval()"></a>intval()</h3><p>​    函数语法：intval(var)函数用于获取变量的整数值。在转换时，函数会从字符串起始处进行转换直到遇到一个非数字的字符，即使出现<strong>无法转换的字符串也不会报错而是返回0</strong></p>
+<ul>
+<li>在科学计数法字符串转换为数字时，如果 E 后面的数小于某个值会弄成 double 类型，再强制转换为 int 类型时可能会有奇妙的结果，测试发现某变量为 1e-1000 时已经可以触发这个漏洞绕过两个检查，使得某变量既大于 0 又不大于 0</li>
+<li>审计注意溢出，进制转换，传入复合类型等情况</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    var_dump((int)(&#39;1e-1000&#39;)&gt;0); &#x2F;&#x2F; true</span><br><span class="line">    echo &#39;&lt;br&gt;&#39;;</span><br><span class="line">    var_dump(&#39;1e-1000&#39;&gt;0); &#x2F;&#x2F; false</span><br><span class="line">    echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">    var_dump((int)(&#39;1e-10000&#39;)&gt;0); &#x2F;&#x2F; true</span><br><span class="line">    echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">    var_dump(&#39;1e-10000&#39;&gt;0); &#x2F;&#x2F; false</span><br><span class="line">    echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">    var_dump((int)(&#39;1e-100&#39;)&gt;0); &#x2F;&#x2F; true</span><br><span class="line">    echo &#39;&lt;br&gt;&#39;;</span><br><span class="line">    var_dump(&#39;1e-100&#39;&gt;0); &#x2F;&#x2F; true</span><br><span class="line">    echo &#39;&lt;br&gt;&#39;;</span><br><span class="line"></span><br><span class="line">    var_dump((int)(&#39;1e-10&#39;)&gt;0); &#x2F;&#x2F; true</span><br><span class="line">    echo &#39;&lt;br&gt;&#39;;</span><br><span class="line">    var_dump(&#39;1e-10&#39;&gt;0); &#x2F;&#x2F; true</span><br><span class="line">    echo &#39;&lt;br&gt;&#39;;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;</span><br><span class="line">bool(true)</span><br><span class="line">bool(false)</span><br><span class="line">bool(true)</span><br><span class="line">bool(false)</span><br><span class="line">bool(true)</span><br><span class="line">bool(true)</span><br><span class="line">bool(true)</span><br><span class="line">bool(true)</span><br></pre></td></tr></table></figure>
+
+<h3 id="isset"><a href="#isset" class="headerlink" title="isset()"></a>isset()</h3><p>​    函数语法：变量未定义或者为 null 时，isset 函数返回的为 false ,其他都为 true</p>
+<h3 id="empty"><a href="#empty" class="headerlink" title="empty()"></a>empty()</h3><p>​    函数语法：变量为：0，”0”, null, ‘’, false,array() 时，使用 empty 函数，返回的都为 true</p>
+<p>以下的变量会被认为是空的：</p>
+<ul>
+<li>“” (空字符串)</li>
+<li>0(作为整数的0)</li>
+<li>0.0 (作为浮点数的0)</li>
+<li>“0” (作为字符串的0)</li>
+<li><code>NULL</code></li>
+<li><code>FALSE</code></li>
+<li>array() (一个空数组)</li>
+<li>$var; (一个声明了，但是没有值的变量)</li>
+</ul>
+<h3 id="md5"><a href="#md5" class="headerlink" title="md5()"></a>md5()</h3><p>​    函数声明: string md5 ( string $str [, bool $raw_output = false ] )</p>
+<ul>
+<li>md5()需要是一个string类型的参数。但是当你传递一个array时，md5()不会报错，只是会无法正确地求出array的md5值，返回null，这样就会导致任意2个array的md5值都会相等。</li>
+<li>部分字符串由于使用 md5 加密后会变成 0e 开头的字符串，然后使用 == 判断时就容易绕过</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    &#x2F;&#x2F; md5 为 0e 开头的字符串</span><br><span class="line">    &#x2F;&#x2F; s878926199a</span><br><span class="line">    &#x2F;&#x2F; 0e545993274517709034328855841020</span><br><span class="line">    &#x2F;&#x2F; s155964671a</span><br><span class="line">    &#x2F;&#x2F; 0e342768416822451524974117254469</span><br><span class="line">    $md51&#x3D;md5(&#39;QNKCDZO&#39;);</span><br><span class="line">    $a&#x3D;$_GET[&#39;a&#39;];</span><br><span class="line">    $md52&#x3D;md5($a);</span><br><span class="line">    </span><br><span class="line">    if(isset($a))</span><br><span class="line">    &#123;</span><br><span class="line">        if($a!&#x3D;&#39;QNKCDZO&#39; &amp;&amp; $md51 &#x3D;&#x3D; $md52)</span><br><span class="line">        &#123;</span><br><span class="line">                echo &quot;nctf&#123;************&#125;&quot;;&#125;</span><br><span class="line">        else&#123;</span><br><span class="line">                echo &quot;false!!!&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        echo&quot;please input a&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./php%E5%BC%B1%E7%B1%BB%E5%9E%8B/4.png" alt></p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p><a href="https://www.php.net/manual/zh/types.comparisons.php" target="_blank" rel="noopener">https://www.php.net/manual/zh/types.comparisons.php</a></p>
+<p><img data-src="./php%E5%BC%B1%E7%B1%BB%E5%9E%8B/5.png" alt></p>
+<p><img data-src="./php%E5%BC%B1%E7%B1%BB%E5%9E%8B/6.png" alt></p>
+<p><img data-src="./php%E5%BC%B1%E7%B1%BB%E5%9E%8B/7.png" alt></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/php/" rel="tag"># php</a>
+              <a href="/tags/%E5%BC%B1%E7%B1%BB%E5%9E%8B/" rel="tag"># 弱类型</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/13/blog_formal/security/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5&&%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/" rel="prev" title="代码注入&&命令注入">
+      <i class="fa fa-chevron-left"></i> 代码注入&&命令注入
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/19/blog_formal/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/SSRF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="SSRF学习笔记">
+      SSRF学习笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP弱类型"><span class="nav-number">1.</span> <span class="nav-text">PHP弱类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#弱类型概述"><span class="nav-number">1.1.</span> <span class="nav-text">弱类型概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PHP类型"><span class="nav-number">1.1.1.</span> <span class="nav-text">PHP类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强类型-amp-amp-弱类型"><span class="nav-number">1.1.2.</span> <span class="nav-text">强类型&amp;&amp;弱类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#和"><span class="nav-number">1.1.3.</span> <span class="nav-text">&#x3D;&#x3D; 和 &#x3D;&#x3D;&#x3D;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#switch"><span class="nav-number">1.1.4.</span> <span class="nav-text">switch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#in-array"><span class="nav-number">1.1.5.</span> <span class="nav-text">in_array()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#array-search"><span class="nav-number">1.1.6.</span> <span class="nav-text">array_search()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#is-numeric"><span class="nav-number">1.1.7.</span> <span class="nav-text">is_numeric()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#strcmp"><span class="nav-number">1.1.8.</span> <span class="nav-text">strcmp()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#intval"><span class="nav-number">1.1.9.</span> <span class="nav-text">intval()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#isset"><span class="nav-number">1.1.10.</span> <span class="nav-text">isset()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#empty"><span class="nav-number">1.1.11.</span> <span class="nav-text">empty()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#md5"><span class="nav-number">1.1.12.</span> <span class="nav-text">md5()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后记"><span class="nav-number">1.2.</span> <span class="nav-text">后记</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜心"
+      src="/images/avatar1.gif">
+  <p class="site-author-name" itemprop="name">菜心</p>
+  <div class="site-description" itemprop="description">目标&&付出</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">195</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">124</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+      
+        <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+        <div class="widget-wrap">
+            <h3 class="widget-title">Tag Cloud</h3>
+            <div id="myCanvasContainer" class="widget tagcloud">
+                <canvas width="250" height="250" id="resCanvas" style="width=100%">
+                    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git%E6%B3%84%E9%9C%B2/" rel="tag">.git泄露</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/user-ini%E6%96%87%E4%BB%B6/" rel="tag">.user.ini文件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%95%E8%BF%87/" rel="tag">==绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Beelzebub/" rel="tag">Beelzebub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bluesmoke/" rel="tag">Bluesmoke</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Book-shelf/" rel="tag">Book-shelf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BoredHackerBlog/" rel="tag">BoredHackerBlog</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE/" rel="tag">CVE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Corrosion/" rel="tag">Corrosion</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DC/" rel="tag">DC</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDE/" rel="tag">DDE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DVWA/" rel="tag">DVWA</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DarkHole/" rel="tag">DarkHole</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deathnote/" rel="tag">Deathnote</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dos%E6%94%BB%E5%87%BB/" rel="tag">Dos攻击</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Empire/" rel="tag">Empire</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Excel/" rel="tag">Excel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HarryPotter/" rel="tag">HarryPotter</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heist/" rel="tag">Heist</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ICA/" rel="tag">ICA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jangow/" rel="tag">Jangow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KB-VULN/" rel="tag">KB-VULN</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MD5%E7%BB%95%E8%BF%87/" rel="tag">MD5绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix-Breakout-2-Morpheus/" rel="tag">Matrix-Breakout 2_Morpheus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Napping/" rel="tag">Napping</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL%E6%B3%A8%E5%85%A5/" rel="tag">NoSQL注入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCE/" rel="tag">RCE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Red/" rel="tag">Red</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSTI/" rel="tag">SSTI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thales/" rel="tag">Thales</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Planets/" rel="tag">The Planets</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URL%E9%87%8D%E5%AE%9A%E5%90%91/" rel="tag">URL重定向</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Machine/" rel="tag">Web Machine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XFF/" rel="tag">XFF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XFF%E7%BB%95%E8%BF%87/" rel="tag">XFF绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XXE/" rel="tag">XXE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/binwalk/" rel="tag">binwalk</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cookie%E7%99%BB%E5%BD%95/" rel="tag">cookie登录</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doubletrouble/" rel="tag">doubletrouble</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flask-ssti/" rel="tag">flask ssti</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flask-session%E7%A0%B4%E8%A7%A3/" rel="tag">flask_session破解</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fuzz%E6%B5%8B%E8%AF%95/" rel="tag">fuzz测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hackme/" rel="tag">hackme</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hackme2/" rel="tag">hackme2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hacksudo/" rel="tag">hacksudo</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hash-hmac-sha256%E7%BB%95%E8%BF%87/" rel="tag">hash_hmac_sha256绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/home/" rel="tag">home</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http%E5%8D%8F%E8%AE%AE/" rel="tag">http协议</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/" rel="tag">others</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E4%BC%AA%E5%8D%8F%E8%AE%AE/" rel="tag">php伪协议</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">php反序列化</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96/" rel="tag">php变量覆盖</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83/" rel="tag">php弱类型比较</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" rel="tag">php文件包含</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E6%97%A0%E5%8F%82%E6%95%B0RCE/" rel="tag">php无参数RCE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%87%BD%E6%95%B0/" rel="tag">python函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%BB%84%E3%80%81%E5%AD%97%E5%85%B8%E5%92%8C%E9%9B%86%E5%90%88/" rel="tag">python列表、元组、字典和集合</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/" rel="tag">python变量类型和运算符</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%AD%97%E7%AC%A6%E4%B8%B2-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" rel="tag">python字符串&&流程控制</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%B9%B6%E5%8F%91/" rel="tag">python并发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/" rel="tag">python类和对象</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E7%B1%BB%E7%9A%84%E7%89%B9%E6%AE%8A%E6%88%90%E5%91%98-%E5%B1%9E%E6%80%A7-%E6%96%B9%E6%B3%95/" rel="tag">python类的特殊成员(属性&方法)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E8%AF%AD%E6%84%9F/" rel="tag">python语感</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/" rel="tag">regex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/robots-txt/" rel="tag">robots.txt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby-web-%E6%B3%A8%E5%85%A5/" rel="tag">ruby web 注入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sha%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83%E7%BB%95%E8%BF%87/" rel="tag">sha弱类型比较绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shenron/" rel="tag">shenron</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shopxocms/" rel="tag">shopxocms</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql%E6%B3%A8%E5%85%A5/" rel="tag">sql注入</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssti/" rel="tag">ssti</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/strcmp%E7%BB%95%E8%BF%87/" rel="tag">strcmp绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/supervisor/" rel="tag">supervisor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/symfonos/" rel="tag">symfonos</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tornado/" rel="tag">tornado</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unicode/" rel="tag">unicode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/y0usef/" rel="tag">y0usef</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/" rel="tag">一句话木马</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%BB%E6%84%8F%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" rel="tag">任意命令执行</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%A5%E9%97%A8/" rel="tag">入门</a><span class="tag-list-count">91</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag">内网渗透测试</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/" rel="tag">前端信息泄露</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E5%85%B5%E8%83%BD%E5%8A%9B/" rel="tag">单兵能力</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%8B%E7%BC%A9%E5%8C%85%E5%AE%89%E5%85%A8/" rel="tag">压缩包安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%82%E6%95%B0%E9%80%83%E9%80%B8/" rel="tag">参数逃逸</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">反序列化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/" rel="tag">命令注入</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87/" rel="tag">命令注入绕过</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E6%89%A9%E5%B1%95%E6%94%BB%E5%87%BB/" rel="tag">哈希扩展攻击</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag">基础知识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A5%87%E6%B7%AB/" rel="tag">奇淫</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A5%97%E5%A8%83/" rel="tag">套娃</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B8%83%E5%B0%94%E6%B3%A8%E5%85%A5/" rel="tag">布尔注入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E6%BA%90CMS/" rel="tag">开源CMS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%B1%E7%B1%BB%E5%9E%8B/" rel="tag">弱类型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5/" rel="tag">报错注入</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%94%AF%E4%BB%98%E6%BC%8F%E6%B4%9E/" rel="tag">支付漏洞</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" rel="tag">文件上传</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" rel="tag">文件包含</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/" rel="tag">暴力破解</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%88%99/" rel="tag">正则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%88%99%E7%BB%95%E8%BF%87/" rel="tag">正则绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2/" rel="tag">源码泄露</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%82%B8%E5%BC%B9/" rel="tag">炸弹</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">环境搭建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%A6%E6%9D%9F%E7%9A%84SQL%E6%94%BB%E5%87%BB/" rel="tag">约束的SQL攻击</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E4%BB%B6/" rel="tag">组件</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%BC%E5%90%88%E9%9D%B6%E5%9C%BA%E6%B5%8B%E8%AF%95/" rel="tag">综合靶场测试</a><span class="tag-list-count">90</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5%E6%BA%90%E4%BB%A3%E7%A0%81/" rel="tag">网页源代码</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A6%86%E7%9B%96/" rel="tag">覆盖</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B6%8A%E6%9D%83/" rel="tag">越权</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" rel="tag">逻辑漏洞</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%8D%E6%94%BE/" rel="tag">重放</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E6%9C%BA%E6%95%B0/" rel="tag">随机数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a><span class="tag-list-count">1</span></li></ul>
+                </canvas>
+            </div>
+        </div>
+      
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">菜心</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">16:29</span>
+</div>
+
+<img src="https://static.dy208.cn/o_1dfilp8ruo521thr1hvf18ji17soa.png">
+<a href="https://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">粤ICP备2020128930号</a>
+
+<!-- 网站运行时间的设置 begin-->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>  workhard!
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("01/05/2020 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);
+</script>
+<!-- 网站运行时间的设置 end-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//fastly.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//fastly.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//fastly.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
